@@ -13,4 +13,21 @@ class Item {
     public:
 };
 
+
+class Potion : public Item {
+
+};
+
+class Gold : public Item {
+
+};
+
+class Compass : public Item {
+
+};
+
+class BarrierSuit : public Item {
+    
+};
+
 #endif

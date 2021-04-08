@@ -12,4 +12,20 @@ class Player : public Character {
     public:
 };
 
+
+class Human : public Player {
+
+};
+
+class Drawf : public Player {
+
+};
+
+class Elves : public Player {
+
+};
+
+class Orc : public Player {
+
+};
 #endif
