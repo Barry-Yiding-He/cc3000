@@ -7,8 +7,9 @@
 
 class Enemy : public Character {
     private:
-
-    
+    bool isHostile; // used to check wheather enemy is hostile to PC
+    int goldNum; // indicate the number of the gold that enemy have : '1' = default  '4' = merchant 
+                 // note: slain the dragon will not drop gold
     public:
 };
 
@@ -26,7 +27,7 @@ class Troll : public Enemy {
 };
 
 class Goblin : public Enemy {
-
+    
 };
 
 class Merchant : public Enemy {

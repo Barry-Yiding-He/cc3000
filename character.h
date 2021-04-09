@@ -8,10 +8,13 @@
 class Character {
     
     private:
-    int hp;
-    int atk;
-    int def;
+    int HP;
+    int curHP;
+    int Atk;
+    int Def;
 
+    int atRow; // store the row number 
+    int atCol; // store the col number 
     public:
 
 

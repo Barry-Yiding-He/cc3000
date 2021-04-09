@@ -12,6 +12,7 @@ class Floor {
     private:
     int floorNum;  // display current floor number
 
+    vector<vector<char>> display;
     shared_ptr<Player> PC;  // player
     vector<shared_ptr<Enemy>> enemies; // 10
     shared_ptr<Stair> stair;  
