@@ -22,18 +22,20 @@ class Player : public Character {
 
 
 class Human : public Player {
+    Human(int HP = 140 , int Atk = 20 , int Def = 20, std::string race = "Human", int row = 10, int col = 10) {Player(HP, Atk, Def, race, row, col); }
 
 };
 
 class Drawf : public Player {
+    Drawf(int HP = 100 , int Atk = 20 , int Def = 30, std::string race = "Drawf", int row = 10, int col = 10) {Player(HP, Atk, Def, race, row, col); }
 
 };
 
 class Elves : public Player {
-
+    Elves(int HP = 140 , int Atk = 30 , int Def = 10, std::string race = "Elves", int row = 10, int col = 10) {Player(HP, Atk, Def, race, row, col); }
 };
 
 class Orc : public Player {
-
+    Orc(int HP = 180 , int Atk = 30 , int Def = 25, std::string race = "Orc", int row = 10, int col = 10) {Player(HP, Atk, Def, race, row, col); }
 };
 #endif
