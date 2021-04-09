@@ -7,7 +7,7 @@
 
 class Character {
     
-    private:
+    protected:
     int HP;
     int curHP;
     int Atk;
@@ -35,12 +35,16 @@ class Character {
 
     // Fun for drink Potion/fight
 
-    virtual void restoreHP(int value);
+    virtual void healHP(int value);
     virtual void loseHP(int value);
     virtual void increaseAtk(int value);
     virtual void decreaseAtk(int value);
     virtual void increaseDef(int value);
     virtual void decreaseDef(int value);
+
+    //constructor and destructor 
+    Character(int HP, int Atk, int Def, std::string race, int row, int col);
+    virtual ~Character();
 
 };
 
