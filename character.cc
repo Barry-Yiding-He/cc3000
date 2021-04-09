@@ -77,4 +77,4 @@ Character::Character(int HP = 100 , int Atk = 20 , int Def = 20,
                     std::string race = "default", int row = 10, int col = 10):
     HP{HP}, Atk{Atk}, curAtk{Atk}, Def{Def}, curDef{Def}, race{race}, atRow{row}, atCol{col} {}
 
-Character::~Character() {};
+Character::~Character() {}
