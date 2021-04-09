@@ -12,6 +12,11 @@ class Player : public Character {
     int goldTotal; // used to show the total amount of the gold player have
 
     public:
+    // constructer and destructor
+    Player(int HP, int Atk, int Def, std::string race, int row, int col);
+    virtual ~Player();
+
+    //
     
 };
 
