@@ -11,7 +11,9 @@ class Character {
     int HP;
     int curHP;
     int Atk;
+    int curAtk;
     int Def;
+    int curDef;
     std::string race;
 
     int atRow; // store the row number 
@@ -19,12 +21,14 @@ class Character {
     public:
     // constr;
     /////////////////
-    
+
     // Accessor
     int getCurHP();
     int getHP();
     int getAtk();
+    int getCurAtk();
     int getDef();
+    int getCurDef();
     int getRow();
     int getCol();
     std::string getRace();
