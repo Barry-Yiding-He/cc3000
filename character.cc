@@ -13,8 +13,16 @@ int Character::getAtk() {
     return this->Atk;
 }
 
+int Character::getCurAtk() {
+    return this->curAtk;
+}
+
 int Character::getDef() {
     return this->Def;
+}
+
+int Character::getCurDef() {
+    return this->curDef;
 }
 
 int Character::getRow() {
@@ -29,7 +37,7 @@ std::string Character::getRace() {
     return this->race;
 }
 
-void Character::restoreHP(int value) {
+void Character::healHP(int value) {
     this->curHP += value;
     if (this->curHP >= this->HP) {
         this->curHP = this->HP;
@@ -44,24 +52,24 @@ void Character::loseHP(int value) {
 }
 
 void Character::increaseAtk(int value) {
-    this->Atk += value;
+    this->curAtk += value;
 }
 
 void Character::decreaseAtk(int value) {
-    this->Atk -= value;
-    if (this->Atk <= 0) {
-        this->Atk = 0;
+    this->curAtk -= value;
+    if (this->curAtk <= 0) {
+        this->curAtk = 0;
     }
 }
 
 void Character::increaseDef(int value) {
-    this->Def += value;
+    this->curDef += value;
 }
 
 void Character::decreaseDef(int value) {
-    this->Def -= value;
-    if (this->Def <= 0) {
-        this->Def = 0;
+    this->curDef -= value;
+    if (this->curDef <= 0) {
+        this->curDef = 0;
     }
 }
 
