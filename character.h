@@ -7,7 +7,7 @@
 
 class Character {
     
-    private:
+    protected:
     int HP;
     int curHP;
     int Atk;
@@ -41,6 +41,10 @@ class Character {
     virtual void decreaseAtk(int value);
     virtual void increaseDef(int value);
     virtual void decreaseDef(int value);
+
+    //constructor and destructor 
+    Character(int HP, int Atk, int Def, std::string race, int row, int col);
+    virtual ~Character();
 
 };
 
