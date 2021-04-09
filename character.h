@@ -19,8 +19,6 @@ class Character {
     int atRow; // store the row number 
     int atCol; // store the col number 
     public:
-    // constr;
-    /////////////////
 
     // Accessor
     int getCurHP();
