@@ -6,6 +6,7 @@
 
 
 
+
 class Player : public Character {
     protected:
     bool isArmed = false; // used to  show weather player is wearing the suit
@@ -16,6 +17,8 @@ class Player : public Character {
     explicit Player(int HP = 100, int Atk = 20, int Def = 20, 
         std::string race = "default", int row = 10, int col = 10, bool isArmed = false, int goldTotal = 0);
     virtual ~Player();
+    
+    void move(std::string direction);
 
     //
     

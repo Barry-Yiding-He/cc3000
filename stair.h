@@ -5,7 +5,7 @@
 
 
 
-class stair {
+class Stair {
     int atRow; // store the row number 
     int atCol; // store the col number 
     bool StairDisplayer;  // used to show when PC has compass

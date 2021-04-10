@@ -1,11 +1,15 @@
 #ifndef FLOOR_H
 #define FLOOR_H
+
 #include <iostream>
 #include <memory>
-#include <player.h>
-#include <enemy.h>
-#include <item.h>
-#include <stair.h>
+#include "enemy.h"
+#include "item.h"
+#include "stair.h"
+#include "player.h"
+#include <vector>
+
+using namespace std;
 
 
 class Floor {
