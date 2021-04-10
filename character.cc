@@ -73,8 +73,8 @@ void Character::decreaseDef(int value) {
     }
 }
 
-Character::Character(int HP = 100 , int Atk = 20 , int Def = 20, 
-                    std::string race = "default", int row = 10, int col = 10):
+Character::Character(int HP, int Atk, int Def, 
+                    std::string race, int row, int col):
     HP{HP}, Atk{Atk}, curAtk{Atk}, Def{Def}, curDef{Def}, race{race}, atRow{row}, atCol{col} {}
 
 Character::~Character() {}

@@ -8,16 +8,16 @@
 class Character {
     
     protected:
-    int HP;
-    int curHP;
-    int Atk;
-    int curAtk;
-    int Def;
-    int curDef;
-    std::string race;
+    int HP = 100;
+    int curHP = 20;
+    int Atk = 20;
+    int curAtk = 20;
+    int Def = 20;
+    int curDef = 20;
+    std::string race = "default";
 
-    int atRow; // store the row number 
-    int atCol; // store the col number 
+    int atRow = 10; // store the row number 
+    int atCol = 10; // store the col number 
     public:
 
     // Accessor
@@ -41,7 +41,8 @@ class Character {
     virtual void decreaseDef(int value);
 
     //constructor and destructor 
-    Character(int HP, int Atk, int Def, std::string race, int row, int col);
+    Character(int HP = 100 , int Atk = 20 , int Def = 20, 
+        std::string race = "default", int row = 10, int col = 10);
     virtual ~Character();
 
 };

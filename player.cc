@@ -2,10 +2,10 @@
 
 Player::~Player() {}
 
-Player::Player(int HP = 100 , int Atk = 20 , int Def = 20, 
-                    std::string race = "default", int row = 10, int col = 10):
+Player::Player(int HP, int Atk, int Def, 
+                    std::string race, int row, int col, bool isArmed, int goldTotal):
     Character(HP,Atk,Def,race,row,col) {
-        this->isArmed = false;
-        this->goldTotal = 0;
+        isArmed = false;
+        goldTotal = 0;
     }
 
