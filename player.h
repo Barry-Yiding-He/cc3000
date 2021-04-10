@@ -12,8 +12,9 @@ class Player : public Character {
     int goldTotal = 0; // used to show the total amount of the gold player have
 
     public:
-    // constructer and destructor
-    Player(int HP = 100, int Atk = 20, int Def = 20 , std::string race = "default", int row  = 10, int col = 10, bool isArmed = false, int goldTotal = 0);
+//     constructer and destructor
+    explicit Player(int HP = 100, int Atk = 20, int Def = 20, 
+        std::string race = "default", int row = 10, int col = 10, bool isArmed = false, int goldTotal = 0);
     virtual ~Player();
 
     //
@@ -24,25 +25,24 @@ class Player : public Character {
 class Human : public Player {
     
 public:
-    Human(int HP = 100, int Atk = 20, int Def = 20, std::string race = "Human", int row = 10, int col = 10, bool isArmed = false, int goldTotal = 0) : Player(HP, Atk, Def, race, row, col, isArmed, goldTotal) {
-        
-    }
+    Human(int HP = 100, int Atk = 20, int Def = 20, std::string race = "Human", int row = 10, int col = 10, bool isArmed = false, int goldTotal = 0);
 
 };
 
 class Drawf : public Player {
 public:
-    Drawf(int HP = 100 , int Atk = 20 , int Def = 30, std::string race = "Drawf", int row = 10, int col = 10) {Player(HP, Atk, Def, race, row, col); }
-
+    Drawf(int HP = 100 , int Atk = 20 , int Def = 30, std::string race = "Drawf", int row = 10, int col = 10, bool isArmed = false, int goldTotal = 0);
 };
 
 class Elves : public Player {
 public:
-    Elves(int HP = 140 , int Atk = 30 , int Def = 10, std::string race = "Elves", int row = 10, int col = 10) {Player(HP, Atk, Def, race, row, col); }
+    Elves(int HP = 140 , int Atk = 30 , int Def = 10, std::string race = "Elves", int row = 10, int col = 10, bool isArmed = false, int goldTotal = 0);
 };
 
 class Orc : public Player {
 public:
-    Orc(int HP = 180 , int Atk = 30 , int Def = 25, std::string race = "Orc", int row = 10, int col = 10) {Player(HP, Atk, Def, race, row, col); }
+    Orc(int HP = 180 , int Atk = 30 , int Def = 25, std::string race = "Orc", int row = 10, int col = 10, bool isArmed = false, int goldTotal = 0);
 };
+
+
 #endif
