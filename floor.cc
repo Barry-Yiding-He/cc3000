@@ -4,7 +4,7 @@
 using namespace std;
 
 int Floor::getFloorNum () {
-    return floorNum;
+    return this->floorNum;
 }
 
 Floor::Floor(string map)  {
@@ -23,3 +23,7 @@ Floor::Floor(string map)  {
 }
 
 
+
+std::ostream &operator<<(std::ostream &out, const Grid &g) {
+   
+}

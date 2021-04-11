@@ -8,16 +8,17 @@
 class Character {
     
     protected:
-    int HP = 100;
-    int curHP = 20;
-    int Atk = 20;
-    int curAtk = 20;
-    int Def = 20;
-    int curDef = 20;
-    std::string race = "default";
+    int HP;
+    int curHP;
+    int Atk;
+    int curAtk;
+    int Def;
+    int curDef;
+    std::string race;
+    char repChar;
 
-    int atRow = 10; // store the row number 
-    int atCol = 10; // store the col number 
+    int atRow; // store the row number 
+    int atCol; // store the col number 
     public:
 
     // Accessor
@@ -30,6 +31,7 @@ class Character {
     int getRow();
     int getCol();
     std::string getRace();
+    char getRepChar();
 
     // Fun for drink Potion/fight
 
@@ -42,7 +44,7 @@ class Character {
 
     //constructor and destructor 
     Character(int HP = 100 , int Atk = 20 , int Def = 20, 
-        std::string race = "default", int row = 10, int col = 10);
+        std::string race = "default", char repChar = '@', int row = 10, int col = 10);
     virtual ~Character();
 
 };

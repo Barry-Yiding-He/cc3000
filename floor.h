@@ -9,7 +9,6 @@
 #include "player.h"
 #include <vector>
 
-using namespace std;
 
 
 class Floor {
@@ -26,7 +25,7 @@ class Floor {
     
     public:
     // constructor
-    Floor(std::string map = "map.txt");
+    Floor(std::string map = "map.txt"); //////////////////////////
 
     // generate component of the game
     void generateChamber();
@@ -39,9 +38,9 @@ class Floor {
     // set floor
     void setFloor();
 
-    void printFloor(bool getCampss); // if true, print stairs; else dont print stairs
-
-
+    // void printFloor(bool getCampss); // if true, print stairs; else dont print stairs
+    ///////////////////////////
+    /* simon哥 这个print感觉不需要 我们直接在下面那个 << 写这个fun就好和这个print效果是一样的 你觉得我说的对就吧这个删掉就好了*/
 
 
 
@@ -50,7 +49,7 @@ class Floor {
     int getFloorNum ();
     
     
-
+    friend std::ostream &operator<<(std::ostream &out, const Floor &f); // print the floor
 };
 
 #endif
