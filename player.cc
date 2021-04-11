@@ -29,26 +29,6 @@ Orc::Orc(int HP , int Atk, int Def, std::string race, char repChar, int row, int
 
 
 
-void Player::move(std::string direction) {
-    if (true)
-    if (direction == "no") {
-        
-    } else if (direction == "so") {
-        
-    } else if (direction == "we") {
-        
-    } else if (direction == "ea") {
-        
-    } else if (direction == "ne") {
-        
-    } else if (direction == "nw") {
-        
-    } else if (direction == "se") {
-        
-    } else if (direction == "sw") {
-        
-    }
-}
 
 
 

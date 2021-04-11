@@ -29,8 +29,24 @@ int Character::getRow() {
     return this->atRow;
 }
 
+void Character::addRow(int step) {
+    atRow+= step;
+}
+
+void Character::setRow(int pos) {
+    atRow = pos;
+}
+
 int Character::getCol() {
     return this->atCol;
+}
+
+void Character::addCol(int step) {
+    atCol += step;
+}
+
+void Character::setCol(int pos) {
+    atCol = pos;
 }
 
 std::string Character::getRace() {

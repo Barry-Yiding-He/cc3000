@@ -29,9 +29,14 @@ class Character {
     int getDef();
     int getCurDef();
     int getRow();
+    void addRow(int step = 1);
+    void setRow(int pos);
     int getCol();
+    void addCol(int step = 1);
+    void setCol(int pos);
     std::string getRace();
     char getRepChar();
+    
 
     // Fun for drink Potion/fight
 

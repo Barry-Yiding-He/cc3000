@@ -17,9 +17,7 @@ class Player : public Character {
         std::string race = "default", char repChar = '@', int row = 10, int col = 10, bool isArmed = false, int goldTotal = 0);
     virtual ~Player();
     
-    void move(std::string direction);
-
-    //
+    
     
 };
 
