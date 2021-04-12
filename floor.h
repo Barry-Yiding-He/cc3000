@@ -9,8 +9,10 @@
 #include "player.h"
 #include <vector>
 #include "character.h"
-
-
+#include "chamber.h"
+#include <algorithm>
+#include <random>
+#include <chrono>
 
 class Floor {
     private:
@@ -21,13 +23,14 @@ class Floor {
     std::shared_ptr<Stair> stair;
     std::vector<std::shared_ptr<Potion>> potions; // 10
     std::vector<std::shared_ptr<Gold>> golds; // 10
+    std::vector<std::shared_ptr<Chamber>> chambers;
     
     public:
     // constructor
     Floor(std::string map = "map.txt"); //////////////////////////
 
     // generate component of the game
-    void generateChamber();
+    void setUpChamber();
     void generateGold();
     void generateEnemy();
     void generatePotion();

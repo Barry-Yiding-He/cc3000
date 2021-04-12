@@ -34,6 +34,7 @@ const std::vector<std::shared_ptr<Gold>> Floor::getGolds() {
 Floor::Floor(string map)  {
     // read all char in map to display
     this->floorNum = 0;
+    this->setUpChamber();
     ifstream gameMap {map};
     string s;
     int len;
@@ -47,6 +48,24 @@ Floor::Floor(string map)  {
 	}
 }
 
+void Floor::setUpChamber() {
+    auto chamber1 = make_shared<Chamber>(1);
+    auto chamber2 = make_shared<Chamber>(2);
+    auto chamber3 = make_shared<Chamber>(3);
+    auto chamber4 = make_shared<Chamber>(4);
+    auto chamber5 = make_shared<Chamber>(5);
+    auto chamber6 = make_shared<Chamber>(6);
+
+    std::vector<std::shared_ptr<Chamber>> chambers;
+   
+    chambers.emplace_back(chamber1);
+    chambers.emplace_back(chamber2);
+    chambers.emplace_back(chamber3);
+    chambers.emplace_back(chamber4);
+    chambers.emplace_back(chamber5);
+    chambers.emplace_back(chamber6);
+    this->chambers = chambers;
+}
 
 void Floor::movePC(string direction, std::string race) {
     InvalidCommand Invalid;
@@ -149,15 +168,54 @@ void Floor::setFloor(std::string race) {
 
 void Floor::generatePC(std::string race) {
     // we just set a default PC at a specific point here; random later
-    int r = 5;
-    int c = 6; 
+    /*int r = 5;
+    int c = 6; */
+
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+// 下面这个generate函数感觉需要单独写个Fun 因为都要generate 方法是一样的   generate的下面的代码我测试过了没问题
+
+    // set a random row and col for PC
+    std::vector<int> ranChamber = {1, 2, 3, 4, 5, 6}; // pick random chamber number from all chamber number
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine rng{seed};
+    std::shuffle(ranChamber.begin(), ranChamber.end(), rng); // start to shuffle the order 
+                                                             // and pick the first value in vector as our random value
+    //cout << ranChamber[0];
+    int rowBegin = this->chambers[ranChamber[0]]->getTop();   // locate the 4 info for the chamber we picked
+    int rowEnd = this->chambers[ranChamber[0]]->getBottom();   // 不想写了怎么说 就是先随机出来chamber 在随机row和col inside the chamber 
+    int colBegin = this->chambers[ranChamber[0]]->getLeft();
+    int colEnd = this->chambers[ranChamber[0]]->getRight();
+    std::vector<int> ranRow;                            
+    for (rowBegin; rowBegin <= rowEnd; rowBegin++) ranRow.emplace_back(rowBegin);
+    std::vector<int> ranCol;
+    for (colBegin; colBegin <= colEnd; colBegin++) ranCol.emplace_back(colBegin);
+    std::shuffle(ranRow.begin(), ranRow.end(), rng);
+    std::shuffle(ranCol.begin(), ranCol.end(), rng);
+    int r = 0;
+    int c = 0;
+    int ranR = 0;
+    int ranC = 0;
+    while (true) {
+        cout << " " << ranRow[ranR] << " " << ranCol[ranC] << endl;
+        if (display[ranRow[ranR]][ranCol[ranC]] == '.') { 
+        r = ranRow[ranR]; 
+        c = ranCol[ranC]; 
+        break;
+        } else {
+            ranR++;
+            ranC++;
+        }
+    }
+    // end of random set of row and col
+
     if (race == "H") PC = make_shared<Human>();
     if (race == "D") PC = make_shared<Human>();
     if (race == "E") PC = make_shared<Human>();
     if (race == "O") PC = make_shared<Human>();
     display[r][c] = PC->getRepChar();
-    PC->setRow(5);
-    PC->setCol(6);
+    PC->setRow(r);
+    PC->setCol(c);
 }
 
 void Floor::generateEnemy() {

@@ -16,7 +16,7 @@ class Chamber {
 
     public:
     // constructer and destructor
-    ///////////////////////////
+    Chamber(int roomNum);
 
     // accessor
     int getRoomNum();
