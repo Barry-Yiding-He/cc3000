@@ -11,13 +11,18 @@ class Player : public Character {
     protected:
     bool isArmed; // used to  show weather player is wearing the suit
     int goldTotal; // used to show the total amount of the gold player have
+    std::string action; // store the action
+
     public:
-//     constructer and destructor
+    // constructer and destructor
     explicit Player(int HP = 100, int Atk = 20, int Def = 20, 
         std::string race = "default", char repChar = '@', int row = 10, int col = 10, bool isArmed = false, int goldTotal = 0);
     virtual ~Player();
     
-    
+    // accessor
+    bool getIsArmed();
+    int getGoldTotal();
+    std::string getAction();
     
 };
 

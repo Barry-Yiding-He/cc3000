@@ -13,7 +13,7 @@ int Chamber::getBottom() {
     return this->bottom;
 }
 
-int Chamber::getLeft()) {
+int Chamber::getLeft() {
     return this->left;
 }
 

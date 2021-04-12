@@ -8,6 +8,7 @@
 #include "stair.h"
 #include "player.h"
 #include <vector>
+#include "character.h"
 
 
 
@@ -19,9 +20,7 @@ class Floor {
     std::vector<std::shared_ptr<Enemy>> enemies; // 10
     std::shared_ptr<Stair> stair;
     std::vector<std::shared_ptr<Potion>> potions; // 10
-    std::vector<std::shared_ptr<Gold>> Golds; // 10
-    std::shared_ptr<Compass> compass; // 1/floor
-    std::shared_ptr<BarrierSuit> barrierSuit; // 1/game
+    std::vector<std::shared_ptr<Gold>> golds; // 10
     
     public:
     // constructor
@@ -32,26 +31,35 @@ class Floor {
     void generateGold();
     void generateEnemy();
     void generatePotion();
-    void generatePC();
+    void generatePC(std::string race);
     void generateStair();
 
     // set floor
-    void setFloor();
+    void setFloor(std::string race);
     
     // move PC
-    void movePC(std::string direction);
+    void movePC(std::string direction, std::string race);
     
 
 
 
 
     // here we have accessor and mutator
-    int getFloorNum ();
-    
+    /*const int getFloorNum ();
+    const std::vector<std::vector<char>> getDisplay();
+    const std::shared_ptr<Player> getPC(); 
+    const std::vector<std::shared_ptr<Enemy>> getEnemies(); 
+    const std::shared_ptr<Stair> getStair();
+    const std::vector<std::shared_ptr<Potion>> getPotions(); 
+    const std::vector<std::shared_ptr<Gold>> getGolds(); 
+    */
     
     friend std::ostream &operator<<(std::ostream &out, const Floor &f); // print the floor
 };
 
+
+
+class InvalidCommand {};
 #endif
 
 
