@@ -9,8 +9,15 @@
 #include "player.h"
 #include <vector>
 #include "character.h"
+#include "chamber.h"
+#include <algorithm>
+#include <random>
+#include <chrono>
 
-
+struct Coordinate {
+    public:
+    int row, col;
+};
 
 class Floor {
     private:
@@ -20,17 +27,21 @@ class Floor {
     std::vector<std::shared_ptr<Enemy>> enemies; // 10
     std::shared_ptr<Stair> stair;
     std::vector<std::shared_ptr<Potion>> potions; // 10
-    std::vector<std::shared_ptr<Gold>> golds; // 10
-    
+    //std::vector<std::shared_ptr<Gold>> golds; // 10
+    std::vector<std::shared_ptr<Chamber>> chambers;
+    char orig = '.';
     public:
     // constructor
     Floor(std::string map = "map.txt"); //////////////////////////
 
     // generate component of the game
-    void generateChamber();
+    struct Coordinate getRandomCoorinate();
+    void setUpChamber();
     void generateGold();
-    void generateEnemy();
-    void generatePotion();
+    void genOneEnemy();
+    void generateEnemies();
+    void genOnePotion();
+    void generatePotions();
     void generatePC(std::string race);
     void generateStair();
 
