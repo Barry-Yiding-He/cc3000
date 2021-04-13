@@ -32,7 +32,8 @@ class Floor {
     // generate component of the game
     void setUpChamber();
     void generateGold();
-    void generateEnemy();
+    void genOneEnemy();
+    void generateEnemies();
     void generatePotion();
     void generatePC(std::string race);
     void generateStair();

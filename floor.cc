@@ -162,8 +162,7 @@ void Floor::movePC(string direction, std::string race) {
 void Floor::setFloor(std::string race) {
     this->floorNum++;
     generatePC(race);
-    generateEnemy();
-    
+    generateEnemies();
 }
 
 void Floor::generatePC(std::string race) {
@@ -181,30 +180,30 @@ void Floor::generatePC(std::string race) {
     std::default_random_engine rng{seed};
     std::shuffle(ranChamber.begin(), ranChamber.end(), rng); // start to shuffle the order 
                                                              // and pick the first value in vector as our random value
-    //cout << ranChamber[0];
-    int rowBegin = this->chambers[ranChamber[0]]->getTop();   // locate the 4 info for the chamber we picked
-    int rowEnd = this->chambers[ranChamber[0]]->getBottom();   // 不想写了怎么说 就是先随机出来chamber 在随机row和col inside the chamber 
-    int colBegin = this->chambers[ranChamber[0]]->getLeft();
-    int colEnd = this->chambers[ranChamber[0]]->getRight();
+    int chamberNum = ranChamber[0];
+    int rowBegin = this->chambers[chamberNum]->getTop();   // locate the 4 info for the chamber we picked
+    int rowEnd = this->chambers[chamberNum]->getBottom();   // 不想写了怎么说 就是先随机出来chamber 在随机row和col inside the chamber 
+    int colBegin = this->chambers[chamberNum]->getLeft();
+    int colEnd = this->chambers[chamberNum]->getRight();
     std::vector<int> ranRow;                            
-    for (rowBegin; rowBegin <= rowEnd; rowBegin++) ranRow.emplace_back(rowBegin);
+    for (rowBegin; rowBegin < rowEnd; rowBegin++) ranRow.emplace_back(rowBegin);
     std::vector<int> ranCol;
-    for (colBegin; colBegin <= colEnd; colBegin++) ranCol.emplace_back(colBegin);
+    for (colBegin; colBegin < colEnd; colBegin++) ranCol.emplace_back(colBegin);
+
     std::shuffle(ranRow.begin(), ranRow.end(), rng);
     std::shuffle(ranCol.begin(), ranCol.end(), rng);
     int r = 0;
     int c = 0;
-    int ranR = 0;
-    int ranC = 0;
     while (true) {
-        cout << " " << ranRow[ranR] << " " << ranCol[ranC] << endl;
-        if (display[ranRow[ranR]][ranCol[ranC]] == '.') { 
-        r = ranRow[ranR]; 
-        c = ranCol[ranC]; 
+        int row = ranRow[0];
+        int col = ranCol[0];
+        if (display[row][col] == '.') { 
+        r = row; 
+        c = col; 
         break;
         } else {
-            ranR++;
-            ranC++;
+            std::shuffle(ranRow.begin(), ranRow.end(), rng);
+            std::shuffle(ranCol.begin(), ranCol.end(), rng);
         }
     }
     // end of random set of row and col
@@ -218,14 +217,75 @@ void Floor::generatePC(std::string race) {
     PC->setCol(c);
 }
 
-void Floor::generateEnemy() {
+
+// generate one random enemy
+void Floor::genOneEnemy() {
+      // set a random row and col for PC
+    std::vector<int> ranChamber = {1, 2, 3, 4, 5, 6}; // pick random chamber number from all chamber number
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine rng{seed};
+    std::shuffle(ranChamber.begin(), ranChamber.end(), rng); // start to shuffle the order 
+                                                             // and pick the first value in vector as our random value
+    int chamberNum = ranChamber[0];
+    int rowBegin = this->chambers[chamberNum]->getTop();   // locate the 4 info for the chamber we picked
+    int rowEnd = this->chambers[chamberNum]->getBottom();   // 不想写了怎么说 就是先随机出来chamber 在随机row和col inside the chamber 
+    int colBegin = this->chambers[chamberNum]->getLeft();
+    int colEnd = this->chambers[chamberNum]->getRight();
+    std::vector<int> ranRow;                            
+    for (rowBegin; rowBegin < rowEnd; rowBegin++) ranRow.emplace_back(rowBegin);
+    std::vector<int> ranCol;
+    for (colBegin; colBegin < colEnd; colBegin++) ranCol.emplace_back(colBegin);
+    std::shuffle(ranRow.begin(), ranRow.end(), rng);
+    std::shuffle(ranCol.begin(), ranCol.end(), rng);
+    int r = 0;
+    int c = 0;
+
+    while (true) {
+        int row = ranRow[0];
+        int col = ranCol[0];
+        if (display[row][col] == '.') { 
+        r = row; 
+        c = col; 
+        break;
+        } else {
+            std::shuffle(ranRow.begin(), ranRow.end(), rng);
+            std::shuffle(ranCol.begin(), ranCol.end(), rng);
+        }
+    }
+
+    std::vector<int> ranEnemy = {1, 2, 3, 4, 5, 6}; // all type of enemy except Dragon;
+    std::shuffle(ranEnemy.begin(), ranEnemy.end(), rng);
+    int enemyNum = ranEnemy[0];
+    if (enemyNum == 1) this->enemies.emplace_back(std::make_shared<Vampire>());
+    if (enemyNum == 2) this->enemies.emplace_back(std::make_shared<Werewolf>());
+    if (enemyNum == 3) this->enemies.emplace_back(std::make_shared<Troll>());
+    if (enemyNum == 4) this->enemies.emplace_back(std::make_shared<Goblin>());
+    if (enemyNum == 5) this->enemies.emplace_back(std::make_shared<Merchant>());
+    if (enemyNum == 6) this->enemies.emplace_back(std::make_shared<Phoenix>());
+    display[r][c] = enemies.back()->getRepChar();
+    enemies.back()->setRow(r);
+    enemies.back()->setCol(c);
+    // end of random set of row and col
+}
+
+void Floor::generateEnemies() {
+    /*
     int r = 5;
     int c = 8;
     shared_ptr<Enemy> Gob = make_shared<Goblin>();
     display[r][c] = Gob->getRepChar();
     Gob->setRow(5);
-    Gob->setCol(8);
-    enemies.emplace_back(Gob);
+    Gob->setCol(8);*/
+    genOneEnemy();
+    genOneEnemy();
+    genOneEnemy();
+    genOneEnemy();
+    genOneEnemy();
+    genOneEnemy();
+    genOneEnemy();
+    genOneEnemy();
+    genOneEnemy();
+
 }
 
 
