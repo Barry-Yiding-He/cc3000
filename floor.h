@@ -14,6 +14,11 @@
 #include <random>
 #include <chrono>
 
+struct Coordinate {
+    public:
+    int row, col;
+};
+
 class Floor {
     private:
     int floorNum;  // display current floor number
@@ -22,7 +27,7 @@ class Floor {
     std::vector<std::shared_ptr<Enemy>> enemies; // 10
     std::shared_ptr<Stair> stair;
     std::vector<std::shared_ptr<Potion>> potions; // 10
-    std::vector<std::shared_ptr<Gold>> golds; // 10
+    //std::vector<std::shared_ptr<Gold>> golds; // 10
     std::vector<std::shared_ptr<Chamber>> chambers;
     
     public:
@@ -30,11 +35,13 @@ class Floor {
     Floor(std::string map = "map.txt"); //////////////////////////
 
     // generate component of the game
+    struct Coordinate getRandomCoorinate();
     void setUpChamber();
     void generateGold();
     void genOneEnemy();
     void generateEnemies();
-    void generatePotion();
+    void genOnePotion();
+    void generatePotions();
     void generatePC(std::string race);
     void generateStair();
 
