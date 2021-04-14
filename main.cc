@@ -1,5 +1,6 @@
 #include <iostream>
 #include "floor.h"
+#include <fstream>
 using namespace std;
 
 
@@ -38,11 +39,23 @@ int main(int argc, char *argv[]) {
         }
         cout << f;
         cout << "'@' is your current location. Right now you are able to move, good luck!" << endl;
-        exit(1);
+        //exit(1);
         while (cin >> cmd) {
             try {
                 if (cmd == "move") {
-                    cout << "Please choose the direction to move: (no|so|ea|we|ne|nw|se|sw)" << endl;
+                    cout << "Please choose the direction to move:" << endl;
+                    ifstream compass {"compass.txt"};
+                    string s;
+                    int len;
+                    while (getline(compass, s)) {
+                        vector<char> row;
+                        len = s.length();
+                        for (int i = 0; i < len; ++i) {
+                            cout << s[i];
+                        }
+                            cout << endl;
+	                }
+
                     while (true) {
                         cin >> cmd;
                         if (cmd == "no"|| cmd == "so"|| cmd == "ea"|| cmd == "we"||
