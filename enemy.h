@@ -30,6 +30,7 @@ class Enemy : public Character {
     // accessor
     bool getIsHostile();
     bool getGoldNum();
+    char getChar();
 
     // Fun 
     void holdCompass();

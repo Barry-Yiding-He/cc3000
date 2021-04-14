@@ -115,6 +115,44 @@ void Floor::setUpChamber() {
 }
 
 
+void Floor::wasAttack() {
+    int luck = 0;
+    vector<int> index = {0,0,0,0,1,1,1,1};
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine rng{seed};
+    std::shuffle(index.begin(), index.end(), rng);
+    luck = index[0];
+    
+    for (auto e : enemies) {
+        if (luck) {
+            if (e->getIsHostile() == true) {
+                if (display[e->getRow()-1][e->getCol()-1] == '@') {
+                    e->attack(PC);
+                } else if (display[e->getRow()-1][e->getCol()] == '@') {
+                    e->attack(PC);
+                } else if (display[e->getRow()-1][e->getCol()+1] == '@') {
+                    e->attack(PC);
+                } else if (display[e->getRow()][e->getCol()-1] == '@') {
+                    e->attack(PC);
+                } else if (display[e->getRow()][e->getCol()+1] == '@') {
+                    e->attack(PC);
+                } else if (display[e->getRow()+1][e->getCol()-1] == '@') {
+                    e->attack(PC);
+                } else if (display[e->getRow()+1][e->getCol()] == '@') {
+                    e->attack(PC);
+                } else if (display[e->getRow()+1][e->getCol()+1] == '@') {
+                    e->attack(PC);
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
 void Floor::movePC(string direction, std::string race) {
     InvalidCommand Invalid;
     // first we check if we can move; if we can,  then we move
@@ -299,6 +337,7 @@ void Floor::movePC(string direction, std::string race) {
             throw Invalid;
         }
     }
+    wasAttack();
 }
 
 

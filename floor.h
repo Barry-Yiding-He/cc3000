@@ -57,6 +57,8 @@ class Floor {
     // move PC
     void movePC(std::string direction, std::string race);
     
+    // PC was randomly attacked
+    void wasAttack();
 
 
 

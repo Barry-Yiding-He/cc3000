@@ -20,6 +20,10 @@ void Enemy::move() {
 
 }
 
+char Enemy::getChar() {
+    return repChar;
+}
+
 void Enemy::attack(std::shared_ptr<Player> &PC) {
     int damage = this->getCurAtk();
     PC->loseHP(damage);
