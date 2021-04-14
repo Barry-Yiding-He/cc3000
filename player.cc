@@ -5,9 +5,7 @@ Player::~Player() {}
 
 Player::Player(int HP, int Atk, int Def, 
                     std::string race, char repChar, int row, int col, bool isArmed, int goldTotal):
-    Character(HP, Atk, Def, race, repChar, row, col) {
-        isArmed = false;
-        goldTotal = 0;
+    Character(HP, Atk, Def, race, repChar, row, col), isArmed(isArmed), goldTotal(goldTotal) {
     }
 
 bool Player::getIsArmed() {

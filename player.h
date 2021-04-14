@@ -10,7 +10,7 @@
 class Player : public Character {
     protected:
     bool isArmed; // used to  show weather player is wearing the suit
-    int goldTotal; // used to show the total amount of the gold player have
+    int goldTotal = 0; // used to show the total amount of the gold player have
     std::string action; // store the action
 
     public:
