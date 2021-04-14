@@ -8,19 +8,6 @@ int main(int argc, char *argv[]) {
     std::string cmd;
     Floor f;
     std::string playerRace;
-    /*f.setFloor();
-    cout << f;
-    f.movePC("no");
-    cout << f;
-    f.movePC("so");
-    cout << f;
-    f.movePC("we");
-    cout << f;
-    f.movePC("ea");
-    cout << f;
-    f.movePC("ea");
-    cout << f;
-    */
 
     try {
         cout << "Please pick a race to begin with:" << endl;
@@ -51,6 +38,7 @@ int main(int argc, char *argv[]) {
         }
         cout << f;
         cout << "'@' is your current location. Right now you are able to move, good luck!" << endl;
+        exit(1);
         while (cin >> cmd) {
             try {
                 if (cmd == "move") {

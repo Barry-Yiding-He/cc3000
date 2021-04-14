@@ -74,6 +74,13 @@ Floor::Floor(string map)  {
     // read all char in map to display
     this->floorNum = 0;
     this->setUpChamber();
+
+    std::vector<int> ranFloor = {1, 2, 3, 4, 5};
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine rng{seed};
+    std::shuffle(ranFloor.begin(), ranFloor.end(), rng);
+    this->bSuitFloor = ranFloor[0];
+
     ifstream gameMap {map};
     string s;
     int len;
@@ -296,11 +303,15 @@ void Floor::movePC(string direction, std::string race) {
 
 
 void Floor::setFloor(std::string race) {
+    this->dragonGoldNum = 0;
     this->floorNum++;
     generatePC(race); 
     generateStair();
     generatePotions();
+    generateGolds();
     generateEnemies();
+    setUpCompass();
+    if (this->bSuitFloor == this->floorNum) generateBarrierSuit();
 }
 
 
@@ -358,6 +369,91 @@ void Floor::generatePotions() {
 }
 
 
+void Floor::genOneGold() {
+    Coordinate coor;
+    while (true) { // regenerate a coor if the point is on stair
+        coor = getRandomCoorinate();
+        int row = coor.row;
+        int col = coor.col;
+        if (!this->stair->isSameCoor(row, col)) break;
+    }
+    int r = coor.row;
+    int c = coor.col;
+    std::vector<int> ranGold = {6, 6, 6, 6, 6, 7, 7, 9};
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine rng{seed};
+    std::shuffle(ranGold.begin(), ranGold.end(), rng); 
+    int GoldType = ranGold[0];
+    if (GoldType == 9) {
+        this->golds.emplace_back(std::make_shared<Gold>(r, c, GoldType, false));
+    } else {
+        this->golds.emplace_back(std::make_shared<Gold>(r, c, GoldType, true));
+    }
+    this->display[r][c] = this->golds.back()->getRepChar();
+}
+
+
+void Floor::generateGolds() {
+    for (int i = 0 ; i < 10 ; i++) {
+        genOneGold();
+    }
+    for (auto gold : this->golds) {
+        if (gold->getGoldType() == 9) {
+            this->dragonGoldNum++;
+            std::vector<int> ranPos = {1, 2, 3, 4, 5, 6, 7, 8};
+            unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+            std::default_random_engine rng{seed};
+            std::shuffle(ranPos.begin(), ranPos.end(), rng); 
+            int pos = ranPos[0];
+            Coordinate coor;
+            
+            while (true) { 
+                if (pos == 1) {
+                    coor = {(gold->getRow() - 1), (gold->getCol() - 1)};
+                }
+                if (pos == 2) {
+                    coor = {(gold->getRow() - 1), (gold->getCol())};
+                }
+                if (pos == 3) {
+                    coor = {(gold->getRow() - 1), (gold->getCol() + 1)};
+                }
+                if (pos == 4) {
+                    coor = {(gold->getRow()), (gold->getCol() - 1)};
+                }
+                if (pos == 5) {
+                    coor = {(gold->getRow()), (gold->getCol() + 1)};
+                }
+                if (pos == 6) {
+                    coor = {(gold->getRow() + 1), (gold->getCol() - 1)};
+                }
+                if (pos == 7) {
+                    coor = {(gold->getRow() + 1), (gold->getCol())};
+                }
+                if (pos == 8) {
+                    coor = {(gold->getRow() + 1), (gold->getCol() + 1)};
+                }   
+                int row = coor.row;
+                int col = coor.col;
+                if ((!this->stair->isSameCoor(row, col)) && 
+                    (this->display[row][col] == '.')) { 
+                        break; 
+                } else {
+                    std::shuffle(ranPos.begin(), ranPos.end(), rng); 
+                    pos = ranPos[0];
+                }
+
+            }
+            int r = coor.row;
+            int c = coor.col;
+            this->enemies.emplace_back(std::make_shared<Dragon>());
+            this->display[r][c] = enemies.back()->getRepChar();
+            enemies.back()->setRow(r);
+            enemies.back()->setCol(c);
+        }
+    }
+}
+
+
 void Floor::genOneEnemy() {
     Coordinate coor;
     while (true) { // regenerate a coor if the point is on stair
@@ -388,11 +484,90 @@ void Floor::genOneEnemy() {
 
 
 void Floor::generateEnemies() {
-    ///////////////////////////////////////////////////
-    ///////////////////////////////////////////////////
-    // 没有考虑龙 之后需要修改
     
-    for (int i = 0; i < 20; i++) genOneEnemy();
+    for (int i = 0; i < 20 - this->dragonGoldNum; i++) genOneEnemy();
+}
+
+
+void Floor::setUpCompass() {
+    std::vector<int> ranEnemy;
+    int curNum = 0;
+    for(auto enemy : this->enemies) {
+        ranEnemy.emplace_back(curNum);
+        curNum++;
+    }
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine rng{seed};
+    std::shuffle(ranEnemy.begin(), ranEnemy.end(), rng);  
+    int pickedEnemy = ranEnemy[0];
+    this->enemies[pickedEnemy]->holdCompass();
+}
+
+
+void Floor::generateBarrierSuit() {
+    Coordinate coor;
+    while (true) { // regenerate a coor if the point is on stair
+        coor = getRandomCoorinate();
+        int row = coor.row;
+        int col = coor.col;
+        if (!this->stair->isSameCoor(row, col)) break;
+    }
+    int r = coor.row;
+    int c = coor.col;
+    
+    this->barrierSuit = std::make_shared<BarrierSuit>(r, c);
+    this->display[r][c] = this->barrierSuit->getRepChar();
+
+    std::vector<int> ranPos = {1, 2, 3, 4, 5, 6, 7, 8};
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine rng{seed};
+    std::shuffle(ranPos.begin(), ranPos.end(), rng); 
+    int pos = ranPos[0];
+    Coordinate coor1;
+            
+    while (true) { 
+        if (pos == 1) {
+            coor1 = {(barrierSuit->getRow() - 1), (barrierSuit->getCol() - 1)};
+        }
+        if (pos == 2) {
+            coor1 = {(barrierSuit->getRow() - 1), (barrierSuit->getCol())};
+        }
+        if (pos == 3) {
+            coor1 = {(barrierSuit->getRow() - 1), (barrierSuit->getCol() + 1)};
+        }
+        if (pos == 4) {
+            coor1 = {(barrierSuit->getRow()), (barrierSuit->getCol() - 1)};
+        }
+        if (pos == 5) {
+            coor1 = {(barrierSuit->getRow()), (barrierSuit->getCol() + 1)};
+        }
+        if (pos == 6) {
+            coor1 = {(barrierSuit->getRow() + 1), (barrierSuit->getCol() - 1)};
+        }
+        if (pos == 7) {
+            coor1 = {(barrierSuit->getRow() + 1), (barrierSuit->getCol())};
+        }
+        if (pos == 8) {
+            coor1 = {(barrierSuit->getRow() + 1), (barrierSuit->getCol() + 1)};
+        }   
+        int row = coor1.row;
+        int col = coor1.col;
+        if ((!this->stair->isSameCoor(row, col)) && 
+            (this->display[row][col] == '.')) { 
+                break; 
+        } else {
+            std::shuffle(ranPos.begin(), ranPos.end(), rng); 
+            pos = ranPos[0];
+        }
+
+    }
+    int r1 = coor.row;
+    int c1 = coor.col;
+    this->enemies.emplace_back(std::make_shared<Dragon>());
+    this->display[r1][c1] = enemies.back()->getRepChar();
+    enemies.back()->setRow(r1);
+    enemies.back()->setCol(c1);
+    
 }
 
 

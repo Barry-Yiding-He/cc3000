@@ -12,7 +12,8 @@ class Enemy : public Character {
     
     protected:
     bool isHostile; // used to check wheather enemy is hostile to PC
-    bool isMoveable; // used to check wheather enemy is moveable;
+    bool isMoveable; // used to check wheather enemy is moveable
+    bool compassHolder; // used to check wheather the enemy is the compass holder
     int goldNum; // indicate the number of the gold that enemy have : '1' = default  '4' = merchant 
                      // note: slain the dragon will not drop gold
     public:
@@ -21,6 +22,7 @@ class Enemy : public Character {
         std::string race = "default", char repChar = 'd', int row = 10, int col = 10, bool isHostile = true, bool isMoveable = true) : Character (HP, Atk, Def, race, repChar, row, col) {
         isHostile = isHostile;
         isMoveable = isMoveable;
+        compassHolder = false;
     }
 
     ////////////
@@ -30,6 +32,7 @@ class Enemy : public Character {
     bool getGoldNum();
 
     // Fun 
+    void holdCompass();
     void changeHostile();
     void move();
     void attack(std::shared_ptr<Player> &PC);

@@ -22,12 +22,15 @@ struct Coordinate {
 class Floor {
     private:
     int floorNum;  // display current floor number
+    int dragonGoldNum; // display the number of dragon horde gold in current floor;
+    int bSuitFloor; // store the floor number of the bSuitFloor;
     std::vector<std::vector<char>> display;
     std::shared_ptr<Player> PC;  // player
     std::vector<std::shared_ptr<Enemy>> enemies; // 10
     std::shared_ptr<Stair> stair;
     std::vector<std::shared_ptr<Potion>> potions; // 10
-    //std::vector<std::shared_ptr<Gold>> golds; // 10
+    std::vector<std::shared_ptr<Gold>> golds; // 10
+    std::shared_ptr<BarrierSuit> barrierSuit;
     std::vector<std::shared_ptr<Chamber>> chambers;
     char orig = '.';
     public:
@@ -37,13 +40,16 @@ class Floor {
     // generate component of the game
     struct Coordinate getRandomCoorinate();
     void setUpChamber();
-    void generateGold();
+    void setUpCompass();
+    void genOneGold();
+    void generateGolds();
     void genOneEnemy();
     void generateEnemies();
     void genOnePotion();
     void generatePotions();
     void generatePC(std::string race);
     void generateStair();
+    void generateBarrierSuit();
 
     // set floor
     void setFloor(std::string race);

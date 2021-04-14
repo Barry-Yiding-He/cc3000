@@ -12,6 +12,10 @@ void Enemy::changeHostile() {
     this->goldNum = !(this->goldNum);
 }
 
+void Enemy::holdCompass() {
+    this->compassHolder = true;
+}
+
 void Enemy::move() {
 
 }
