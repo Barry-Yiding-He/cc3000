@@ -65,7 +65,11 @@ class Floor {
     
     // random move one
     void randMove(std::shared_ptr<Enemy> e);
+    //random move all enemy after PC move
     void randMoveAll();
+    
+    // drink potion
+    void drinkPotion();
 
 
 
