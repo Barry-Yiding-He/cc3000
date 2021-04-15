@@ -4,7 +4,9 @@
 #include "character.h"
 #include <memory>
 #include "player.h"
-
+#include <vector>
+#include <random>
+#include <chrono>
 
 
 
@@ -37,6 +39,7 @@ class Enemy : public Character {
     void changeHostile();
     void move();
     void attack(std::shared_ptr<Player> &PC);
+    
 };
 
 

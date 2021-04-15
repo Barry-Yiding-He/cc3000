@@ -1,5 +1,7 @@
 #include "enemy.h"
 
+using namespace std;
+
 bool Enemy::getIsHostile() {
     return this->isHostile;
 }
@@ -29,4 +31,6 @@ void Enemy::attack(std::shared_ptr<Player> &PC) {
     PC->loseHP(damage);
     
 }
+
+
 

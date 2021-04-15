@@ -448,9 +448,9 @@ void Floor::movePC(string direction, std::string race) {
         }
         this->PC->changeAction("PC moves Southwest");
     }
-    checkAround();
+    randMoveAll();
     wasAttack();
-    
+    checkAround();
 }
 
 
@@ -1012,4 +1012,42 @@ std::ostream &operator<<(std::ostream &out, const Floor &g) {
     out << "Def: " << g.PC->getCurDef() << endl;
     out << "Action: " << g.PC->getAction() << "." << endl;
     return out;
+}
+
+
+
+void Floor::randMove(shared_ptr<Enemy> e) {
+    vector<int> index1 = {-1,0,1};
+    vector<int> index2 = {-1,0,1};
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine rng{seed};
+    std::shuffle(index1.begin(), index1.end(), rng);
+    std::shuffle(index2.begin(), index2.end(), rng);
+    int first = index1[0];
+    int second = index2[0];
+    
+    // in case some char cannot move
+    for(int i = 0; i < 100; i++) {
+        if (e->getRow()+first == stair->getRow() &&
+            e->getCol()+second == stair->getCol()) {
+            
+        }
+        
+        else {
+            if (display[e->getRow()+first][e->getCol()+second] == '.') {
+                display[e->getRow()][e->getCol()]  = '.';
+                e->setRow(e->getRow()+first);
+                e->setCol(e->getCol()+second);
+                display[e->getRow()][e->getCol()]  = e->getChar();
+                break;
+            }
+        }
+    }
+}
+
+
+void Floor::randMoveAll() {
+    for (auto e: enemies) {
+        randMove(e);
+    }
 }
