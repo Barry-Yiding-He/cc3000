@@ -25,6 +25,7 @@ class Floor {
     int floorNum;  // display current floor number
     int dragonGoldNum; // display the number of dragon horde gold in current floor;
     int bSuitFloor; // store the floor number of the bSuitFloor;
+    bool attackedMer = false;
     std::vector<std::vector<char>> display;
     std::shared_ptr<Player> PC;  // player
     std::vector<std::shared_ptr<Enemy>> enemies; // 10
@@ -51,6 +52,7 @@ class Floor {
     void generatePC(std::string race);
     void generateStair();
     void generateBarrierSuit();
+    void checkAround();
 
     // set floor
     void setFloor(std::string race);

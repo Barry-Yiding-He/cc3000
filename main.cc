@@ -75,7 +75,6 @@ int main(int argc, char *argv[]) {
                 }
             } catch (InvalidCommand) { 
                 cout << "Invalid Command" << endl;
-                cin >> cmd;
             } 
         }
     } 

@@ -117,14 +117,15 @@ void Floor::setUpChamber() {
 
 void Floor::wasAttack() {
     int luck;
-    vector<int> index = {1,1,1,1};
+    vector<int> index = {1,1,1,1,0,0,0,0};
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::default_random_engine rng{seed};
     std::shuffle(index.begin(), index.end(), rng);
     luck = index[0];
     
+    
     for (auto e : enemies) {
-        if (luck) {
+        if (luck == 1) {
             if (e->getIsHostile() == true) {
                 if (display[e->getRow()-1][e->getCol()-1] == '@') {
                     e->attack(PC);
@@ -136,7 +137,7 @@ void Floor::wasAttack() {
                     atkAct.append(" deals ");
                     stringstream ss1;
                     string s1;
-                    ss1 << e->getAtk();
+                    ss1 << e->getCurAtk();
                     ss1 >> s1;
                     atkAct.append(s1);
                     atkAct.append(" damage to PC");
@@ -151,7 +152,7 @@ void Floor::wasAttack() {
                     atkAct.append(" deals ");
                     stringstream ss1;
                     string s1;
-                    ss1 << e->getAtk();
+                    ss1 << e->getCurAtk();
                     ss1 >> s1;
                     atkAct.append(s1);
                     atkAct.append(" damage to PC");
@@ -166,7 +167,7 @@ void Floor::wasAttack() {
                     atkAct.append(" deals ");
                     stringstream ss1;
                     string s1;
-                    ss1 << e->getAtk();
+                    ss1 << e->getCurAtk();
                     ss1 >> s1;
                     atkAct.append(s1);
                     atkAct.append(" damage to PC");
@@ -181,7 +182,7 @@ void Floor::wasAttack() {
                     atkAct.append(" deals ");
                     stringstream ss1;
                     string s1;
-                    ss1 << e->getAtk();
+                    ss1 << e->getCurAtk();
                     ss1 >> s1;
                     atkAct.append(s1);
                     atkAct.append(" damage to PC");
@@ -196,7 +197,7 @@ void Floor::wasAttack() {
                     atkAct.append(" deals ");
                     stringstream ss1;
                     string s1;
-                    ss1 << e->getAtk();
+                    ss1 << e->getCurAtk();
                     ss1 >> s1;
                     atkAct.append(s1);
                     atkAct.append(" damage to PC");
@@ -211,7 +212,7 @@ void Floor::wasAttack() {
                     atkAct.append(" deals ");
                     stringstream ss1;
                     string s1;
-                    ss1 << e->getAtk();
+                    ss1 << e->getCurAtk();
                     ss1 >> s1;
                     atkAct.append(s1);
                     atkAct.append(" damage to PC");
@@ -226,7 +227,7 @@ void Floor::wasAttack() {
                     atkAct.append(" deals ");
                     stringstream ss1;
                     string s1;
-                    ss1 << e->getAtk();
+                    ss1 << e->getCurAtk();
                     ss1 >> s1;
                     atkAct.append(s1);
                     atkAct.append(" damage to PC");
@@ -241,7 +242,7 @@ void Floor::wasAttack() {
                     atkAct.append(" deals ");
                     stringstream ss1;
                     string s1;
-                    ss1 << e->getAtk();
+                    ss1 << e->getCurAtk();
                     ss1 >> s1;
                     atkAct.append(s1);
                     atkAct.append(" damage to PC");
@@ -251,7 +252,7 @@ void Floor::wasAttack() {
         }
         std::shuffle(index.begin(), index.end(), rng);
         luck = index[0];
-    }
+    } 
 }
 
 
@@ -447,7 +448,9 @@ void Floor::movePC(string direction, std::string race) {
         }
         this->PC->changeAction("PC moves Southwest");
     }
+    checkAround();
     wasAttack();
+    
 }
 
 
@@ -714,6 +717,283 @@ void Floor::generateBarrierSuit() {
     enemies.back()->setRow(r1);
     enemies.back()->setCol(c1);
     
+}
+
+
+void Floor::checkAround() {
+    int goldNum = 0;
+    int potionNum = 0;
+    int enemyNum = 0;
+    int BSNum = 0;
+    int staNum = 0;
+    int passNum = 0;
+    int checkAct = 0;
+    int merNum = 0;
+    int r = this->PC->getRow() - 1;
+    int c = this->PC->getCol() - 1;
+    if (display[r][c] == 'P') {
+        potionNum++;
+    } else if (display[r][c] == 'G') {
+        goldNum++;
+    } else if (display[r][c] == 'B') {
+        BSNum++; 
+    } else if (display[r][c] == '/') {
+        staNum++;
+    } else if (display[r][c] == '+') {
+        passNum++;
+    } else if ((display[r][c] == 'M') && 
+               (this->attackedMer)) {
+        merNum++;
+    } else if ((display[r][c] != '.') &&
+               (display[r][c] != '-') &&
+               (display[r][c] != '|') &&
+               (display[r][c] != ' ') &&
+               (display[r][c] != '#')) {
+        enemyNum++;           
+    }
+
+    r = this->PC->getRow() - 1;
+    c = this->PC->getCol();
+    if (display[r][c] == 'P') {
+        potionNum++;
+    } else if (display[r][c] == 'G') {
+        goldNum++;
+    } else if (display[r][c] == 'B') {
+        BSNum++; 
+    } else if (display[r][c] == '/') {
+        staNum++;
+    } else if (display[r][c] == '+') {
+        passNum++;
+    } else if ((display[r][c] == 'M') && 
+               (this->attackedMer)) {
+        merNum++;
+    } else if ((display[r][c] != '.') &&
+               (display[r][c] != '-') &&
+               (display[r][c] != '|') &&
+               (display[r][c] != ' ') &&
+               (display[r][c] != '#')) {
+        enemyNum++;           
+    }
+
+    r = this->PC->getRow() - 1;
+    c = this->PC->getCol() + 1;
+    if (display[r][c] == 'P') {
+        potionNum++;
+    } else if (display[r][c] == 'G') {
+        goldNum++;
+    } else if (display[r][c] == 'B') {
+        BSNum++; 
+    } else if (display[r][c] == '/') {
+        staNum++;
+    } else if (display[r][c] == '+') {
+        passNum++;
+    } else if ((display[r][c] == 'M') && 
+               (this->attackedMer)) {
+        merNum++;
+    } else if ((display[r][c] != '.') &&
+               (display[r][c] != '-') &&
+               (display[r][c] != '|') &&
+               (display[r][c] != ' ') &&
+               (display[r][c] != '#')) {
+        enemyNum++;           
+    }
+
+    r = this->PC->getRow();
+    c = this->PC->getCol() - 1;
+    if (display[r][c] == 'P') {
+        potionNum++;
+    } else if (display[r][c] == 'G') {
+        goldNum++;
+    } else if (display[r][c] == 'B') {
+        BSNum++; 
+    } else if (display[r][c] == '/') {
+        staNum++;
+    } else if (display[r][c] == '+') {
+        passNum++;
+    } else if ((display[r][c] == 'M') && 
+               (this->attackedMer)) {
+        merNum++;
+    } else if ((display[r][c] != '.') &&
+               (display[r][c] != '-') &&
+               (display[r][c] != '|') &&
+               (display[r][c] != ' ') &&
+               (display[r][c] != '#')) {
+        enemyNum++;           
+    }
+
+    r = this->PC->getRow();
+    c = this->PC->getCol() + 1;
+    if (display[r][c] == 'P') {
+        potionNum++;
+    } else if (display[r][c] == 'G') {
+        goldNum++;
+    } else if (display[r][c] == 'B') {
+        BSNum++; 
+    } else if (display[r][c] == '/') {
+        staNum++;
+    } else if (display[r][c] == '+') {
+        passNum++;
+    } else if ((display[r][c] == 'M') && 
+               (this->attackedMer)) {
+        merNum++;
+    } else if ((display[r][c] != '.') &&
+               (display[r][c] != '-') &&
+               (display[r][c] != '|') &&
+               (display[r][c] != ' ') &&
+               (display[r][c] != '#')) {
+        enemyNum++;           
+    }
+
+    r = this->PC->getRow() + 1;
+    c = this->PC->getCol() - 1;
+    if (display[r][c] == 'P') {
+        potionNum++;
+    } else if (display[r][c] == 'G') {
+        goldNum++;
+    } else if (display[r][c] == 'B') {
+        BSNum++; 
+    } else if (display[r][c] == '/') {
+        staNum++;
+    } else if (display[r][c] == '+') {
+        passNum++;
+    } else if ((display[r][c] == 'M') && 
+               (this->attackedMer)) {
+        merNum++;
+    } else if ((display[r][c] != '.') &&
+               (display[r][c] != '-') &&
+               (display[r][c] != '|') &&
+               (display[r][c] != ' ') &&
+               (display[r][c] != '#')) {
+        enemyNum++;           
+    }
+
+    r = this->PC->getRow() + 1;
+    c = this->PC->getCol();
+    if (display[r][c] == 'P') {
+        potionNum++;
+    } else if (display[r][c] == 'G') {
+        goldNum++;
+    } else if (display[r][c] == 'B') {
+        BSNum++; 
+    } else if (display[r][c] == '/') {
+        staNum++;
+    } else if (display[r][c] == '+') {
+        passNum++;
+    } else if ((display[r][c] == 'M') && 
+               (this->attackedMer)) {
+        merNum++;
+    } else if ((display[r][c] != '.') &&
+               (display[r][c] != '-') &&
+               (display[r][c] != '|') &&
+               (display[r][c] != ' ') &&
+               (display[r][c] != '#')) {
+        enemyNum++;           
+    }
+
+    r = this->PC->getRow() + 1;
+    c = this->PC->getCol() + 1;
+    if (display[r][c] == 'P') {
+        potionNum++;
+    } else if (display[r][c] == 'G') {
+        goldNum++;
+    } else if (display[r][c] == 'B') {
+        BSNum++; 
+    } else if (display[r][c] == '/') {
+        staNum++;
+    } else if (display[r][c] == '+') {
+        passNum++;
+    } else if ((display[r][c] == 'M') && 
+               (this->attackedMer)) {
+        merNum++;
+    } else if ((display[r][c] != '.') &&
+               (display[r][c] != '-') &&
+               (display[r][c] != '|') &&
+               (display[r][c] != ' ') &&
+               (display[r][c] != '#')) {
+        enemyNum++;           
+    }
+    string act = "sees ";
+    if (goldNum == 1) {
+        act.append("a gold");
+        checkAct++;
+    } else if (goldNum > 1) {
+        stringstream ss1;
+        string s1;
+        ss1 << goldNum;
+        ss1 >> s1;
+        act.append(s1);
+        act.append(" golds");
+        checkAct++;
+    }
+    if (potionNum == 1) {
+        if (checkAct != 0) act.append(", ");
+        act.append("an unknown potion");
+        checkAct++;
+    } else if (potionNum > 1) {
+        if (checkAct != 0) act.append(", ");
+        stringstream ss1;
+        string s1;
+        ss1 << potionNum;
+        ss1 >> s1;
+        act.append(s1);
+        act.append(" unknown potions");
+        checkAct++;
+    }
+    if (BSNum == 1) {
+        if (checkAct != 0) act.append(", ");
+        act.append("a Barrier Suit");
+        checkAct++;
+    } 
+    if (merNum == 1) {
+        if (checkAct != 0) act.append(", ");
+        act.append("a friendly merchant");
+        checkAct++;
+    } else if (merNum > 1) {
+        if (checkAct != 0) act.append(", ");
+        stringstream ss1;
+        string s1;
+        ss1 << merNum;
+        ss1 >> s1;
+        act.append(s1);
+        act.append(" friendly merchant");
+        checkAct++;
+    }
+    if (enemyNum == 1) {
+        if (checkAct != 0) act.append(", ");
+        act.append("an enemy");
+        checkAct++;
+    } else if (enemyNum > 1) {
+        if (checkAct != 0) act.append(", ");
+        stringstream ss1;
+        string s1;
+        ss1 << enemyNum;
+        ss1 >> s1;
+        act.append(s1);
+        act.append(" enemies");
+        checkAct++;
+    }
+    if (passNum == 1) {
+        if (checkAct != 0) act.append(", ");
+        act.append("a door connect to other chamber");
+        checkAct++;
+    } else if (passNum > 1) {
+        if (checkAct != 0) act.append(", ");
+        stringstream ss1;
+        string s1;
+        ss1 << passNum;
+        ss1 >> s1;
+        act.append(s1);
+        act.append(" doors connect to other chamber");
+        checkAct++;
+    }
+    if (staNum == 1) {
+        if (checkAct != 0) act.append(", ");
+        act.append("a stair to next floor");
+        checkAct++;
+    }
+    if (checkAct > 0) {
+        this->PC->addAction(act);
+    }
 }
 
 

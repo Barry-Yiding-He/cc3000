@@ -20,8 +20,8 @@ class Enemy : public Character {
     // constr
     Enemy (int HP = 100 , int Atk = 20 , int Def = 20, 
         std::string race = "default", char repChar = 'd', int row = 10, int col = 10, bool isHostile = true, bool isMoveable = true) : Character (HP, Atk, Def, race, repChar, row, col) {
-        isHostile = isHostile;
-        isMoveable = isMoveable;
+        this->isHostile = isHostile;
+        this->isMoveable = isMoveable;
         compassHolder = false;
     }
 
