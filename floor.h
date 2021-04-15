@@ -53,6 +53,7 @@ class Floor {
     void generateStair();
     void generateBarrierSuit();
     void checkAround();
+    int findGold(int row, int col);
 
     // set floor
     void setFloor(std::string race);

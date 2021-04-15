@@ -277,6 +277,17 @@ void Floor::movePC(string direction, std::string race) {
             orig = '#';
             display[PC->getRow()-1][PC->getCol()] = '@';
             PC->addRow(-1);
+        } else if (display[PC->getRow()-1][PC->getCol()] == 'G') {
+            int goldNum = this->findGold(PC->getRow()-1, PC->getCol());
+            if (this->golds[goldNum]->getPickable()) {
+                display[PC->getRow()][PC->getCol()] = orig;
+                orig = '.';
+                display[PC->getRow()-1][PC->getCol()] = '@';
+                PC->addRow(-1);
+                this->PC->collectGold(this->golds[goldNum]->getGoldType());
+            } else {
+                throw Invalid;
+            }
         } else {
             throw Invalid;
         }
@@ -299,6 +310,17 @@ void Floor::movePC(string direction, std::string race) {
             orig = '#';
             display[PC->getRow()+1][PC->getCol()] = '@';
             PC->addRow(1);
+        } else if (display[PC->getRow()+1][PC->getCol()] == 'G') {
+            int goldNum = this->findGold(PC->getRow()+1, PC->getCol());
+            if (this->golds[goldNum]->getPickable()) {
+                display[PC->getRow()][PC->getCol()] = orig;
+                orig = '.';
+                display[PC->getRow()+1][PC->getCol()] = '@';
+                PC->addRow(1);
+                this->PC->collectGold(this->golds[goldNum]->getGoldType());
+            } else {
+                throw Invalid;
+            }
         } else {
             throw Invalid;
         }
@@ -321,6 +343,17 @@ void Floor::movePC(string direction, std::string race) {
             orig = '#';
             display[PC->getRow()][PC->getCol()-1] = '@';
             PC->addCol(-1);
+        } else if (display[PC->getRow()][PC->getCol()-1] == 'G') {
+            int goldNum = this->findGold(PC->getRow(), PC->getCol()-1);
+            if (this->golds[goldNum]->getPickable()) {
+                display[PC->getRow()][PC->getCol()] = orig;
+                orig = '.';
+                display[PC->getRow()][PC->getCol()-1] = '@';
+                PC->addCol(-1);
+                this->PC->collectGold(this->golds[goldNum]->getGoldType());
+            } else {
+                throw Invalid;
+            }
         } else {
             throw Invalid;
         }
@@ -343,6 +376,17 @@ void Floor::movePC(string direction, std::string race) {
             orig = '#';
             display[PC->getRow()][PC->getCol()+1] = '@';
             PC->addCol(1);
+        } else if (display[PC->getRow()][PC->getCol()+1] == 'G') {
+            int goldNum = this->findGold(PC->getRow(), PC->getCol()+1);
+            if (this->golds[goldNum]->getPickable()) {
+                display[PC->getRow()][PC->getCol()] = orig;
+                orig = '.';
+                display[PC->getRow()][PC->getCol()+1] = '@';
+                PC->addCol(1);
+                this->PC->collectGold(this->golds[goldNum]->getGoldType());
+            } else {
+                throw Invalid;
+            }
         } else {
             throw Invalid;
         }
@@ -368,6 +412,18 @@ void Floor::movePC(string direction, std::string race) {
             display[PC->getRow()-1][PC->getCol()+1] = '@';
             PC->addRow(-1);
             PC->addCol(1);
+        } else if (display[PC->getRow()-1][PC->getCol()+1] == 'G') {
+            int goldNum = this->findGold(PC->getRow()-1, PC->getCol()+1);
+            if (this->golds[goldNum]->getPickable()) {
+                display[PC->getRow()][PC->getCol()] = orig;
+                orig = '.';
+                display[PC->getRow()-1][PC->getCol()+1] = '@';
+                PC->addRow(-1);
+                PC->addCol(1);
+                this->PC->collectGold(this->golds[goldNum]->getGoldType());
+            } else {
+                throw Invalid;
+            }
         } else {
             throw Invalid;
         }
@@ -393,7 +449,19 @@ void Floor::movePC(string direction, std::string race) {
             display[PC->getRow()-1][PC->getCol()-1] = '@';
             PC->addRow(-1);
             PC->addCol(-1);
-        } else {
+        } else if (display[PC->getRow()-1][PC->getCol()-1] == 'G') {
+            int goldNum = this->findGold(PC->getRow()-1, PC->getCol()-1);
+            if (this->golds[goldNum]->getPickable()) {
+                display[PC->getRow()][PC->getCol()] = orig;
+                orig = '.';
+                display[PC->getRow()-1][PC->getCol()-1] = '@';
+                PC->addRow(-1);
+                PC->addCol(-1);
+                this->PC->collectGold(this->golds[goldNum]->getGoldType());
+            } else {
+                throw Invalid;
+            }
+        }else {
             throw Invalid;
         }
         this->PC->changeAction("PC moves Northwest");
@@ -418,6 +486,18 @@ void Floor::movePC(string direction, std::string race) {
             display[PC->getRow()+1][PC->getCol()+1] = '@';
             PC->addRow(1);
             PC->addCol(1);
+        } else if (display[PC->getRow()+1][PC->getCol()+1] == 'G') {
+            int goldNum = this->findGold(PC->getRow()+1, PC->getCol()+1);
+            if (this->golds[goldNum]->getPickable()) {
+                display[PC->getRow()][PC->getCol()] = orig;
+                orig = '.';
+                display[PC->getRow()+1][PC->getCol()+1] = '@';
+                PC->addRow(1);
+                PC->addCol(1);
+                this->PC->collectGold(this->golds[goldNum]->getGoldType());
+            } else {
+                throw Invalid;
+            }
         } else {
             throw Invalid;
         }
@@ -443,6 +523,18 @@ void Floor::movePC(string direction, std::string race) {
             display[PC->getRow()+1][PC->getCol()-1] = '@';
             PC->addRow(1);
             PC->addCol(-1);
+        } else if (display[PC->getRow()+1][PC->getCol()-1] == 'G') {
+            int goldNum = this->findGold(PC->getRow()+1, PC->getCol()-1);
+            if (this->golds[goldNum]->getPickable()) {
+                display[PC->getRow()][PC->getCol()] = '.';
+                orig = '.';
+                display[PC->getRow()+1][PC->getCol()-1] = '@';
+                PC->addRow(1);
+                PC->addCol(-1);
+                this->PC->collectGold(this->golds[goldNum]->getGoldType());
+            } else {
+                throw Invalid;
+            }
         } else {
             throw Invalid;
         }
@@ -997,6 +1089,16 @@ void Floor::checkAround() {
 }
 
 
+int Floor::findGold(int row, int col) {
+    int goldAt = 0;
+    for (auto gold : this->golds) {
+        if ((gold->getRow() == row) &&(gold->getCol() == col)) {
+            return goldAt;
+        } else {
+            goldAt++;
+        }
+    }
+}
 std::ostream &operator<<(std::ostream &out, const Floor &g) {
    for (auto r : g.display) {
         for (auto c : r) {
