@@ -32,5 +32,8 @@ void Enemy::attack(std::shared_ptr<Player> &PC) {
     
 }
 
+bool Enemy::getMoveable() {
+    return isMoveable;
+}
 
 

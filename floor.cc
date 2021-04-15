@@ -588,7 +588,7 @@ void Floor::movePC(string direction, std::string race) {
             throw Invalid;
         }
     }
-   // randMoveAll();
+    randMoveAll();
     wasAttack();
     checkAround();
 
@@ -1146,7 +1146,7 @@ int Floor::findGold(int row, int col) {
         } else {
             goldNum++;
         }
-    } 
+    }
 }
 
 
@@ -1169,7 +1169,7 @@ std::ostream &operator<<(std::ostream &out, const Floor &g) {
 
 
 
-/*void Floor::randMove(shared_ptr<Enemy> e) {
+void Floor::randMove(shared_ptr<Enemy> e) {
     vector<int> index1 = {-1,0,1};
     vector<int> index2 = {-1,0,1};
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
@@ -1181,21 +1181,24 @@ std::ostream &operator<<(std::ostream &out, const Floor &g) {
     
     // in case some char cannot move
     for(int i = 0; i < 100; i++) {
-        if (e->getRow()+first == stair->getRow() &&
-            e->getCol()+second == stair->getCol()) {
+        if (e->getMoveable()) {
+            if (e->getRow()+first == stair->getRow() &&
+                e->getCol()+second == stair->getCol()) {
+                    
+                }
             
-        }
-        
-        else {
-            if (display[e->getRow()+first][e->getCol()+second] == '.') {
-                display[e->getRow()][e->getCol()]  = '.';
-                e->setRow(e->getRow()+first);
-                e->setCol(e->getCol()+second);
-                display[e->getRow()][e->getCol()]  = e->getChar();
-                break;
+            else {
+                if (display[e->getRow()+first][e->getCol()+second] == '.') {
+                    display[e->getRow()][e->getCol()]  = '.';
+                    e->setRow(e->getRow()+first);
+                    e->setCol(e->getCol()+second);
+                    display[e->getRow()][e->getCol()]  = e->getChar();
+                    break;
+                }
             }
         }
     }
+    
 }
 
 
@@ -1204,4 +1207,3 @@ void Floor::randMoveAll() {
         randMove(e);
     }
 }
-*/
