@@ -267,31 +267,22 @@ void Floor::movePC(string direction, std::string race) {
             orig = '.';
             display[PC->getRow()-1][PC->getCol()] = '@';
             PC->addRow(-1);
+            this->PC->changeAction("PC moves North");
         } else if (display[PC->getRow()-1][PC->getCol()] == '+') {
             display[PC->getRow()][PC->getCol()] = orig;
             orig = '+';
             display[PC->getRow()-1][PC->getCol()] = '@';
             PC->addRow(-1);
+            this->PC->changeAction("PC moves North");
         } else if (display[PC->getRow()-1][PC->getCol()] == '#') {
             display[PC->getRow()][PC->getCol()] = orig;
             orig = '#';
             display[PC->getRow()-1][PC->getCol()] = '@';
             PC->addRow(-1);
-        } else if (display[PC->getRow()-1][PC->getCol()] == 'G') {
-            int goldNum = this->findGold(PC->getRow()-1, PC->getCol());
-            if (this->golds[goldNum]->getPickable()) {
-                display[PC->getRow()][PC->getCol()] = orig;
-                orig = '.';
-                display[PC->getRow()-1][PC->getCol()] = '@';
-                PC->addRow(-1);
-                this->PC->collectGold(this->golds[goldNum]->getGoldType());
-            } else {
-                throw Invalid;
-            }
+            this->PC->changeAction("PC moves North");
         } else {
             throw Invalid;
         }
-        this->PC->changeAction("PC moves North");
     } else if (direction == "so") {
         if ((PC->getRow()+1 == stair->getRow() && PC->getCol() == stair->getCol())){
             setFloor(race);
@@ -300,31 +291,23 @@ void Floor::movePC(string direction, std::string race) {
             orig = '.';
             display[PC->getRow()+1][PC->getCol()] = '@';
             PC->addRow(1);
+            this->PC->changeAction("PC moves South");
         } else if (display[PC->getRow()+1][PC->getCol()] == '+') {
             display[PC->getRow()][PC->getCol()] = orig;
             orig = '+';
             display[PC->getRow()+1][PC->getCol()] = '@';
             PC->addRow(1);
+            this->PC->changeAction("PC moves South");
         } else if (display[PC->getRow()+1][PC->getCol()] == '#') {
             display[PC->getRow()][PC->getCol()] = orig;
             orig = '#';
             display[PC->getRow()+1][PC->getCol()] = '@';
             PC->addRow(1);
-        } else if (display[PC->getRow()+1][PC->getCol()] == 'G') {
-            int goldNum = this->findGold(PC->getRow()+1, PC->getCol());
-            if (this->golds[goldNum]->getPickable()) {
-                display[PC->getRow()][PC->getCol()] = orig;
-                orig = '.';
-                display[PC->getRow()+1][PC->getCol()] = '@';
-                PC->addRow(1);
-                this->PC->collectGold(this->golds[goldNum]->getGoldType());
-            } else {
-                throw Invalid;
-            }
+            this->PC->changeAction("PC moves South");
         } else {
             throw Invalid;
         }
-        this->PC->changeAction("PC moves South");
+        
     } else if (direction == "we") {
         if ((PC->getRow() == stair->getRow() && PC->getCol()-1 == stair->getCol())){
             setFloor(race);
@@ -333,31 +316,22 @@ void Floor::movePC(string direction, std::string race) {
             orig = '.';
             display[PC->getRow()][PC->getCol()-1] = '@';
             PC->addCol(-1);
+            this->PC->changeAction("PC moves West");
         } else if (display[PC->getRow()][PC->getCol()-1] == '+') {
             display[PC->getRow()][PC->getCol()] = orig;
             orig = '+';
             display[PC->getRow()][PC->getCol()-1] = '@';
             PC->addCol(-1);
+            this->PC->changeAction("PC moves West");
         } else if (display[PC->getRow()][PC->getCol()-1] == '#') {
             display[PC->getRow()][PC->getCol()] = orig;
             orig = '#';
             display[PC->getRow()][PC->getCol()-1] = '@';
             PC->addCol(-1);
-        } else if (display[PC->getRow()][PC->getCol()-1] == 'G') {
-            int goldNum = this->findGold(PC->getRow(), PC->getCol()-1);
-            if (this->golds[goldNum]->getPickable()) {
-                display[PC->getRow()][PC->getCol()] = orig;
-                orig = '.';
-                display[PC->getRow()][PC->getCol()-1] = '@';
-                PC->addCol(-1);
-                this->PC->collectGold(this->golds[goldNum]->getGoldType());
-            } else {
-                throw Invalid;
-            }
+            this->PC->changeAction("PC moves West");
         } else {
             throw Invalid;
         }
-        this->PC->changeAction("PC moves West");
     } else if (direction == "ea") {
         if ((PC->getRow() == stair->getRow() && PC->getCol()+1 == stair->getCol())){
             setFloor(race);
@@ -366,31 +340,23 @@ void Floor::movePC(string direction, std::string race) {
             orig = '.';
             display[PC->getRow()][PC->getCol()+1] = '@';
             PC->addCol(1);
+            this->PC->changeAction("PC moves East");
         } else if (display[PC->getRow()][PC->getCol()+1] == '+') {
             display[PC->getRow()][PC->getCol()] = orig;
             orig = '+';
             display[PC->getRow()][PC->getCol()+1] = '@';
             PC->addCol(1);
+            this->PC->changeAction("PC moves East");
         } else if (display[PC->getRow()][PC->getCol()+1] == '#') {
             display[PC->getRow()][PC->getCol()] = orig;
             orig = '#';
             display[PC->getRow()][PC->getCol()+1] = '@';
             PC->addCol(1);
-        } else if (display[PC->getRow()][PC->getCol()+1] == 'G') {
-            int goldNum = this->findGold(PC->getRow(), PC->getCol()+1);
-            if (this->golds[goldNum]->getPickable()) {
-                display[PC->getRow()][PC->getCol()] = orig;
-                orig = '.';
-                display[PC->getRow()][PC->getCol()+1] = '@';
-                PC->addCol(1);
-                this->PC->collectGold(this->golds[goldNum]->getGoldType());
-            } else {
-                throw Invalid;
-            }
+            this->PC->changeAction("PC moves East");
         } else {
             throw Invalid;
         }
-        this->PC->changeAction("PC moves East");
+        
     } else if (direction == "ne") {
         if ((PC->getRow()-1 == stair->getRow() && PC->getCol()+1 == stair->getCol())){
             setFloor(race);
@@ -400,34 +366,25 @@ void Floor::movePC(string direction, std::string race) {
             display[PC->getRow()-1][PC->getCol()+1] = '@';
             PC->addRow(-1);
             PC->addCol(1);
+            this->PC->changeAction("PC moves Northeast");
         } else if (display[PC->getRow()-1][PC->getCol()+1] == '+') {
             display[PC->getRow()][PC->getCol()] = orig;
             orig = '+';
             display[PC->getRow()-1][PC->getCol()+1] = '@';
             PC->addRow(-1);
             PC->addCol(1);
+            this->PC->changeAction("PC moves Northeast");
         } else if (display[PC->getRow()-1][PC->getCol()+1] == '#') {
             display[PC->getRow()][PC->getCol()] = orig;
             orig = '#';
             display[PC->getRow()-1][PC->getCol()+1] = '@';
             PC->addRow(-1);
             PC->addCol(1);
-        } else if (display[PC->getRow()-1][PC->getCol()+1] == 'G') {
-            int goldNum = this->findGold(PC->getRow()-1, PC->getCol()+1);
-            if (this->golds[goldNum]->getPickable()) {
-                display[PC->getRow()][PC->getCol()] = orig;
-                orig = '.';
-                display[PC->getRow()-1][PC->getCol()+1] = '@';
-                PC->addRow(-1);
-                PC->addCol(1);
-                this->PC->collectGold(this->golds[goldNum]->getGoldType());
-            } else {
-                throw Invalid;
-            }
+            this->PC->changeAction("PC moves Northeast");
         } else {
             throw Invalid;
         }
-        this->PC->changeAction("PC moves Northeast");
+        
     } else if (direction == "nw") {
         if ((PC->getRow()-1 == stair->getRow() && PC->getCol()-1 == stair->getCol())){
             setFloor(race);
@@ -437,34 +394,24 @@ void Floor::movePC(string direction, std::string race) {
             display[PC->getRow()-1][PC->getCol()-1] = '@';
             PC->addRow(-1);
             PC->addCol(-1);
+            this->PC->changeAction("PC moves Northwest");
         } else if (display[PC->getRow()-1][PC->getCol()-1] == '+') {
             display[PC->getRow()][PC->getCol()] = orig;
             orig = '+';
             display[PC->getRow()-1][PC->getCol()-1] = '@';
             PC->addRow(-1);
             PC->addCol(-1);
+            this->PC->changeAction("PC moves Northwest");
         } else if (display[PC->getRow()-1][PC->getCol()-1] == '#') {
             display[PC->getRow()][PC->getCol()] = orig;
             orig = '#';
             display[PC->getRow()-1][PC->getCol()-1] = '@';
             PC->addRow(-1);
             PC->addCol(-1);
-        } else if (display[PC->getRow()-1][PC->getCol()-1] == 'G') {
-            int goldNum = this->findGold(PC->getRow()-1, PC->getCol()-1);
-            if (this->golds[goldNum]->getPickable()) {
-                display[PC->getRow()][PC->getCol()] = orig;
-                orig = '.';
-                display[PC->getRow()-1][PC->getCol()-1] = '@';
-                PC->addRow(-1);
-                PC->addCol(-1);
-                this->PC->collectGold(this->golds[goldNum]->getGoldType());
-            } else {
-                throw Invalid;
-            }
-        }else {
+            this->PC->changeAction("PC moves Northwest");
+        } else {
             throw Invalid;
         }
-        this->PC->changeAction("PC moves Northwest");
     } else if (direction == "se") {
         if ((PC->getRow()+1 == stair->getRow() && PC->getCol()+1 == stair->getCol())){
             setFloor(race);
@@ -474,34 +421,24 @@ void Floor::movePC(string direction, std::string race) {
             display[PC->getRow()+1][PC->getCol()+1] = '@';
             PC->addRow(1);
             PC->addCol(1);
+            this->PC->changeAction("PC moves Southeast");
         } else if (display[PC->getRow()+1][PC->getCol()+1] == '+') {
             display[PC->getRow()][PC->getCol()] = orig;
             orig = '+';
             display[PC->getRow()+1][PC->getCol()+1] = '@';
             PC->addRow(1);
             PC->addCol(1);
+            this->PC->changeAction("PC moves Southeast");
         } else if (display[PC->getRow()+1][PC->getCol()+1] == '#') {
             display[PC->getRow()][PC->getCol()] = orig;
             orig = '#';
             display[PC->getRow()+1][PC->getCol()+1] = '@';
             PC->addRow(1);
             PC->addCol(1);
-        } else if (display[PC->getRow()+1][PC->getCol()+1] == 'G') {
-            int goldNum = this->findGold(PC->getRow()+1, PC->getCol()+1);
-            if (this->golds[goldNum]->getPickable()) {
-                display[PC->getRow()][PC->getCol()] = orig;
-                orig = '.';
-                display[PC->getRow()+1][PC->getCol()+1] = '@';
-                PC->addRow(1);
-                PC->addCol(1);
-                this->PC->collectGold(this->golds[goldNum]->getGoldType());
-            } else {
-                throw Invalid;
-            }
+            this->PC->changeAction("PC moves Southeast");
         } else {
             throw Invalid;
         }
-        this->PC->changeAction("PC moves Southeast");
     } else if (direction == "sw") {
         if ((PC->getRow()+1 == stair->getRow() && PC->getCol()-1 == stair->getCol())){
             setFloor(race);
@@ -511,38 +448,29 @@ void Floor::movePC(string direction, std::string race) {
             display[PC->getRow()+1][PC->getCol()-1] = '@';
             PC->addRow(1);
             PC->addCol(-1);
+            this->PC->changeAction("PC moves Southwest");
         } else if (display[PC->getRow()+1][PC->getCol()-1] == '+') {
             display[PC->getRow()][PC->getCol()] = orig;
             orig = '+';
             display[PC->getRow()+1][PC->getCol()-1] = '@';
             PC->addRow(1);
             PC->addCol(-1);
+            this->PC->changeAction("PC moves Southwest");
         } else if (display[PC->getRow()+1][PC->getCol()-1] == '#') {
             display[PC->getRow()][PC->getCol()] = orig;
             orig = '#';
             display[PC->getRow()+1][PC->getCol()-1] = '@';
             PC->addRow(1);
             PC->addCol(-1);
-        } else if (display[PC->getRow()+1][PC->getCol()-1] == 'G') {
-            int goldNum = this->findGold(PC->getRow()+1, PC->getCol()-1);
-            if (this->golds[goldNum]->getPickable()) {
-                display[PC->getRow()][PC->getCol()] = '.';
-                orig = '.';
-                display[PC->getRow()+1][PC->getCol()-1] = '@';
-                PC->addRow(1);
-                PC->addCol(-1);
-                this->PC->collectGold(this->golds[goldNum]->getGoldType());
-            } else {
-                throw Invalid;
-            }
+            this->PC->changeAction("PC moves Southwest");
         } else {
             throw Invalid;
         }
-        this->PC->changeAction("PC moves Southwest");
     }
     randMoveAll();
     wasAttack();
     checkAround();
+
 }
 
 
@@ -1089,16 +1017,6 @@ void Floor::checkAround() {
 }
 
 
-int Floor::findGold(int row, int col) {
-    int goldAt = 0;
-    for (auto gold : this->golds) {
-        if ((gold->getRow() == row) &&(gold->getCol() == col)) {
-            return goldAt;
-        } else {
-            goldAt++;
-        }
-    }
-}
 std::ostream &operator<<(std::ostream &out, const Floor &g) {
    for (auto r : g.display) {
         for (auto c : r) {
