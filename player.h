@@ -22,6 +22,7 @@ class Player : public Character {
     // accessor
     bool getIsArmed();
     int getGoldTotal();
+    void collectGold(int goldType);
     std::string getAction();
     void changeAction(std::string action);
     void addAction(std::string newAct);

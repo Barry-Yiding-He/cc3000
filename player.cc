@@ -16,6 +16,29 @@ int Player::getGoldTotal() {
     return this->goldTotal;
 }
 
+void Player::collectGold(int goldType) {
+    if (goldType = 6) { 
+        this->goldTotal++;
+        std::string act = "collected 1 gold";
+        this->addAction(act);
+    }
+    if (goldType = 7) {
+        this->goldTotal += 2;
+        std::string act = "collected 2 golds";
+        this->addAction(act);
+    }
+    if (goldType = 8) {
+        this->goldTotal += 4;
+        std::string act = "collected 4 golds";
+        this->addAction(act);
+    }
+    if (goldType = 9) {
+        this->goldTotal += 6;
+        std::string act = "collected 6 golds";
+        this->addAction(act);
+    }
+}
+
 std::string Player::getAction() {
     return this->action;
 }
