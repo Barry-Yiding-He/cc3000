@@ -20,6 +20,15 @@ std::string Player::getAction() {
     return this->action;
 }
 
+void Player::changeAction(std::string action) {
+    this->action = action;
+}
+
+void Player::addAction(std::string newAct) {
+    this->action.append(" and ");
+    this->action.append(newAct);
+}
+
 Human::Human(int HP, int Atk, int Def, std::string race, char repChar, int row, int col, bool isArmed, int goldTotal)  : Player(HP, Atk, Def, race, repChar, row, col, isArmed, goldTotal){
 }
 

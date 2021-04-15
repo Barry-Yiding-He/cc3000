@@ -116,8 +116,8 @@ void Floor::setUpChamber() {
 
 
 void Floor::wasAttack() {
-    int luck = 0;
-    vector<int> index = {0,0,0,0,1,1,1,1};
+    int luck;
+    vector<int> index = {1,1,1,1};
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::default_random_engine rng{seed};
     std::shuffle(index.begin(), index.end(), rng);
@@ -128,29 +128,131 @@ void Floor::wasAttack() {
             if (e->getIsHostile() == true) {
                 if (display[e->getRow()-1][e->getCol()-1] == '@') {
                     e->attack(PC);
+                    stringstream ss;
+                    string s;
+                    ss << e->getRepChar();
+                    ss >> s;
+                    std::string atkAct = s;
+                    atkAct.append(" deals ");
+                    stringstream ss1;
+                    string s1;
+                    ss1 << e->getAtk();
+                    ss1 >> s1;
+                    atkAct.append(s1);
+                    atkAct.append(" damage to PC");
+                    this->PC->addAction(atkAct);
                 } else if (display[e->getRow()-1][e->getCol()] == '@') {
                     e->attack(PC);
+                    stringstream ss;
+                    string s;
+                    ss << e->getRepChar();
+                    ss >> s;
+                    std::string atkAct = s;
+                    atkAct.append(" deals ");
+                    stringstream ss1;
+                    string s1;
+                    ss1 << e->getAtk();
+                    ss1 >> s1;
+                    atkAct.append(s1);
+                    atkAct.append(" damage to PC");
+                    this->PC->addAction(atkAct);
                 } else if (display[e->getRow()-1][e->getCol()+1] == '@') {
                     e->attack(PC);
+                    stringstream ss;
+                    string s;
+                    ss << e->getRepChar();
+                    ss >> s;
+                    std::string atkAct = s;
+                    atkAct.append(" deals ");
+                    stringstream ss1;
+                    string s1;
+                    ss1 << e->getAtk();
+                    ss1 >> s1;
+                    atkAct.append(s1);
+                    atkAct.append(" damage to PC");
+                    this->PC->addAction(atkAct);
                 } else if (display[e->getRow()][e->getCol()-1] == '@') {
                     e->attack(PC);
+                    stringstream ss;
+                    string s;
+                    ss << e->getRepChar();
+                    ss >> s;
+                    std::string atkAct = s;
+                    atkAct.append(" deals ");
+                    stringstream ss1;
+                    string s1;
+                    ss1 << e->getAtk();
+                    ss1 >> s1;
+                    atkAct.append(s1);
+                    atkAct.append(" damage to PC");
+                    this->PC->addAction(atkAct);
                 } else if (display[e->getRow()][e->getCol()+1] == '@') {
                     e->attack(PC);
+                    stringstream ss;
+                    string s;
+                    ss << e->getRepChar();
+                    ss >> s;
+                    std::string atkAct = s;
+                    atkAct.append(" deals ");
+                    stringstream ss1;
+                    string s1;
+                    ss1 << e->getAtk();
+                    ss1 >> s1;
+                    atkAct.append(s1);
+                    atkAct.append(" damage to PC");
+                    this->PC->addAction(atkAct);
                 } else if (display[e->getRow()+1][e->getCol()-1] == '@') {
                     e->attack(PC);
+                    stringstream ss;
+                    string s;
+                    ss << e->getRepChar();
+                    ss >> s;
+                    std::string atkAct = s;
+                    atkAct.append(" deals ");
+                    stringstream ss1;
+                    string s1;
+                    ss1 << e->getAtk();
+                    ss1 >> s1;
+                    atkAct.append(s1);
+                    atkAct.append(" damage to PC");
+                    this->PC->addAction(atkAct);
                 } else if (display[e->getRow()+1][e->getCol()] == '@') {
                     e->attack(PC);
+                    stringstream ss;
+                    string s;
+                    ss << e->getRepChar();
+                    ss >> s;
+                    std::string atkAct = s;
+                    atkAct.append(" deals ");
+                    stringstream ss1;
+                    string s1;
+                    ss1 << e->getAtk();
+                    ss1 >> s1;
+                    atkAct.append(s1);
+                    atkAct.append(" damage to PC");
+                    this->PC->addAction(atkAct);
                 } else if (display[e->getRow()+1][e->getCol()+1] == '@') {
                     e->attack(PC);
+                    stringstream ss;
+                    string s;
+                    ss << e->getRepChar();
+                    ss >> s;
+                    std::string atkAct = s;
+                    atkAct.append(" deals ");
+                    stringstream ss1;
+                    string s1;
+                    ss1 << e->getAtk();
+                    ss1 >> s1;
+                    atkAct.append(s1);
+                    atkAct.append(" damage to PC");
+                    this->PC->addAction(atkAct);
                 }
             }
         }
+        std::shuffle(index.begin(), index.end(), rng);
+        luck = index[0];
     }
 }
-
-
-
-
 
 
 void Floor::movePC(string direction, std::string race) {
@@ -177,6 +279,7 @@ void Floor::movePC(string direction, std::string race) {
         } else {
             throw Invalid;
         }
+        this->PC->changeAction("PC moves North");
     } else if (direction == "so") {
         if ((PC->getRow()+1 == stair->getRow() && PC->getCol() == stair->getCol())){
             setFloor(race);
@@ -198,6 +301,7 @@ void Floor::movePC(string direction, std::string race) {
         } else {
             throw Invalid;
         }
+        this->PC->changeAction("PC moves South");
     } else if (direction == "we") {
         if ((PC->getRow() == stair->getRow() && PC->getCol()-1 == stair->getCol())){
             setFloor(race);
@@ -219,6 +323,7 @@ void Floor::movePC(string direction, std::string race) {
         } else {
             throw Invalid;
         }
+        this->PC->changeAction("PC moves West");
     } else if (direction == "ea") {
         if ((PC->getRow() == stair->getRow() && PC->getCol()+1 == stair->getCol())){
             setFloor(race);
@@ -240,6 +345,7 @@ void Floor::movePC(string direction, std::string race) {
         } else {
             throw Invalid;
         }
+        this->PC->changeAction("PC moves East");
     } else if (direction == "ne") {
         if ((PC->getRow()-1 == stair->getRow() && PC->getCol()+1 == stair->getCol())){
             setFloor(race);
@@ -264,6 +370,7 @@ void Floor::movePC(string direction, std::string race) {
         } else {
             throw Invalid;
         }
+        this->PC->changeAction("PC moves Northeast");
     } else if (direction == "nw") {
         if ((PC->getRow()-1 == stair->getRow() && PC->getCol()-1 == stair->getCol())){
             setFloor(race);
@@ -288,6 +395,7 @@ void Floor::movePC(string direction, std::string race) {
         } else {
             throw Invalid;
         }
+        this->PC->changeAction("PC moves Northwest");
     } else if (direction == "se") {
         if ((PC->getRow()+1 == stair->getRow() && PC->getCol()+1 == stair->getCol())){
             setFloor(race);
@@ -312,6 +420,7 @@ void Floor::movePC(string direction, std::string race) {
         } else {
             throw Invalid;
         }
+        this->PC->changeAction("PC moves Southeast");
     } else if (direction == "sw") {
         if ((PC->getRow()+1 == stair->getRow() && PC->getCol()-1 == stair->getCol())){
             setFloor(race);
@@ -336,6 +445,7 @@ void Floor::movePC(string direction, std::string race) {
         } else {
             throw Invalid;
         }
+        this->PC->changeAction("PC moves Southwest");
     }
     wasAttack();
 }
@@ -355,9 +465,6 @@ void Floor::setFloor(std::string race) {
 
 
 void Floor::generatePC(std::string race) {
-    // we just set a default PC at a specific point here; random later
-    /*int r = 5;
-    int c = 6; */
 
     Coordinate coor = getRandomCoorinate();
     int r = coor.row;

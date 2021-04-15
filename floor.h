@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <random>
 #include <chrono>
+#include <sstream>
 
 struct Coordinate {
     public:

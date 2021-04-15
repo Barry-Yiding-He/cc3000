@@ -27,5 +27,6 @@ char Enemy::getChar() {
 void Enemy::attack(std::shared_ptr<Player> &PC) {
     int damage = this->getCurAtk();
     PC->loseHP(damage);
+    
 }
 

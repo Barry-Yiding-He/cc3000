@@ -11,7 +11,7 @@ class Player : public Character {
     protected:
     bool isArmed; // used to  show weather player is wearing the suit
     int goldTotal = 0; // used to show the total amount of the gold player have
-    std::string action; // store the action
+    std::string action = "Player character has spawned"; // store the action
 
     public:
     // constructer and destructor
@@ -23,6 +23,8 @@ class Player : public Character {
     bool getIsArmed();
     int getGoldTotal();
     std::string getAction();
+    void changeAction(std::string action);
+    void addAction(std::string newAct);
     
 };
 

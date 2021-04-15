@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
         }
         cout << f;
         cout << "'@' is your current location. Right now you are able to move, good luck!" << endl;
-        //exit(1);
+         //exit(1);
         while (cin >> cmd) {
             try {
                 if (cmd == "move") {
@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
                         }
                             cout << endl;
 	                }
-
+                   
                     while (true) {
                         cin >> cmd;
                         if (cmd == "no"|| cmd == "so"|| cmd == "ea"|| cmd == "we"||
@@ -68,6 +68,10 @@ int main(int argc, char *argv[]) {
                                 cout << "(no|so|ea|we|ne|nw|se|sw)" << endl;
                             }
                     }
+                }
+
+                if (cmd == "quit") {
+                    return 1;
                 }
             } catch (InvalidCommand) { 
                 cout << "Invalid Command" << endl;
