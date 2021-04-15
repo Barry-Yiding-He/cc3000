@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
             }
         }
         cout << f;
-        cout << "'@' is your current location. Right now you are able to move, good luck!" << endl;
+        cout << "'@' is your current location. Right now you are able to start your adventure, good luck!" << endl;
          //exit(1);
         while (cin >> cmd) {
             try {
