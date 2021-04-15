@@ -70,7 +70,10 @@ class Floor {
     void randMoveAll();
     
     // drink potion
+    std::shared_ptr<Potion> findPotion(int row, int col);
     void drinkPotion();
+    void usePotion(std::shared_ptr<Potion> p);
+    
 
 
 

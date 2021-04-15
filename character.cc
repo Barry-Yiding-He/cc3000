@@ -98,3 +98,29 @@ Character::Character(int HP, int Atk, int Def,
     HP{HP}, curHP{HP}, Atk{Atk}, curAtk{Atk}, Def{Def}, curDef{Def}, race{race}, repChar{repChar}, atRow{row}, atCol{col} {}
 
 Character::~Character() {}
+
+
+
+
+void Character::setCurHP(int i) {
+    curHP += i;
+    if (curHP > HP) {
+        curHP = HP;
+    } else if (curHP < 0) {
+        curHP = 0;
+    }
+}
+
+void Character::setCurAtk(int i) {
+    curAtk += i;
+    if (curAtk < 0) {
+        curAtk = 0;
+    }
+}
+
+void Character::setCurDef(int i) {
+    curDef += i;
+    if (curDef < 0) {
+        curDef = 0;
+    }
+}

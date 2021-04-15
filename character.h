@@ -36,6 +36,9 @@ class Character {
     void setCol(int pos);
     std::string getRace();
     char getRepChar();
+    void setCurHP(int i);
+    void setCurAtk(int i);
+    void setCurDef(int i);
     
 
     // Fun for drink Potion/fight

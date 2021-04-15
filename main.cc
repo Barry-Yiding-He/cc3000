@@ -69,6 +69,11 @@ int main(int argc, char *argv[]) {
                             }
                     }
                 }
+                
+                if (cmd == "drink") {
+                    f.drinkPotion();
+                    cout << f;
+                }
 
                 if (cmd == "quit") {
                     return 1;

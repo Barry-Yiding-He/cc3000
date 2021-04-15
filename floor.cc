@@ -1149,7 +1149,6 @@ int Floor::findGold(int row, int col) {
     }
 }
 
-
 std::ostream &operator<<(std::ostream &out, const Floor &g) {
    for (auto r : g.display) {
         for (auto c : r) {
@@ -1198,7 +1197,6 @@ void Floor::randMove(shared_ptr<Enemy> e) {
             }
         }
     }
-    
 }
 
 
@@ -1207,3 +1205,114 @@ void Floor::randMoveAll() {
         randMove(e);
     }
 }
+
+shared_ptr<Potion> Floor::findPotion(int row, int col) {
+    for (auto p : potions) {
+        if (p->getRow() == row && p->getCol() == col) {
+            return p;
+        }
+    }
+    return nullptr;
+}
+
+void Floor::usePotion(shared_ptr<Potion> p) {
+    
+    if (p->getPotionType() == 0) {
+        PC->setCurHP(10);
+        PC->changeAction("Restore health (RH): restore up 10 HP");
+    } else if (p->getPotionType() == 1) {
+        PC->setCurAtk(5);
+        PC->changeAction("Boost Atk (BA): increase Atk by 5");
+    } else if (p->getPotionType() == 2) {
+        PC->setCurDef(5);
+        PC->changeAction("Boost Def (BD): increase Def by 5");
+    } else if (p->getPotionType() == 3) {
+        PC->setCurHP(-10);
+        PC->changeAction("Poison health (PH): lose up to 10 HP (cannot fall below 0 HP)");
+    } else if (p->getPotionType() == 4) {
+        PC->setCurAtk(-5);
+        PC->changeAction("Wound Atk (WA): decrease Atk by 5");
+    } else if (p->getPotionType() == 5) {
+        PC->setCurDef(-5);
+        PC->changeAction("Wound Def (WD): decrease Def by 5");
+    }
+    
+    display[p->getRow()][p->getCol()] = '.';
+    
+}
+
+
+void Floor::drinkPotion() {
+    string direction;
+    cout << "please give the direction of the potion you want to use (no|so|ea|we|ne|nw|se|sw): ";
+    cin >> direction;
+    if (direction == "no") {
+        shared_ptr<Potion> p = findPotion(PC->getRow()-1, PC->getCol());
+        if (display[PC->getRow()-1][PC->getCol()] != 'P') {
+            cout << "Sorry, no potion in the no!" << endl;
+            return;
+        } else {
+            usePotion(p);
+        }
+    } else if (direction == "so") {
+        shared_ptr<Potion> p = findPotion(PC->getRow()+1, PC->getCol());
+        if (display[PC->getRow()+1][PC->getCol()] != 'P') {
+            cout << "Sorry, no potion in the so!" << endl;
+            return;
+        } else {
+            usePotion(p);
+        }
+    } else if (direction == "we") {
+        shared_ptr<Potion> p = findPotion(PC->getRow(), PC->getCol()-1);
+        if (display[PC->getRow()][PC->getCol()-1] != 'P') {
+            cout << "Sorry, no potion in the " << direction << "!" << endl;
+            return;
+        } else {
+            usePotion(p);
+        }
+    } else if (direction == "ea") {
+        shared_ptr<Potion> p = findPotion(PC->getRow(), PC->getCol()+1);
+        if (display[PC->getRow()][PC->getCol()+1] != 'P') {
+            cout << "Sorry, no potion in the " << direction << "!" << endl;
+            return;
+        } else {
+            usePotion(p);
+        }
+    } else if (direction == "nw") {
+        shared_ptr<Potion> p = findPotion(PC->getRow()-1, PC->getCol()-1);
+        if (display[PC->getRow()-1][PC->getCol()-1] != 'P') {
+            cout << "Sorry, no potion in the " << direction << "!" << endl;
+            return;
+        } else {
+            usePotion(p);
+        }
+    } else if (direction == "ne") {
+        shared_ptr<Potion> p = findPotion(PC->getRow()-1, PC->getCol()+1);
+        if (display[PC->getRow()-1][PC->getCol()+1] != 'P') {
+            cout << "Sorry, no potion in the " << direction << "!" << endl;
+            return;
+        } else {
+            usePotion(p);
+        }
+    } else if (direction == "sw") {
+        shared_ptr<Potion> p = findPotion(PC->getRow()+1, PC->getCol()-1);
+        if (display[PC->getRow()+1][PC->getCol()-1] != 'P') {
+            cout << "Sorry, no potion in the " << direction << "!" << endl;
+            return;
+        } else {
+            usePotion(p);
+        }
+    } else if (direction == "se") {
+        shared_ptr<Potion> p = findPotion(PC->getRow()+1, PC->getCol()+1);
+        if (display[PC->getRow()+1][PC->getCol()+1] != 'P') {
+            cout << "Sorry, no potion in the " << direction << "!" << endl;
+            return;
+        } else {
+            usePotion(p);
+        }
+    }
+    
+}
+
+
+
