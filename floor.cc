@@ -269,12 +269,14 @@ void Floor::movePC(string direction, std::string race) {
             orig = '.';
             display[PC->getRow()-1][PC->getCol()] = '@';
             PC->addRow(-1);
+            this->PC->changeAction("PC moves North");
         } else if (display[PC->getRow()-1][PC->getCol()] == '+') {
             this->PC->changeAction("PC moves North");
             display[PC->getRow()][PC->getCol()] = orig;
             orig = '+';
             display[PC->getRow()-1][PC->getCol()] = '@';
             PC->addRow(-1);
+            this->PC->changeAction("PC moves North");
         } else if (display[PC->getRow()-1][PC->getCol()] == '#') {
             this->PC->changeAction("PC moves North");
             display[PC->getRow()][PC->getCol()] = orig;
@@ -306,12 +308,14 @@ void Floor::movePC(string direction, std::string race) {
             orig = '.';
             display[PC->getRow()+1][PC->getCol()] = '@';
             PC->addRow(1);
+            this->PC->changeAction("PC moves South");
         } else if (display[PC->getRow()+1][PC->getCol()] == '+') {
             this->PC->changeAction("PC moves South");
             display[PC->getRow()][PC->getCol()] = orig;
             orig = '+';
             display[PC->getRow()+1][PC->getCol()] = '@';
             PC->addRow(1);
+            this->PC->changeAction("PC moves South");
         } else if (display[PC->getRow()+1][PC->getCol()] == '#') {
             this->PC->changeAction("PC moves South");
             display[PC->getRow()][PC->getCol()] = orig;
@@ -343,12 +347,14 @@ void Floor::movePC(string direction, std::string race) {
             orig = '.';
             display[PC->getRow()][PC->getCol()-1] = '@';
             PC->addCol(-1);
+            this->PC->changeAction("PC moves West");
         } else if (display[PC->getRow()][PC->getCol()-1] == '+') {
             this->PC->changeAction("PC moves West");
             display[PC->getRow()][PC->getCol()] = orig;
             orig = '+';
             display[PC->getRow()][PC->getCol()-1] = '@';
             PC->addCol(-1);
+            this->PC->changeAction("PC moves West");
         } else if (display[PC->getRow()][PC->getCol()-1] == '#') {
             this->PC->changeAction("PC moves West");
             display[PC->getRow()][PC->getCol()] = orig;
@@ -380,12 +386,14 @@ void Floor::movePC(string direction, std::string race) {
             orig = '.';
             display[PC->getRow()][PC->getCol()+1] = '@';
             PC->addCol(1);
+            this->PC->changeAction("PC moves East");
         } else if (display[PC->getRow()][PC->getCol()+1] == '+') {
             this->PC->changeAction("PC moves East");
             display[PC->getRow()][PC->getCol()] = orig;
             orig = '+';
             display[PC->getRow()][PC->getCol()+1] = '@';
             PC->addCol(1);
+            this->PC->changeAction("PC moves East");
         } else if (display[PC->getRow()][PC->getCol()+1] == '#') {
             this->PC->changeAction("PC moves East");
             display[PC->getRow()][PC->getCol()] = orig;
@@ -418,6 +426,7 @@ void Floor::movePC(string direction, std::string race) {
             display[PC->getRow()-1][PC->getCol()+1] = '@';
             PC->addRow(-1);
             PC->addCol(1);
+            this->PC->changeAction("PC moves Northeast");
         } else if (display[PC->getRow()-1][PC->getCol()+1] == '+') {
             this->PC->changeAction("PC moves Northeast");
             display[PC->getRow()][PC->getCol()] = orig;
@@ -425,6 +434,7 @@ void Floor::movePC(string direction, std::string race) {
             display[PC->getRow()-1][PC->getCol()+1] = '@';
             PC->addRow(-1);
             PC->addCol(1);
+            this->PC->changeAction("PC moves Northeast");
         } else if (display[PC->getRow()-1][PC->getCol()+1] == '#') {
             this->PC->changeAction("PC moves Northeast");
             display[PC->getRow()][PC->getCol()] = orig;
@@ -459,6 +469,7 @@ void Floor::movePC(string direction, std::string race) {
             display[PC->getRow()-1][PC->getCol()-1] = '@';
             PC->addRow(-1);
             PC->addCol(-1);
+            this->PC->changeAction("PC moves Northwest");
         } else if (display[PC->getRow()-1][PC->getCol()-1] == '+') {
             this->PC->changeAction("PC moves Northwest");
             display[PC->getRow()][PC->getCol()] = orig;
@@ -466,6 +477,7 @@ void Floor::movePC(string direction, std::string race) {
             display[PC->getRow()-1][PC->getCol()-1] = '@';
             PC->addRow(-1);
             PC->addCol(-1);
+            this->PC->changeAction("PC moves Northwest");
         } else if (display[PC->getRow()-1][PC->getCol()-1] == '#') {
             this->PC->changeAction("PC moves Northwest");
             display[PC->getRow()][PC->getCol()] = orig;
@@ -500,6 +512,7 @@ void Floor::movePC(string direction, std::string race) {
             display[PC->getRow()+1][PC->getCol()+1] = '@';
             PC->addRow(1);
             PC->addCol(1);
+            this->PC->changeAction("PC moves Southeast");
         } else if (display[PC->getRow()+1][PC->getCol()+1] == '+') {
             this->PC->changeAction("PC moves Southeast");
             display[PC->getRow()][PC->getCol()] = orig;
@@ -507,6 +520,7 @@ void Floor::movePC(string direction, std::string race) {
             display[PC->getRow()+1][PC->getCol()+1] = '@';
             PC->addRow(1);
             PC->addCol(1);
+            this->PC->changeAction("PC moves Southeast");
         } else if (display[PC->getRow()+1][PC->getCol()+1] == '#') {
             this->PC->changeAction("PC moves Southeast");
             display[PC->getRow()][PC->getCol()] = orig;
@@ -541,6 +555,7 @@ void Floor::movePC(string direction, std::string race) {
             display[PC->getRow()+1][PC->getCol()-1] = '@';
             PC->addRow(1);
             PC->addCol(-1);
+            this->PC->changeAction("PC moves Southwest");
         } else if (display[PC->getRow()+1][PC->getCol()-1] == '+') {
             this->PC->changeAction("PC moves Southwest");
             display[PC->getRow()][PC->getCol()] = orig;
@@ -548,6 +563,7 @@ void Floor::movePC(string direction, std::string race) {
             display[PC->getRow()+1][PC->getCol()-1] = '@';
             PC->addRow(1);
             PC->addCol(-1);
+            this->PC->changeAction("PC moves Southwest");
         } else if (display[PC->getRow()+1][PC->getCol()-1] == '#') {
             this->PC->changeAction("PC moves Southwest");
             display[PC->getRow()][PC->getCol()] = orig;
@@ -572,9 +588,10 @@ void Floor::movePC(string direction, std::string race) {
             throw Invalid;
         }
     }
-    randMoveAll();
+   // randMoveAll();
     wasAttack();
     checkAround();
+
 }
 
 
@@ -1122,15 +1139,17 @@ void Floor::checkAround() {
 
 
 int Floor::findGold(int row, int col) {
-    int goldAt = 0;
+    int goldNum = 0;
     for (auto gold : this->golds) {
-        if ((gold->getRow() == row) &&(gold->getCol() == col)) {
-            return goldAt;
+        if((gold->getRow() == row) && (gold->getCol() == col)) {
+            return goldNum;
         } else {
-            goldAt++;
+            goldNum++;
         }
-    }
+    } 
 }
+
+
 std::ostream &operator<<(std::ostream &out, const Floor &g) {
    for (auto r : g.display) {
         for (auto c : r) {
@@ -1150,7 +1169,7 @@ std::ostream &operator<<(std::ostream &out, const Floor &g) {
 
 
 
-void Floor::randMove(shared_ptr<Enemy> e) {
+/*void Floor::randMove(shared_ptr<Enemy> e) {
     vector<int> index1 = {-1,0,1};
     vector<int> index2 = {-1,0,1};
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
@@ -1185,3 +1204,4 @@ void Floor::randMoveAll() {
         randMove(e);
     }
 }
+*/
