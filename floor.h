@@ -63,6 +63,10 @@ class Floor {
     
     // PC was randomly attacked
     void wasAttack();
+    
+    // random move one
+    void randMove(std::shared_ptr<Enemy> e);
+    void randMoveAll();
 
 
 
