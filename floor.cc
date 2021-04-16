@@ -306,6 +306,13 @@ void Floor::movePC(string direction, std::string race) {
             } else {
                 throw Invalid;
             }
+        } else if (display[PC->getRow()-1][PC->getCol()] == 'C') {
+            this->PC->changeAction("PC moves South and picked up the Compass, the stair to the next floor has shown");
+            display[PC->getRow()][PC->getCol()] = orig;
+            orig = '.';
+            display[PC->getRow()-1][PC->getCol()] = '@';
+            PC->addRow(-1);
+            display[this->stair->getRow()][this->stair->getCol()] = '\\';
         } else {
             throw Invalid;
         }
@@ -356,6 +363,13 @@ void Floor::movePC(string direction, std::string race) {
             } else {
                 throw Invalid;
             }
+        } else if (display[PC->getRow()+1][PC->getCol()] == 'C') {
+            this->PC->changeAction("PC moves South and picked up the Compass, the stair to the next floor has shown");
+            display[PC->getRow()][PC->getCol()] = orig;
+            orig = '.';
+            display[PC->getRow()+1][PC->getCol()] = '@';
+            PC->addRow(1);
+            display[this->stair->getRow()][this->stair->getCol()] = '\\';
         } else {
             throw Invalid;
         }
@@ -406,6 +420,13 @@ void Floor::movePC(string direction, std::string race) {
             } else {
                 throw Invalid;
             }
+        } else if (display[PC->getRow()][PC->getCol()-1] == 'C') {
+            this->PC->changeAction("PC moves South and picked up the Compass, the stair to the next floor has shown");
+            display[PC->getRow()][PC->getCol()] = orig;
+            orig = '.';
+            display[PC->getRow()][PC->getCol()-1] = '@';
+            PC->addCol(-1);
+            display[this->stair->getRow()][this->stair->getCol()] = '\\';
         } else {
             throw Invalid;
         }
@@ -456,6 +477,13 @@ void Floor::movePC(string direction, std::string race) {
             } else {
                 throw Invalid;
             }
+        } else if (display[PC->getRow()][PC->getCol()+1] == 'C') {
+            this->PC->changeAction("PC moves South and picked up the Compass, the stair to the next floor has shown");
+            display[PC->getRow()][PC->getCol()] = orig;
+            orig = '.';
+            display[PC->getRow()][PC->getCol()+1] = '@';
+            PC->addCol(1);
+            display[this->stair->getRow()][this->stair->getCol()] = '\\';
         } else {
             throw Invalid;
         }
@@ -511,6 +539,14 @@ void Floor::movePC(string direction, std::string race) {
             } else {
                 throw Invalid;
             }
+        } else if (display[PC->getRow()-1][PC->getCol()+1] == 'C') {
+            this->PC->changeAction("PC moves South and picked up the Compass, the stair to the next floor has shown");
+            display[PC->getRow()][PC->getCol()] = orig;
+            orig = '.';
+            display[PC->getRow()-1][PC->getCol()+1] = '@';
+            PC->addRow(-1);
+            PC->addCol(1);
+            display[this->stair->getRow()][this->stair->getCol()] = '\\';
         } else {
             throw Invalid;
         }
@@ -566,6 +602,14 @@ void Floor::movePC(string direction, std::string race) {
             } else {
                 throw Invalid;
             }
+        } else if (display[PC->getRow()-1][PC->getCol()-1] == 'C') {
+            this->PC->changeAction("PC moves South and picked up the Compass, the stair to the next floor has shown");
+            display[PC->getRow()][PC->getCol()] = orig;
+            orig = '.';
+            display[PC->getRow()-1][PC->getCol()-1] = '@';
+            PC->addRow(-1);
+            PC->addCol(-1);
+            display[this->stair->getRow()][this->stair->getCol()] = '\\';
         } else {
             throw Invalid;
         }
@@ -621,7 +665,15 @@ void Floor::movePC(string direction, std::string race) {
             } else {
                 throw Invalid;
             }
-        } else {
+        } else if (display[PC->getRow()+1][PC->getCol()+1] == 'C') {
+            this->PC->changeAction("PC moves South and picked up the Compass, the stair to the next floor has shown");
+            display[PC->getRow()][PC->getCol()] = orig;
+            orig = '.';
+            display[PC->getRow()+1][PC->getCol()+1] = '@';
+            PC->addRow(1);
+            PC->addCol(1);
+            display[this->stair->getRow()][this->stair->getCol()] = '\\';
+        }else {
             throw Invalid;
         }
     } else if (direction == "sw") {
@@ -676,6 +728,14 @@ void Floor::movePC(string direction, std::string race) {
             } else {
                 throw Invalid;
             }
+        } else if (display[PC->getRow()+1][PC->getCol()-1] == 'C') {
+            this->PC->changeAction("PC moves South and picked up the Compass, the stair to the next floor has shown");
+            display[PC->getRow()][PC->getCol()] = orig;
+            orig = '.';
+            display[PC->getRow()+1][PC->getCol()-1] = '@';
+            PC->addRow(+1);
+            PC->addCol(-1);
+            display[this->stair->getRow()][this->stair->getCol()] = '\\';
         } else {
             throw Invalid;
         }
@@ -971,7 +1031,7 @@ void Floor::checkAround() {
         goldNum++;
     } else if (display[r][c] == 'B') {
         BSNum++; 
-    } else if (display[r][c] == '/') {
+    } else if (display[r][c] == '\\') {
         staNum++;
     } else if (display[r][c] == '+') {
         passNum++;
@@ -994,7 +1054,7 @@ void Floor::checkAround() {
         goldNum++;
     } else if (display[r][c] == 'B') {
         BSNum++; 
-    } else if (display[r][c] == '/') {
+    } else if (display[r][c] == '\\') {
         staNum++;
     } else if (display[r][c] == '+') {
         passNum++;
@@ -1017,7 +1077,7 @@ void Floor::checkAround() {
         goldNum++;
     } else if (display[r][c] == 'B') {
         BSNum++; 
-    } else if (display[r][c] == '/') {
+    } else if (display[r][c] == '\\') {
         staNum++;
     } else if (display[r][c] == '+') {
         passNum++;
@@ -1040,7 +1100,7 @@ void Floor::checkAround() {
         goldNum++;
     } else if (display[r][c] == 'B') {
         BSNum++; 
-    } else if (display[r][c] == '/') {
+    } else if (display[r][c] == '\\') {
         staNum++;
     } else if (display[r][c] == '+') {
         passNum++;
@@ -1063,7 +1123,7 @@ void Floor::checkAround() {
         goldNum++;
     } else if (display[r][c] == 'B') {
         BSNum++; 
-    } else if (display[r][c] == '/') {
+    } else if (display[r][c] == '\\') {
         staNum++;
     } else if (display[r][c] == '+') {
         passNum++;
@@ -1086,7 +1146,7 @@ void Floor::checkAround() {
         goldNum++;
     } else if (display[r][c] == 'B') {
         BSNum++; 
-    } else if (display[r][c] == '/') {
+    } else if (display[r][c] == '\\') {
         staNum++;
     } else if (display[r][c] == '+') {
         passNum++;
@@ -1109,7 +1169,7 @@ void Floor::checkAround() {
         goldNum++;
     } else if (display[r][c] == 'B') {
         BSNum++; 
-    } else if (display[r][c] == '/') {
+    } else if (display[r][c] == '\\') {
         staNum++;
     } else if (display[r][c] == '+') {
         passNum++;
@@ -1132,7 +1192,7 @@ void Floor::checkAround() {
         goldNum++;
     } else if (display[r][c] == 'B') {
         BSNum++; 
-    } else if (display[r][c] == '/') {
+    } else if (display[r][c] == '\\') {
         staNum++;
     } else if (display[r][c] == '+') {
         passNum++;

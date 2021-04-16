@@ -3,7 +3,7 @@
 Stair::Stair(int Row, int Col) {
     this->atRow = Row;
     this->atCol = Col;
-    this->StairDisplayer = false;
+    //this->StairDisplayer = false;
 }
 
 Stair::~Stair() {}
@@ -18,9 +18,9 @@ int Stair::getCol() {
 }
 
 
-bool Stair::getStairDisplayer() {
-    return this->StairDisplayer;
-}
+//bool Stair::getStairDisplayer() {
+   // return this->StairDisplayer;
+//}
 
 bool Stair::isSameCoor(int r, int c) {
     if ((this->atRow == r) && (this->atCol == c)) return true;

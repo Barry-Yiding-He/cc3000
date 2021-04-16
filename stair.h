@@ -10,7 +10,7 @@ class Stair {
 
     int atRow = 0; // store the row number 
     int atCol = 0; // store the col number 
-    bool StairDisplayer;  // used to show when PC has compass
+    //bool StairDisplayer;  // used to show when PC has compass
 
     public:
     // constructer and destructor
@@ -20,8 +20,8 @@ class Stair {
     // accessor
     int getRow();
     int getCol();
-    bool getStairDisplayer();
-    bool isSameCoor(int r, int c); // used to check if the given r and c are same coordinate
+    //bool getStairDisplayer();
+    bool isSameCoor(int  r, int c); // used to check if the given r and c are same coordinate
                                    // with stair;
 
 

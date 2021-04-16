@@ -33,11 +33,12 @@ class Floor {
     std::vector<std::shared_ptr<Potion>> potions; // 10
     std::vector<std::shared_ptr<Gold>> golds; // 10
     std::shared_ptr<BarrierSuit> barrierSuit;
+    //std::shared_ptr<BarrierSuit> compass;
     std::vector<std::shared_ptr<Chamber>> chambers;
     char orig = '.';
     public:
     // constructor
-    Floor(std::string map = "map.txt"); //////////////////////////
+    Floor(std::string map = "map.txt"); 
 
     // generate component of the game
     struct Coordinate getRandomCoorinate();
