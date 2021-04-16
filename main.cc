@@ -69,8 +69,13 @@ int main(int argc, char *argv[]) {
                             if (cmd == "no"|| cmd == "so"|| cmd == "ea"|| cmd == "we"||
                                 cmd == "ne"|| cmd == "nw"|| cmd == "se"|| cmd == "sw"){
                                     f.movePC(cmd, playerRace);
-                                    cout << f;
-                                    break;
+                                    if (f.isWin()) {
+                                        
+                                    }
+                                    else {
+                                        cout << f;
+                                        break;
+                                    }
                                 } else {
                                     cout << "Invalid direction, Please choose from the following" << endl;
                                     cout << "(no|so|ea|we|ne|nw|se|sw)" << endl;
