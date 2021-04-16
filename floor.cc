@@ -262,6 +262,8 @@ void Floor::movePC(string direction, std::string race) {
     if (direction == "no") {
         if ((PC->getRow()-1 == stair->getRow() && PC->getCol() == stair->getCol())){
             this->PC->changeAction("PC moves to the next Floor");
+            PC->addRow(-1);
+            clearFloor();
             setFloor(race);
         } else if (display[PC->getRow()-1][PC->getCol()] == '.') {
             this->PC->changeAction("PC moves North");
@@ -319,6 +321,8 @@ void Floor::movePC(string direction, std::string race) {
     } else if (direction == "so") {
         if ((PC->getRow()+1 == stair->getRow() && PC->getCol() == stair->getCol())){
             this->PC->changeAction("PC moves to the next Floor");
+            PC->addRow(1);
+            clearFloor();
             setFloor(race);
         } else if (display[PC->getRow()+1][PC->getCol()] == '.') {
             this->PC->changeAction("PC moves South");
@@ -376,6 +380,8 @@ void Floor::movePC(string direction, std::string race) {
     } else if (direction == "we") {
         if ((PC->getRow() == stair->getRow() && PC->getCol()-1 == stair->getCol())){
             this->PC->changeAction("PC moves to the next Floor");
+            PC->addCol(-1);
+            clearFloor();
             setFloor(race);
         } else if (display[PC->getRow()][PC->getCol()-1] == '.') {
             this->PC->changeAction("PC moves West");
@@ -433,6 +439,8 @@ void Floor::movePC(string direction, std::string race) {
     } else if (direction == "ea") {
         if ((PC->getRow() == stair->getRow() && PC->getCol()+1 == stair->getCol())){
             this->PC->changeAction("PC moves to the next Floor");
+            PC->addCol(1);
+            clearFloor();
             setFloor(race);
         } else if (display[PC->getRow()][PC->getCol()+1] == '.') {
             this->PC->changeAction("PC moves East");
@@ -490,6 +498,9 @@ void Floor::movePC(string direction, std::string race) {
     } else if (direction == "ne") {
         if ((PC->getRow()-1 == stair->getRow() && PC->getCol()+1 == stair->getCol())){
             this->PC->changeAction("PC moves to the next Floor");
+            PC->addRow(-1);
+            PC->addCol(1);
+            clearFloor();
             setFloor(race);
         } else if (display[PC->getRow()-1][PC->getCol()+1] == '.') {
             this->PC->changeAction("PC moves Northeast");
@@ -553,6 +564,9 @@ void Floor::movePC(string direction, std::string race) {
     } else if (direction == "nw") {
         if ((PC->getRow()-1 == stair->getRow() && PC->getCol()-1 == stair->getCol())){
             this->PC->changeAction("PC moves to the next Floor");
+            PC->addRow(-1);
+            PC->addCol(-1);
+            clearFloor();
             setFloor(race);
         } else if (display[PC->getRow()-1][PC->getCol()-1] == '.') {
             this->PC->changeAction("PC moves Northwest");
@@ -616,6 +630,9 @@ void Floor::movePC(string direction, std::string race) {
     } else if (direction == "se") {
         if ((PC->getRow()+1 == stair->getRow() && PC->getCol()+1 == stair->getCol())){
             this->PC->changeAction("PC moves to the next Floor");
+            PC->addRow(1);
+            PC->addCol(1);
+            clearFloor();
             setFloor(race);
         } else if (display[PC->getRow()+1][PC->getCol()+1] == '.') {
             this->PC->changeAction("PC moves Southeast");
@@ -679,6 +696,9 @@ void Floor::movePC(string direction, std::string race) {
     } else if (direction == "sw") {
         if ((PC->getRow()+1 == stair->getRow() && PC->getCol()-1 == stair->getCol())){
             this->PC->changeAction("PC moves to the next Floor");
+            PC->addRow(1);
+            PC->addCol(-1);
+            clearFloor();
             setFloor(race);
         } else if (display[PC->getRow()+1][PC->getCol()-1] == '.') {
             this->PC->changeAction("PC moves Southwest");
@@ -751,13 +771,35 @@ void Floor::movePC(string direction, std::string race) {
 void Floor::setFloor(std::string race) {
     this->dragonGoldNum = 0;
     this->floorNum++;
-    generatePC(race); 
+    if (this->floorNum == 1) generatePC(race); 
     generateStair();
+    //std::cout << "the stair is " << this->stair->getRow() << " " << this->stair->getCol() << std::endl;
     generatePotions();
     generateGolds();
     generateEnemies();
     setUpCompass();
     if (this->bSuitFloor == this->floorNum) generateBarrierSuit();
+}
+
+
+void Floor::clearFloor(std::string map) {
+    this->stair = nullptr;
+    this->potions.clear();
+    this->golds.clear();
+    this->enemies.clear();
+    std::vector<std::vector<char>> newDisplay;
+    ifstream gameMap {map};
+    string s;
+    int len;
+    while (getline(gameMap, s)) {
+        vector<char> row;
+        len = s.length();
+        for (int i = 0; i < len; ++i) {
+            row.emplace_back(s[i]);
+        }
+        newDisplay.emplace_back(row);
+	}
+    newDisplay[this->PC->getRow()][this->PC->getCol()] = '@';
 }
 
 
@@ -918,7 +960,14 @@ void Floor::genOneEnemy() {
     if (enemyType == 2) this->enemies.emplace_back(std::make_shared<Werewolf>());
     if (enemyType == 3) this->enemies.emplace_back(std::make_shared<Troll>());
     if (enemyType == 4) this->enemies.emplace_back(std::make_shared<Goblin>());
-    if (enemyType == 5) this->enemies.emplace_back(std::make_shared<Merchant>());
+    if (enemyType == 5) {
+        if (this->attackedMer) {
+            this->enemies.emplace_back(std::make_shared<Merchant>(30, 70, 5, "Merchant", 'M', 10, 10, true,true));
+        } else {
+            this->enemies.emplace_back(std::make_shared<Merchant>());
+        }
+    }
+    
     if (enemyType == 6) this->enemies.emplace_back(std::make_shared<Phoenix>());
     this->display[r][c] = enemies.back()->getRepChar();
     enemies.back()->setRow(r);

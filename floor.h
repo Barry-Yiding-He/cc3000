@@ -58,6 +58,7 @@ class Floor {
 
     // set floor
     void setFloor(std::string race);
+    void clearFloor(std::string = "map.txt");
     
     // move PC
     void movePC(std::string direction, std::string race);
