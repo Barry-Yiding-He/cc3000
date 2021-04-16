@@ -36,4 +36,8 @@ bool Enemy::getMoveable() {
     return isMoveable;
 }
 
+bool Enemy::isHolder() {
+    return compassHolder;
+}
+
 

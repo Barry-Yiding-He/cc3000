@@ -1351,6 +1351,7 @@ int Floor::findGold(int row, int col) {
             goldNum++;
         }
     }
+    return -1;
 }
 
 
@@ -1539,6 +1540,201 @@ bool Floor::isLose() {
         return false;
     }
 }
+
+
+shared_ptr<Enemy> Floor::findEnemy(int r, int c) {
+    
+    for (auto e : enemies) {
+        if (e->getRow() == r && e->getCol() == c) {
+            return e;
+        }
+    }
+    return nullptr;
+}
+
+int Floor::findEnemyIndex(int r, int c) {
+    int i = 0;
+    for (auto e : enemies) {
+        if (e->getRow() == r && e->getCol() == c) {
+            return i;
+        } else {
+            i++;
+        }
+    }
+    return i;
+}
+
+
+void Floor::printFloor() {
+    for (auto r : display) {
+        for (auto c : r) {
+            cout << c;
+        }
+        cout << endl;
+    }
+    
+    cout << "Race: " << PC->getRace() << " Gold: " 
+    << PC->getGoldTotal() << "                                                  Floor " << floorNum << endl;
+    cout << "HP: " << PC->getCurHP() << endl;
+    cout << "Atk: " << PC->getCurAtk() << endl;
+    cout << "Def: " << PC->getCurDef() << endl;
+    cout << "Action: " << PC->getAction() << "." << endl;
+}
+
+void Floor::attack(shared_ptr<Enemy> e, shared_ptr<Player> pc) {
+    pc->attack(e);
+    if (e->getCurHP() <= 0) {
+        cout << e->getRepChar() << " dies! Good Job!" << endl;
+        
+        if (e->isHolder()) {
+            display[e->getRow()][e->getCol()] = 'C';
+            compass = make_shared<Compass>(e->getRow(),e->getCol());
+        } else if (e->getRepChar() == 'D') {
+            display[e->getRow()][e->getCol()] = '.';
+            // set gold pickable
+            for (auto g :  golds) {
+                if ((g->getRow() - e->getRow()) <=1 && 
+                    (g->getRow() - e->getRow()) >=-1 && 
+                    (g->getCol() - e->getCol()) <=1 &&
+                    (g->getCol()-e->getCol() >= -1)) {
+                        g->canPick();
+                    }
+            }
+            
+            // set barrier suite pickable
+            if (floorNum == bSuitFloor) {
+                if ((barrierSuit->getRow() - e->getRow()) <=1 && 
+                    (barrierSuit->getRow() - e->getRow()) >=-1 && 
+                    (barrierSuit->getCol() - e->getCol()) <=1 &&
+                    (barrierSuit->getCol()-e->getCol() >= -1)) {
+                        barrierSuit->canPick();
+                    }
+            }
+        } else {
+            display[e->getRow()][e->getCol()] = '.';
+        }
+        printFloor();
+    } else {
+        cout << "You attack " << e->getRepChar() << ": Current HP: " << e->getCurHP() << endl;
+        wasAttack();
+        cout << "You Current HP: " << PC->getCurHP() << endl;
+    }
+}
+
+void Floor::battle(string race) {
+    for (auto e : enemies) {
+        cout << e->getRepChar() << ": " << e->getRow() << ", " << e->getCol() << ", " << e->getIsHostile() << endl;
+    }
+    
+    cout << "PC: " << PC->getRow() << ", " << PC->getCol() << endl;
+    
+    InvalidCommand invalid;
+    string direction;
+    
+    cout << "please give the direction you want to attack (no|so|ea|we|ne|nw|se|sw): ";
+    cin >> direction;
+    if (direction == "no") {
+        shared_ptr<Enemy> e = findEnemy(PC->getRow()-1, PC->getCol());
+        int i = findEnemyIndex(PC->getRow()-1, PC->getCol());
+        if (e == nullptr) {
+            cout << "Sorry, no enemy in the no!" << endl;
+            return;
+        } else {
+            attack(e, PC);
+            if (e->getCurHP() <= 0) {
+                enemies.erase(enemies.begin()+i);
+            }
+        }
+    } else if (direction == "so") {
+        shared_ptr<Enemy> e = findEnemy(PC->getRow()+1, PC->getCol());
+        int i = findEnemyIndex(PC->getRow()+1, PC->getCol());
+        if (e == nullptr) {
+            cout << "Sorry, no enemy in the so!" << endl;
+            return;
+        } else {
+            attack(e, PC);
+            if (e->getCurHP() <= 0) {
+                enemies.erase(enemies.begin()+i);
+            }
+        }
+    } else if (direction == "we") {
+        shared_ptr<Enemy> e = findEnemy(PC->getRow(), PC->getCol()-1);
+        int i = findEnemyIndex(PC->getRow(), PC->getCol()-1);
+        if (e == nullptr) {
+            cout << "Sorry, no enemy in the " << direction << "!" << endl;
+            return;
+        } else {
+            attack(e, PC);
+            if (e->getCurHP() <= 0) {
+                enemies.erase(enemies.begin()+i);
+            }
+        }
+    } else if (direction == "ea") {
+        shared_ptr<Enemy> e = findEnemy(PC->getRow(), PC->getCol()+1);
+        int i = findEnemyIndex(PC->getRow(), PC->getCol()+1);
+        if (e == nullptr) {
+            cout << "Sorry, no enemy in the " << direction << "!" << endl;
+            return;
+        } else {
+            attack(e, PC);
+            if (e->getCurHP() <= 0) {
+                enemies.erase(enemies.begin()+i);
+            }
+        }
+    } else if (direction == "nw") {
+        shared_ptr<Enemy> e = findEnemy(PC->getRow()-1, PC->getCol()-1);
+        int i = findEnemyIndex(PC->getRow()-1, PC->getCol()-1);
+        if (e == nullptr) {
+            cout << "Sorry, no enemy in the " << direction << "!" << endl;
+            return;
+        } else {
+            attack(e, PC);
+            if (e->getCurHP() <= 0) {
+                enemies.erase(enemies.begin()+i);
+            }
+        }
+    } else if (direction == "ne") {
+        shared_ptr<Enemy> e = findEnemy(PC->getRow()-1, PC->getCol()+1);
+        int i = findEnemyIndex(PC->getRow()-1, PC->getCol()+1);
+        if (e == nullptr) {
+            cout << "Sorry, no enemy in the " << direction << "!" << endl;
+            return;
+        } else {
+            attack(e, PC);
+            if (e->getCurHP() <= 0) {
+                enemies.erase(enemies.begin()+i);
+            }
+        }
+    } else if (direction == "sw") {
+        shared_ptr<Enemy> e = findEnemy(PC->getRow()+1, PC->getCol()-1);
+        int i = findEnemyIndex(PC->getRow()+1, PC->getCol()-1);
+        if (e == nullptr) {
+            cout << "Sorry, no enemy in the " << direction << "!" << endl;
+            return;
+        } else {
+            attack(e, PC);
+            if (e->getCurHP() <= 0) {
+                enemies.erase(enemies.begin()+i);
+            }
+        }
+    } else if (direction == "se") {
+        shared_ptr<Enemy> e = findEnemy(PC->getRow()+1, PC->getCol()+1);
+        int i = findEnemyIndex(PC->getRow()+1, PC->getCol()+1);
+        if (e == nullptr) {
+            cout << "Sorry, no enemy in the " << direction << "!" << endl;
+            return;
+        } else {
+            attack(e, PC);
+            if (e->getCurHP() <= 0) {
+                enemies.erase(enemies.begin()+i);
+            }
+        }
+    } else {
+        throw invalid;
+    }
+}
+
+
 
 
 

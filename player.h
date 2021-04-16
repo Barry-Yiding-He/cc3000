@@ -6,31 +6,6 @@
 
 
 
-
-class Player : public Character {
-    protected:
-    bool isArmed; // used to  show weather player is wearing the suit
-    int goldTotal = 0; // used to show the total amount of the gold player have
-    std::string action = "Player character has spawned"; // store the action
-
-    public:
-    // constructer and destructor
-    explicit Player(int HP = 100, int Atk = 20, int Def = 20, 
-        std::string race = "default", char repChar = '@', int row = 10, int col = 10, bool isArmed = false, int goldTotal = 0);
-    virtual ~Player();
-    
-    // Fun
-    bool getIsArmed();
-    void armSuit();
-    int getGoldTotal();
-    void collectGold(int goldType);
-    std::string getAction();
-    void changeAction(std::string action);
-    void addAction(std::string newAct);
-    
-};
-
-
 class Human : public Player {
     
 public:

@@ -73,7 +73,10 @@ Orc::Orc(int HP , int Atk, int Def, std::string race, char repChar, int row, int
     
 }
 
-
+void Player::attack(std::shared_ptr<Enemy> &e) {
+    int damage = this->getCurAtk();
+    e->loseHP(damage);
+}
 
 
 

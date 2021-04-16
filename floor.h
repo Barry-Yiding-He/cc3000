@@ -33,7 +33,7 @@ class Floor {
     std::vector<std::shared_ptr<Potion>> potions; // 10
     std::vector<std::shared_ptr<Gold>> golds; // 10
     std::shared_ptr<BarrierSuit> barrierSuit;
-    //std::shared_ptr<BarrierSuit> compass;
+    std::shared_ptr<Compass> compass;
     std::vector<std::shared_ptr<Chamber>> chambers;
     char orig = '.';
     public:
@@ -81,6 +81,13 @@ class Floor {
     
     // check if lose
     bool isLose();
+    
+    // battle
+    void battle(std::string race);
+    std::shared_ptr<Enemy> findEnemy(int r, int c);
+    int findEnemyIndex(int r, int c);
+    void attack(std::shared_ptr<Enemy> e, std::shared_ptr<Player> pc);
+    void printFloor();
 
 
 

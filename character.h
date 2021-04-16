@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string>
 
+class Player;
+class Enemy;
 
 
 class Character {
@@ -57,4 +59,71 @@ class Character {
 
 };
 
+
+
+class Enemy : public Character {
+    
+protected:
+    bool isHostile; // used to check wheather enemy is hostile to PC
+    bool isMoveable; // used to check wheather enemy is moveable
+    bool compassHolder; // used to check wheather the enemy is the compass holder
+    int goldNum; // indicate the number of the gold that enemy have : '1' = default  '4' = merchant 
+    // note: slain the dragon will not drop gold
+public:
+    // constr
+    Enemy (int HP = 100 , int Atk = 20 , int Def = 20, 
+        std::string race = "default", char repChar = 'd', int row = 10, int col = 10, bool isHostile = true, bool isMoveable = true) : Character (HP, Atk, Def, race, repChar, row, col) {
+            this->isHostile = isHostile;
+            this->isMoveable = isMoveable;
+            compassHolder = false;
+        }
+    
+    ////////////
+    
+    // accessor
+    bool getIsHostile();
+    bool getGoldNum();
+    char getChar();
+    
+    // Fun 
+    void holdCompass();
+    void changeHostile();
+    void move();
+    void attack(std::shared_ptr<Player> &PC);
+    bool getMoveable();
+    bool isHolder();
+    
+};
+
+
+class Player : public Character {
+protected:
+    bool isArmed; // used to  show weather player is wearing the suit
+    int goldTotal = 0; // used to show the total amount of the gold player have
+    std::string action = "Player character has spawned"; // store the action
+    
+public:
+    // constructer and destructor
+    explicit Player(int HP = 100, int Atk = 20, int Def = 20, 
+        std::string race = "default", char repChar = '@', int row = 10, int col = 10, bool isArmed = false, int goldTotal = 0);
+    virtual ~Player();
+    
+    // Fun
+    bool getIsArmed();
+    void armSuit();
+    int getGoldTotal();
+    void collectGold(int goldType);
+    std::string getAction();
+    void changeAction(std::string action);
+    void addAction(std::string newAct);
+    void attack(std::shared_ptr<Enemy> &e);
+    
+};
+
+
+
+
+
+
 #endif
+
