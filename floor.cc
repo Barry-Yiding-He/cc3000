@@ -787,6 +787,8 @@ void Floor::clearFloor(std::string map) {
     this->potions.clear();
     this->golds.clear();
     this->enemies.clear();
+    PC->setCurDef(PC->getDef()-PC->getCurDef());
+    PC->setCurAtk(PC->getAtk()-PC->getCurAtk());
     std::vector<std::vector<char>> newDisplay;
     ifstream gameMap {map};
     string s;
