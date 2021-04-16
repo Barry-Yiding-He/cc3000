@@ -295,6 +295,17 @@ void Floor::movePC(string direction, std::string race) {
             } else {
                 throw Invalid;
             }
+        } else if (display[PC->getRow()-1][PC->getCol()] == 'B') {
+            if (this->barrierSuit->getPickable()) {
+                this->PC->changeAction("PC moves North and picked up the Barrier Suit");
+                display[PC->getRow()][PC->getCol()] = orig;
+                orig = '.';
+                display[PC->getRow()-1][PC->getCol()] = '@';
+                PC->addRow(-1);
+                this->PC->armSuit();
+            } else {
+                throw Invalid;
+            }
         } else {
             throw Invalid;
         }
@@ -331,6 +342,17 @@ void Floor::movePC(string direction, std::string race) {
                 display[PC->getRow()+1][PC->getCol()] = '@';
                 PC->addRow(1);
                 this->PC->collectGold(this->golds[goldNum]->getGoldType());
+            } else {
+                throw Invalid;
+            }
+        } else if (display[PC->getRow()+1][PC->getCol()] == 'B') {
+            if (this->barrierSuit->getPickable()) {
+                this->PC->changeAction("PC moves South and picked up the Barrier Suit");
+                display[PC->getRow()][PC->getCol()] = orig;
+                orig = '.';
+                display[PC->getRow()+1][PC->getCol()] = '@';
+                PC->addRow(1);
+                this->PC->armSuit();
             } else {
                 throw Invalid;
             }
@@ -373,6 +395,17 @@ void Floor::movePC(string direction, std::string race) {
             } else {
                 throw Invalid;
             }
+        } else if (display[PC->getRow()][PC->getCol()-1] == 'B') {
+            if (this->barrierSuit->getPickable()) {
+                this->PC->changeAction("PC moves West and picked up the Barrier Suit");
+                display[PC->getRow()][PC->getCol()] = orig;
+                orig = '.';
+                display[PC->getRow()][PC->getCol()-1] = '@';
+                PC->addCol(-1);
+                this->PC->armSuit();
+            } else {
+                throw Invalid;
+            }
         } else {
             throw Invalid;
         }
@@ -409,6 +442,17 @@ void Floor::movePC(string direction, std::string race) {
                 display[PC->getRow()][PC->getCol()+1] = '@';
                 PC->addCol(1);
                 this->PC->collectGold(this->golds[goldNum]->getGoldType());
+            } else {
+                throw Invalid;
+            }
+        } else if (display[PC->getRow()][PC->getCol()+1] == 'B') {
+            if (this->barrierSuit->getPickable()) {
+                this->PC->changeAction("PC moves East and picked up the Barrier Suit");
+                display[PC->getRow()][PC->getCol()] = orig;
+                orig = '.';
+                display[PC->getRow()][PC->getCol()+1] = '@';
+                PC->addCol(1);
+                this->PC->armSuit();
             } else {
                 throw Invalid;
             }
@@ -455,6 +499,18 @@ void Floor::movePC(string direction, std::string race) {
             } else {
                 throw Invalid;
             }
+        } else if (display[PC->getRow()-1][PC->getCol()+1] == 'B') {
+            if (this->barrierSuit->getPickable()) {
+                this->PC->changeAction("PC moves Northeast and picked up the Barrier Suit");
+                display[PC->getRow()][PC->getCol()] = orig;
+                orig = '.';
+                display[PC->getRow()-1][PC->getCol()+1] = '@';
+                PC->addRow(-1);
+                PC->addCol(1);
+                this->PC->armSuit();
+            } else {
+                throw Invalid;
+            }
         } else {
             throw Invalid;
         }
@@ -498,7 +554,19 @@ void Floor::movePC(string direction, std::string race) {
             } else {
                 throw Invalid;
             }
-        }else {
+        } else if (display[PC->getRow()-1][PC->getCol()-1] == 'B') {
+            if (this->barrierSuit->getPickable()) {
+                this->PC->changeAction("PC moves Northwest and picked up the Barrier Suit");
+                display[PC->getRow()][PC->getCol()] = orig;
+                orig = '.';
+                display[PC->getRow()-1][PC->getCol()-1] = '@';
+                PC->addRow(-1);
+                PC->addCol(-1);
+                this->PC->armSuit();
+            } else {
+                throw Invalid;
+            }
+        } else {
             throw Invalid;
         }
     } else if (direction == "se") {
@@ -538,6 +606,18 @@ void Floor::movePC(string direction, std::string race) {
                 PC->addRow(1);
                 PC->addCol(1);
                 this->PC->collectGold(this->golds[goldNum]->getGoldType());
+            } else {
+                throw Invalid;
+            }
+        } else if (display[PC->getRow()+1][PC->getCol()+1] == 'B') {
+            if (this->barrierSuit->getPickable()) {
+                this->PC->changeAction("PC moves Southeast and picked up the Barrier Suit");
+                display[PC->getRow()][PC->getCol()] = orig;
+                orig = '.';
+                display[PC->getRow()+1][PC->getCol()+1] = '@';
+                PC->addRow(1);
+                PC->addCol(1);
+                this->PC->armSuit();
             } else {
                 throw Invalid;
             }
@@ -584,13 +664,26 @@ void Floor::movePC(string direction, std::string race) {
             } else {
                 throw Invalid;
             }
+        } else if (display[PC->getRow()+1][PC->getCol()-1] == 'B') {
+            if (this->barrierSuit->getPickable()) {
+                this->PC->changeAction("PC moves Southwest and picked up the Barrier Suit");
+                display[PC->getRow()][PC->getCol()] = '.';
+                orig = '.';
+                display[PC->getRow()+1][PC->getCol()-1] = '@';
+                PC->addRow(1);
+                PC->addCol(-1);
+                this->PC->armSuit();
+            } else {
+                throw Invalid;
+            }
         } else {
             throw Invalid;
         }
     }
     randMoveAll();
-    wasAttack();
     checkAround();
+    wasAttack();
+    
 
 }
 
@@ -1149,6 +1242,7 @@ int Floor::findGold(int row, int col) {
     }
 }
 
+
 std::ostream &operator<<(std::ostream &out, const Floor &g) {
    for (auto r : g.display) {
         for (auto c : r) {
@@ -1165,7 +1259,6 @@ std::ostream &operator<<(std::ostream &out, const Floor &g) {
     out << "Action: " << g.PC->getAction() << "." << endl;
     return out;
 }
-
 
 
 void Floor::randMove(shared_ptr<Enemy> e) {
@@ -1206,6 +1299,7 @@ void Floor::randMoveAll() {
     }
 }
 
+
 shared_ptr<Potion> Floor::findPotion(int row, int col) {
     for (auto p : potions) {
         if (p->getRow() == row && p->getCol() == col) {
@@ -1214,6 +1308,7 @@ shared_ptr<Potion> Floor::findPotion(int row, int col) {
     }
     return nullptr;
 }
+
 
 void Floor::usePotion(shared_ptr<Potion> p) {
     
@@ -1243,6 +1338,7 @@ void Floor::usePotion(shared_ptr<Potion> p) {
 
 
 void Floor::drinkPotion() {
+    InvalidCommand invalid;
     string direction;
     cout << "please give the direction of the potion you want to use (no|so|ea|we|ne|nw|se|sw): ";
     cin >> direction;
@@ -1310,6 +1406,8 @@ void Floor::drinkPotion() {
         } else {
             usePotion(p);
         }
+    } else {
+        throw invalid;
     }
     
 }

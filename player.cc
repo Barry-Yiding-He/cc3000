@@ -12,6 +12,10 @@ bool Player::getIsArmed() {
     return this->isArmed;
 }
 
+void Player::armSuit() {
+    this->isArmed = true;
+}
+
 int Player::getGoldTotal() {
     return this->goldTotal;
 }
