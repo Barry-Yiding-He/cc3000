@@ -801,7 +801,8 @@ void Floor::clearFloor(std::string map) {
         }
         newDisplay.emplace_back(row);
 	}
-    newDisplay[this->PC->getRow()][this->PC->getCol()] = '@';
+    display = newDisplay;
+    display[this->PC->getRow()][this->PC->getCol()] = '@';
 }
 
 
