@@ -40,49 +40,58 @@ int main(int argc, char *argv[]) {
         cout << f;
         cout << "'@' is your current location. Right now you are able to start your adventure, good luck!" << endl;
          //exit(1);
-        while (cin >> cmd) {
-            try {
-                if (cmd == "move") {
-                    cout << "Please choose the direction to move:" << endl;
-                    ifstream compass {"compass.txt"};
-                    string s;
-                    int len;
-                    while (getline(compass, s)) {
-                        vector<char> row;
-                        len = s.length();
-                        for (int i = 0; i < len; ++i) {
-                            cout << s[i];
-                        }
-                            cout << endl;
-	                }
-                   
-                    while (true) {
-                        cin >> cmd;
-                        if (cmd == "no"|| cmd == "so"|| cmd == "ea"|| cmd == "we"||
-                            cmd == "ne"|| cmd == "nw"|| cmd == "se"|| cmd == "sw") {
-                                f.movePC(cmd, playerRace);
-                                cout << f;
-                                break;
-                            } else {
-                                cout << "Invalid direction, Please choose from the following" << endl;
-                                cout << "(no|so|ea|we|ne|nw|se|sw)" << endl;
+        while (true) {
+            if (f.isWin()) {
+                cout << "Congratulations! You have won!" << endl;
+                break;
+            } else if (f.isLose()) {
+                cout << "You lose the Game!" << endl;
+                break;
+            } else {
+                cin >> cmd;
+                try {
+                    if (cmd == "move") {
+                        cout << "Please choose the direction to move:" << endl;
+                        ifstream compass {"compass.txt"};
+                        string s;
+                        int len;
+                        while (getline(compass, s)) {
+                            vector<char> row;
+                            len = s.length();
+                            for (int i = 0; i < len; ++i) {
+                                cout << s[i];
                             }
+                            cout << endl;
+                        }
+                        
+                        while (true) {
+                            cin >> cmd;
+                            if (cmd == "no"|| cmd == "so"|| cmd == "ea"|| cmd == "we"||
+                                cmd == "ne"|| cmd == "nw"|| cmd == "se"|| cmd == "sw"){
+                                    f.movePC(cmd, playerRace);
+                                    cout << f;
+                                    break;
+                                } else {
+                                    cout << "Invalid direction, Please choose from the following" << endl;
+                                    cout << "(no|so|ea|we|ne|nw|se|sw)" << endl;
+                                }
+                        }
                     }
+                    
+                    if (cmd == "drink") {
+                        f.drinkPotion();
+                        cout << f;
+                    }
+                    
+                    if (cmd == "quit") {
+                        return 1;
+                    }
+                } catch (InvalidCommand) { 
+                    cout << "Invalid Command" << endl;
                 }
-                
-                if (cmd == "drink") {
-                    f.drinkPotion();
-                    cout << f;
-                }
-
-                if (cmd == "quit") {
-                    return 1;
-                }
-            } catch (InvalidCommand) { 
-                cout << "Invalid Command" << endl;
-            } 
+            }
         }
-    } 
+    }
     catch (ios::failure &) {
     } // Any I/O failure quits
 }

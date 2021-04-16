@@ -76,6 +76,11 @@ class Floor {
     void drinkPotion();
     void usePotion(std::shared_ptr<Potion> p);
     
+    // check if win
+    bool isWin();
+    
+    // check if lose
+    bool isLose();
 
 
 

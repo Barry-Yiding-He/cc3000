@@ -1385,9 +1385,7 @@ void Floor::randMove(shared_ptr<Enemy> e) {
         if (e->getMoveable()) {
             if (e->getRow()+first == stair->getRow() &&
                 e->getCol()+second == stair->getCol()) {
-                    
                 }
-            
             else {
                 if (display[e->getRow()+first][e->getCol()+second] == '.') {
                     display[e->getRow()][e->getCol()]  = '.';
@@ -1519,6 +1517,25 @@ void Floor::drinkPotion() {
         throw invalid;
     }
     
+}
+
+
+// used after every move
+bool Floor::isWin() {
+    if (floorNum > 5) {
+        return true;
+    }
+    return false;
+}
+
+
+// used after every move and combat
+bool Floor::isLose() {
+    if (PC->getCurHP() <= 0) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 
