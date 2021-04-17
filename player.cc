@@ -73,7 +73,7 @@ Orc::Orc(int HP , int Atk, int Def, std::string race, char repChar, int row, int
     
 }
 
-int Player::attack(std::shared_ptr<Enemy> &e) {
+void Player::attack(std::shared_ptr<Enemy> &e) {
     int pre = 0;
     if ((100/(100+e->getCurDef())) ==  0) {
         pre = 1;
@@ -84,6 +84,19 @@ int Player::attack(std::shared_ptr<Enemy> &e) {
 //    std::cout << pre << std::endl;
     int damage = pre * getCurAtk();
     e->loseHP(damage);
+}
+
+
+int Player::damage(std::shared_ptr<Enemy> &e) {
+    int pre = 0;
+    if ((100/(100+e->getCurDef())) ==  0) {
+        pre = 1;
+    } else if (100/(100+e->getCurDef()) == 1) {
+        pre = 2;
+    }
+    
+    //    std::cout << pre << std::endl;
+    int damage = pre * getCurAtk();
     return damage;
 }
 

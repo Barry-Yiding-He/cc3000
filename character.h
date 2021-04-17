@@ -92,9 +92,10 @@ public:
     void holdCompass();
     void changeHostile();
     void move();
-    int attack(std::shared_ptr<Player> &PC);
+    void attack(std::shared_ptr<Player> &PC);
     bool getMoveable();
     bool isHolder();
+    int damage(std::shared_ptr<Player> &pc);
     
 };
 
@@ -119,8 +120,8 @@ public:
     std::string getAction();
     void changeAction(std::string action);
     void addAction(std::string newAct);
-    int attack(std::shared_ptr<Enemy> &e);
-    
+    void attack(std::shared_ptr<Enemy> &e);
+    int damage(std::shared_ptr<Enemy> &e);
 };
 
 
