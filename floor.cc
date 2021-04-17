@@ -1159,6 +1159,7 @@ void Floor::drinkPotion() {
 // used after every move
 bool Floor::isWin() {
     if (floorNum > 5) {
+        cout << "You have collected: " << PC->getGoldTotal() << endl;
         return true;
     }
     return false;
@@ -1168,6 +1169,7 @@ bool Floor::isWin() {
 // used after every move and combat
 bool Floor::isLose() {
     if (PC->getCurHP() <= 0) {
+        cout << "You have collected: " << PC->getGoldTotal() << endl;
         return true;
     } else {
         return false;
