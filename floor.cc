@@ -1651,11 +1651,11 @@ void Floor::attack(shared_ptr<Enemy> e, shared_ptr<Player> pc) {
 
 
 void Floor::battle(string race) {
-    for (auto e : enemies) {
+    /*for (auto e : enemies) {
         cout << e->getRepChar() << ": " << e->getRow() << ", " << e->getCol() << ", " << e->isHolder() << endl;
     }
     
-    cout << "PC: " << PC->getRow() << ", " << PC->getCol() << endl;
+    cout << "PC: " << PC->getRow() << ", " << PC->getCol() << endl;*/
     
     InvalidCommand invalid;
     string direction;

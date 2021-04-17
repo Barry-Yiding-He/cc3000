@@ -9,7 +9,7 @@
 class Human : public Player {
     
 public:
-    Human(int HP = 10000, int Atk = 20000, int Def = 20, std::string race = "Human", char repChar = '@', int row = 10, int col = 10, bool isArmed = false, int goldTotal = 0);
+    Human(int HP = 140, int Atk = 20, int Def = 20, std::string race = "Human", char repChar = '@', int row = 10, int col = 10, bool isArmed = false, int goldTotal = 0);
 
 };
 

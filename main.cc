@@ -14,8 +14,8 @@ int main(int argc, char *argv[]) {
         cout << "Please pick a race to begin with:" << endl;
         cout << "Human (type H)  Drawf (type D)  Elves (type E)  Orc (type O)" << endl;
         while (true) {
-            //cin >> cmd;
-            cmd = "H";
+            cin >> cmd;
+            //cmd = "H";
             if (cmd == "H") {
                 playerRace = cmd;
                 f.setFloor(playerRace);
