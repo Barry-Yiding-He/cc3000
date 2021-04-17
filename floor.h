@@ -61,6 +61,7 @@ class Floor {
     void clearFloor(std::string = "map.txt");
     
     // move PC
+    void oneStep(int first, int second, std::string race, std::string direction);
     void movePC(std::string direction, std::string race);
     
     // PC was randomly attacked
