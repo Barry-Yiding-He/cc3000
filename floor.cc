@@ -128,7 +128,7 @@ void Floor::wasAttack() {
         if (luck == 1) {
             if (e->getIsHostile() == true) {
                 if (display[e->getRow()-1][e->getCol()-1] == '@') {
-                    e->attack(PC);
+//                    e->attack(PC);
                     stringstream ss;
                     string s;
                     ss << e->getRepChar();
@@ -137,13 +137,13 @@ void Floor::wasAttack() {
                     atkAct.append(" deals ");
                     stringstream ss1;
                     string s1;
-                    ss1 << e->getCurAtk();
+                    ss1 << e->attack(PC);
                     ss1 >> s1;
                     atkAct.append(s1);
                     atkAct.append(" damage to PC");
                     this->PC->addAction(atkAct);
                 } else if (display[e->getRow()-1][e->getCol()] == '@') {
-                    e->attack(PC);
+//                    e->attack(PC);
                     stringstream ss;
                     string s;
                     ss << e->getRepChar();
@@ -152,13 +152,13 @@ void Floor::wasAttack() {
                     atkAct.append(" deals ");
                     stringstream ss1;
                     string s1;
-                    ss1 << e->getCurAtk();
+                    ss1 << e->attack(PC);
                     ss1 >> s1;
                     atkAct.append(s1);
                     atkAct.append(" damage to PC");
                     this->PC->addAction(atkAct);
                 } else if (display[e->getRow()-1][e->getCol()+1] == '@') {
-                    e->attack(PC);
+//                    e->attack(PC);
                     stringstream ss;
                     string s;
                     ss << e->getRepChar();
@@ -167,13 +167,13 @@ void Floor::wasAttack() {
                     atkAct.append(" deals ");
                     stringstream ss1;
                     string s1;
-                    ss1 << e->getCurAtk();
+                    ss1 << e->attack(PC);
                     ss1 >> s1;
                     atkAct.append(s1);
                     atkAct.append(" damage to PC");
                     this->PC->addAction(atkAct);
                 } else if (display[e->getRow()][e->getCol()-1] == '@') {
-                    e->attack(PC);
+//                    e->attack(PC);
                     stringstream ss;
                     string s;
                     ss << e->getRepChar();
@@ -182,13 +182,13 @@ void Floor::wasAttack() {
                     atkAct.append(" deals ");
                     stringstream ss1;
                     string s1;
-                    ss1 << e->getCurAtk();
+                    ss1 << e->attack(PC);
                     ss1 >> s1;
                     atkAct.append(s1);
                     atkAct.append(" damage to PC");
                     this->PC->addAction(atkAct);
                 } else if (display[e->getRow()][e->getCol()+1] == '@') {
-                    e->attack(PC);
+//                    e->attack(PC);
                     stringstream ss;
                     string s;
                     ss << e->getRepChar();
@@ -197,13 +197,13 @@ void Floor::wasAttack() {
                     atkAct.append(" deals ");
                     stringstream ss1;
                     string s1;
-                    ss1 << e->getCurAtk();
+                    ss1 << e->attack(PC);
                     ss1 >> s1;
                     atkAct.append(s1);
                     atkAct.append(" damage to PC");
                     this->PC->addAction(atkAct);
                 } else if (display[e->getRow()+1][e->getCol()-1] == '@') {
-                    e->attack(PC);
+//                    e->attack(PC);
                     stringstream ss;
                     string s;
                     ss << e->getRepChar();
@@ -212,13 +212,13 @@ void Floor::wasAttack() {
                     atkAct.append(" deals ");
                     stringstream ss1;
                     string s1;
-                    ss1 << e->getCurAtk();
+                    ss1 << e->attack(PC);
                     ss1 >> s1;
                     atkAct.append(s1);
                     atkAct.append(" damage to PC");
                     this->PC->addAction(atkAct);
                 } else if (display[e->getRow()+1][e->getCol()] == '@') {
-                    e->attack(PC);
+//                    e->attack(PC);
                     stringstream ss;
                     string s;
                     ss << e->getRepChar();
@@ -227,13 +227,13 @@ void Floor::wasAttack() {
                     atkAct.append(" deals ");
                     stringstream ss1;
                     string s1;
-                    ss1 << e->getCurAtk();
+                    ss1 << e->attack(PC);
                     ss1 >> s1;
                     atkAct.append(s1);
                     atkAct.append(" damage to PC");
                     this->PC->addAction(atkAct);
                 } else if (display[e->getRow()+1][e->getCol()+1] == '@') {
-                    e->attack(PC);
+//                    e->attack(PC);
                     stringstream ss;
                     string s;
                     ss << e->getRepChar();
@@ -242,7 +242,7 @@ void Floor::wasAttack() {
                     atkAct.append(" deals ");
                     stringstream ss1;
                     string s1;
-                    ss1 << e->getCurAtk();
+                    ss1 << e->attack(PC);
                     ss1 >> s1;
                     atkAct.append(s1);
                     atkAct.append(" damage to PC");
@@ -1260,7 +1260,7 @@ void Floor::attack(shared_ptr<Enemy> e, shared_ptr<Player> pc) {
         stringstream ss2;
         string s1 = "PC deals ";
         string s2;
-        ss2 << pc->getCurAtk(); 
+        ss2 << pc->attack(e); 
         ss2 >> s2;
         s1.append(s2);
         s1.append(" damage to ");

@@ -4,6 +4,7 @@
 #include <string>
 #include <algorithm>
 #include <memory>
+#include <cmath>
 
 class Player;
 class Enemy;
@@ -91,7 +92,7 @@ public:
     void holdCompass();
     void changeHostile();
     void move();
-    void attack(std::shared_ptr<Player> &PC);
+    int attack(std::shared_ptr<Player> &PC);
     bool getMoveable();
     bool isHolder();
     
@@ -118,7 +119,7 @@ public:
     std::string getAction();
     void changeAction(std::string action);
     void addAction(std::string newAct);
-    void attack(std::shared_ptr<Enemy> &e);
+    int attack(std::shared_ptr<Enemy> &e);
     
 };
 
