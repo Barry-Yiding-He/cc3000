@@ -1359,7 +1359,58 @@ int Floor::findGold(int row, int col) {
 std::ostream &operator<<(std::ostream &out, const Floor &g) {
    for (auto r : g.display) {
         for (auto c : r) {
-            out << c;
+            if (c == 'G') {
+                out << "\033[1;33m";
+		        out << c;
+		        out << "\033[0m";
+            } else if (c == '@') {
+                out << "\033[1;34m";
+		        out << c;
+		        out << "\033[0m";
+            } else if (c == 'N') {
+                out << "\033[1;32m";
+		        out << c;
+		        out << "\033[0m";
+            } else if (c == 'P') {
+                out << "\033[0;35m";
+		        out << c;
+		        out << "\033[0m";
+            } else if (c == 'B') {
+                out << "\033[0;37m";
+		        out << c;
+		        out << "\033[0m";
+            } else if (c == 'C') {
+                out << "\033[1;33m";
+		        out << c;
+		        out << "\033[0m";
+            } else if (c == 'X') {
+                out << "\033[0;31m";
+		        out << c;
+		        out << "\033[0m";
+            } else if (c == 'V') {
+                out << "\033[1;31m";
+		        out << c;
+		        out << "\033[0m";
+            } else if (c == 'W') {
+                out << "\033[1;30m";
+		        out << c;
+		        out << "\033[0m";
+            } else if (c == 'M') {
+                out << "\033[0;33m";
+		        out << c;
+		        out << "\033[0m";
+            } else if (c == 'D') {
+                out << "\033[0;30m";
+		        out << c;
+		        out << "\033[0m";
+            } else if (c == 'T') {
+                out << "\033[0;36m";
+		        out << c;
+		        out << "\033[0m";
+            } else {
+                out << c; 
+            }
+             
         }
         out << endl;
     }
