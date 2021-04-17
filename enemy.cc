@@ -37,7 +37,14 @@ bool Enemy::isHolder() {
 
 
 int Enemy::attack(std::shared_ptr<Player> &PC) {
-    int damge = (ceil(100/(100+PC->getCurDef()))) * getCurAtk();
+    int pre = 0;
+    if ((100/(100+PC->getCurDef())) ==  0) {
+        pre = 1;
+    } else if (100/(100+PC->getCurDef()) == 1) {
+        pre = 2;
+    }
+    
+    int damge = pre * getCurAtk();
     if (PC->getIsArmed()) {
         damge /= 2;
         PC->loseHP(damge);
