@@ -124,3 +124,6 @@ void Character::setCurDef(int i) {
         curDef = 0;
     }
 }
+
+
+

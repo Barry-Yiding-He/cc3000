@@ -2,6 +2,8 @@
 #define CHARACTER_H
 #include <iostream>
 #include <string>
+#include <algorithm>
+#include <memory>
 
 class Player;
 class Enemy;

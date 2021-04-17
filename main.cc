@@ -89,8 +89,8 @@ int main(int argc, char *argv[]) {
                     }
                     
                     if (cmd == "attack") {
-                        cout << f;
                         f.battle("human");
+                        cout << f;
                     }
                     
                     if (cmd == "quit") {

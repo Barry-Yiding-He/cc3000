@@ -1553,6 +1553,7 @@ shared_ptr<Enemy> Floor::findEnemy(int r, int c) {
     return nullptr;
 }
 
+
 int Floor::findEnemyIndex(int r, int c) {
     int i = 0;
     for (auto e : enemies) {
@@ -1582,14 +1583,20 @@ void Floor::printFloor() {
     cout << "Action: " << PC->getAction() << "." << endl;
 }
 
+
 void Floor::attack(shared_ptr<Enemy> e, shared_ptr<Player> pc) {
     pc->attack(e);
     if (e->getCurHP() <= 0) {
-        cout << e->getRepChar() << " dies! Good Job!" << endl;
+        stringstream ss1;
+        string s1;
+        ss1 << e->getRepChar();
+        ss1 >> s1;
+        s1.append(" dies");
         
         if (e->isHolder()) {
             display[e->getRow()][e->getCol()] = 'C';
             compass = make_shared<Compass>(e->getRow(),e->getCol());
+            s1.append(", and  dropped the compass to this floor");
         } else if (e->getRepChar() == 'D') {
             display[e->getRow()][e->getCol()] = '.';
             // set gold pickable
@@ -1614,17 +1621,38 @@ void Floor::attack(shared_ptr<Enemy> e, shared_ptr<Player> pc) {
         } else {
             display[e->getRow()][e->getCol()] = '.';
         }
-        printFloor();
+        s1.append("! Goold Job!");
+        this->PC->changeAction(s1);
+       // printFloor();
     } else {
-        cout << "You attack " << e->getRepChar() << ": Current HP: " << e->getCurHP() << endl;
+        stringstream ss2;
+        string s1 = "PC deals ";
+        string s2;
+        ss2 << pc->getCurAtk(); 
+        ss2 >> s2;
+        s1.append(s2);
+        s1.append(" damage to ");
+        stringstream ss3;
+        string s3;
+        ss3 << e->getRepChar();
+        ss3 >> s3;
+        s1.append(s3);
+        s1.append(" (Current HP: ");
+        stringstream ss4;
+        string s4;
+        ss4 << e->getCurHP();
+        ss4 >> s4;
+        s1.append(s4);
+        s1.append(")");
+        pc->changeAction(s1);
         wasAttack();
-        cout << "You Current HP: " << PC->getCurHP() << endl;
     }
 }
 
+
 void Floor::battle(string race) {
     for (auto e : enemies) {
-        cout << e->getRepChar() << ": " << e->getRow() << ", " << e->getCol() << ", " << e->getIsHostile() << endl;
+        cout << e->getRepChar() << ": " << e->getRow() << ", " << e->getCol() << ", " << e->isHolder() << endl;
     }
     
     cout << "PC: " << PC->getRow() << ", " << PC->getCol() << endl;
@@ -1632,7 +1660,7 @@ void Floor::battle(string race) {
     InvalidCommand invalid;
     string direction;
     
-    cout << "please give the direction you want to attack (no|so|ea|we|ne|nw|se|sw): ";
+    cout << "please give the direction you want to attack (no|so|ea|we|ne|nw|se|sw): " << endl;
     cin >> direction;
     if (direction == "no") {
         shared_ptr<Enemy> e = findEnemy(PC->getRow()-1, PC->getCol());

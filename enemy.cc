@@ -26,18 +26,18 @@ char Enemy::getChar() {
     return repChar;
 }
 
-void Enemy::attack(std::shared_ptr<Player> &PC) {
-    int damage = this->getCurAtk();
-    PC->loseHP(damage);
-    
-}
 
 bool Enemy::getMoveable() {
     return isMoveable;
 }
 
 bool Enemy::isHolder() {
-    return compassHolder;
+    return this->compassHolder;
 }
 
 
+void Enemy::attack(std::shared_ptr<Player> &PC) {
+    int damage = this->getCurAtk();
+    PC->loseHP(damage);
+    
+}
