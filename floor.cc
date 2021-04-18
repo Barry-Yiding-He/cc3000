@@ -3,6 +3,7 @@
 
 using namespace std;
 
+int ranN = 0;
 
 struct Coordinate Floor::getRandomCoorinate(int num) { // set a random row and col
     std::vector<int> ranChamber;
@@ -15,8 +16,13 @@ struct Coordinate Floor::getRandomCoorinate(int num) { // set a random row and c
     else {ranChamber = {0, 0, 1, 2, 3, 3, 4, 4, 5, 5};}
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::default_random_engine rng{seed};
-    std::shuffle(ranChamber.begin(), ranChamber.end(), rng); // start to shuffle the order 
-                                                             // and pick the first value in vector as our random value
+    if (this->ranControl) {std::shuffle(ranChamber.begin(), ranChamber.end(), rng);} // start to shuffle the order 
+    else {
+        std::default_random_engine rng1{ranN};
+        std::shuffle(ranChamber.begin(), ranChamber.end(), rng1);
+        ranN++;
+    }                                                                                // and pick the first value in vector as our random value
+
     int chamberNum = ranChamber[0];
     int rowBegin = this->chambers[chamberNum]->getTop();   // locate the 4 info for the chamber we picked
     int rowEnd = this->chambers[chamberNum]->getBottom();   
@@ -27,8 +33,18 @@ struct Coordinate Floor::getRandomCoorinate(int num) { // set a random row and c
     std::vector<int> ranCol;
     for (colBegin; colBegin < colEnd; colBegin++) ranCol.emplace_back(colBegin);
 
-    std::shuffle(ranRow.begin(), ranRow.end(), rng);  // shuffle the order
-    std::shuffle(ranCol.begin(), ranCol.end(), rng);
+    if (this->ranControl) {std::shuffle(ranRow.begin(), ranRow.end(), rng);}
+    else {
+        std::default_random_engine rng2{ranN};
+        std::shuffle(ranRow.begin(), ranRow.end(), rng2);
+        ranN++;
+        } // shuffle the order
+    if (this->ranControl) {std::shuffle(ranCol.begin(), ranCol.end(), rng);}
+    else {
+        std::default_random_engine rng3{ranN};
+        std::shuffle(ranCol.begin(), ranCol.end(), rng3);
+        ranN++;
+        }
     int r = 0;
     int c = 0;
     while (true) {
@@ -40,8 +56,16 @@ struct Coordinate Floor::getRandomCoorinate(int num) { // set a random row and c
         c = col; 
         break;
         } else {
-            std::shuffle(ranRow.begin(), ranRow.end(), rng);
-            std::shuffle(ranCol.begin(), ranCol.end(), rng);
+            if (this->ranControl) {std::shuffle(ranRow.begin(), ranRow.end(), rng);}
+            else { 
+                std::default_random_engine rng2{ranN};
+                ranN++;
+                std::shuffle(ranRow.begin(), ranRow.end(), rng2);} // shuffle the order
+            if (this->ranControl) {std::shuffle(ranCol.begin(), ranCol.end(), rng);}
+            else {
+                std::default_random_engine rng3{ranN};
+                ranN++;
+                std::shuffle(ranCol.begin(), ranCol.end(), rng3);}
         }
     } // now we ger row and col
     Coordinate coor {r, c};
@@ -65,7 +89,6 @@ Floor::Floor(string map)  {
     std::default_random_engine rng{seed};
     std::shuffle(ranFloor.begin(), ranFloor.end(), rng);
     this->bSuitFloor = ranFloor[0];
-
     ifstream gameMap {map};
     string s;
     int len;
@@ -359,7 +382,11 @@ void Floor::setFloor(std::string race) {
     generateGolds();
     generateEnemies();
     setUpCompass();
-    if (this->bSuitFloor == this->floorNum) generateBarrierSuit();
+    if (this->ranControl) {
+        if (this->bSuitFloor == this->floorNum) generateBarrierSuit();
+    } else {
+        generateBarrierSuit();
+    }
     //generateBarrierSuit();
 }
 
@@ -428,7 +455,10 @@ void Floor::genOnePotion() {
     std::vector<int> ranPotion = {0, 1, 2, 3, 4, 5};
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::default_random_engine rng{seed};
-    std::shuffle(ranPotion.begin(), ranPotion.end(), rng); 
+    std::default_random_engine rng1{ranN};
+    ranN++;
+    if (this->ranControl) {std::shuffle(ranPotion.begin(), ranPotion.end(), rng);}
+    else {std::shuffle(ranPotion.begin(), ranPotion.end(), rng1);}
     int PotionType = ranPotion[0];
     this->potions.emplace_back(std::make_shared<Potion>(r, c, PotionType));
     this->display[r][c] = potions.back()->getRepChar();
@@ -455,7 +485,10 @@ void Floor::genOneGold() {
     std::vector<int> ranGold = {6, 6, 6, 6, 6, 7, 7, 9};
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::default_random_engine rng{seed};
-    std::shuffle(ranGold.begin(), ranGold.end(), rng); 
+    std::default_random_engine rng1{ranN};
+    ranN++;
+    if (this->ranControl) {std::shuffle(ranGold.begin(), ranGold.end(), rng);}
+    else {std::shuffle(ranGold.begin(), ranGold.end(), rng1);}
     int GoldType = ranGold[0];
     if (GoldType == 9) {
         this->golds.emplace_back(std::make_shared<Gold>(r, c, GoldType, false));
@@ -476,7 +509,10 @@ void Floor::generateGolds() {
             std::vector<int> ranPos = {1, 2, 3, 4, 5, 6, 7, 8};
             unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
             std::default_random_engine rng{seed};
-            std::shuffle(ranPos.begin(), ranPos.end(), rng); 
+            std::default_random_engine rng1{ranN};
+            ranN++;
+            if (this->ranControl) {std::shuffle(ranPos.begin(), ranPos.end(), rng);}
+            else {std::shuffle(ranPos.begin(), ranPos.end(), rng1);}
             int pos = ranPos[0];
             Coordinate coor;
             
@@ -511,7 +547,8 @@ void Floor::generateGolds() {
                     (this->display[row][col] == '.')) { 
                         break; 
                 } else {
-                    std::shuffle(ranPos.begin(), ranPos.end(), rng); 
+                    if (this->ranControl) {std::shuffle(ranPos.begin(), ranPos.end(), rng);}
+                    else {std::shuffle(ranPos.begin(), ranPos.end(), rng1);}
                     pos = ranPos[0];
                 }
 
@@ -542,7 +579,10 @@ void Floor::genOneEnemy() {
                                      // all type of enemy except Dragon;
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::default_random_engine rng{seed};
-    std::shuffle(ranEnemy.begin(), ranEnemy.end(), rng);
+    std::default_random_engine rng1{ranN};
+    ranN++;
+    if (this->ranControl) {std::shuffle(ranEnemy.begin(), ranEnemy.end(), rng);}
+    else {std::shuffle(ranEnemy.begin(), ranEnemy.end(), rng1);}
     int enemyType = ranEnemy[0];
     if (enemyType == 1) this->enemies.emplace_back(std::make_shared<Vampire>());
     if (enemyType == 2) this->enemies.emplace_back(std::make_shared<Werewolf>());
@@ -578,7 +618,10 @@ void Floor::setUpCompass() {
     }
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::default_random_engine rng{seed};
-    std::shuffle(ranEnemy.begin(), ranEnemy.end(), rng);  
+    std::default_random_engine rng1{ranN};
+    ranN++;
+    if (this->ranControl) {std::shuffle(ranEnemy.begin(), ranEnemy.end(), rng);}
+    else {std::shuffle(ranEnemy.begin(), ranEnemy.end(), rng1);}
     int pickedEnemy = ranEnemy[0];
     this->enemies[pickedEnemy]->holdCompass();
 }
@@ -603,7 +646,10 @@ void Floor::generateBarrierSuit() {
     std::vector<int> ranPos = {1, 2, 3, 4, 5, 6, 7, 8};
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::default_random_engine rng{seed};
-    std::shuffle(ranPos.begin(), ranPos.end(), rng); 
+    std::default_random_engine rng1{ranN};
+    ranN++;
+    if (this->ranControl) {std::shuffle(ranPos.begin(), ranPos.end(), rng);}
+    else {std::shuffle(ranPos.begin(), ranPos.end(), rng1);}
     int pos = ranPos[0];
     Coordinate coor1;
             
@@ -638,7 +684,8 @@ void Floor::generateBarrierSuit() {
             (this->display[row][col] == '.')) { 
                 break; 
         } else {
-            std::shuffle(ranPos.begin(), ranPos.end(), rng); 
+            if (this->ranControl) {std::shuffle(ranPos.begin(), ranPos.end(), rng);}
+            else {std::shuffle(ranPos.begin(), ranPos.end(), rng1);}
             pos = ranPos[0];
         }
 
@@ -676,7 +723,7 @@ void Floor::checkAround() {
     } else if (display[r][c] == '+') {
         passNum++;
     } else if ((display[r][c] == 'M') && 
-               (this->attackedMer)) {
+               (!this->attackedMer)) {
         merNum++;
     } else if ((display[r][c] != '.') &&
                (display[r][c] != '-') &&
@@ -699,7 +746,7 @@ void Floor::checkAround() {
     } else if (display[r][c] == '+') {
         passNum++;
     } else if ((display[r][c] == 'M') && 
-               (this->attackedMer)) {
+               (!this->attackedMer)) {
         merNum++;
     } else if ((display[r][c] != '.') &&
                (display[r][c] != '-') &&
@@ -722,7 +769,7 @@ void Floor::checkAround() {
     } else if (display[r][c] == '+') {
         passNum++;
     } else if ((display[r][c] == 'M') && 
-               (this->attackedMer)) {
+               (!this->attackedMer)) {
         merNum++;
     } else if ((display[r][c] != '.') &&
                (display[r][c] != '-') &&
@@ -745,7 +792,7 @@ void Floor::checkAround() {
     } else if (display[r][c] == '+') {
         passNum++;
     } else if ((display[r][c] == 'M') && 
-               (this->attackedMer)) {
+               (!this->attackedMer)) {
         merNum++;
     } else if ((display[r][c] != '.') &&
                (display[r][c] != '-') &&
@@ -768,7 +815,7 @@ void Floor::checkAround() {
     } else if (display[r][c] == '+') {
         passNum++;
     } else if ((display[r][c] == 'M') && 
-               (this->attackedMer)) {
+               (!this->attackedMer)) {
         merNum++;
     } else if ((display[r][c] != '.') &&
                (display[r][c] != '-') &&
@@ -791,7 +838,7 @@ void Floor::checkAround() {
     } else if (display[r][c] == '+') {
         passNum++;
     } else if ((display[r][c] == 'M') && 
-               (this->attackedMer)) {
+               (!this->attackedMer)) {
         merNum++;
     } else if ((display[r][c] != '.') &&
                (display[r][c] != '-') &&
@@ -814,7 +861,7 @@ void Floor::checkAround() {
     } else if (display[r][c] == '+') {
         passNum++;
     } else if ((display[r][c] == 'M') && 
-               (this->attackedMer)) {
+               (!this->attackedMer)) {
         merNum++;
     } else if ((display[r][c] != '.') &&
                (display[r][c] != '-') &&
@@ -837,7 +884,7 @@ void Floor::checkAround() {
     } else if (display[r][c] == '+') {
         passNum++;
     } else if ((display[r][c] == 'M') && 
-               (this->attackedMer)) {
+               (!this->attackedMer)) {
         merNum++;
     } else if ((display[r][c] != '.') &&
                (display[r][c] != '-') &&
@@ -1018,8 +1065,12 @@ void Floor::randMove(shared_ptr<Enemy> e) {
     vector<int> index2 = {-1,0,1};
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::default_random_engine rng{seed};
-    std::shuffle(index1.begin(), index1.end(), rng);
-    std::shuffle(index2.begin(), index2.end(), rng);
+    std::default_random_engine rng1{ranN};
+    ranN++;
+    if (this->ranControl) {std::shuffle(index1.begin(), index1.end(), rng);}
+    else {std::shuffle(index1.begin(), index1.end(), rng1);}
+    if (this->ranControl) {std::shuffle(index2.begin(), index2.end(), rng);}
+    else {std::shuffle(index2.begin(), index2.end(), rng1);}
     int first = index1[0];
     int second = index2[0];
     
@@ -1166,7 +1217,7 @@ void Floor::drinkPotion() {
 // used after every move
 bool Floor::isWin() {
     if (floorNum > 5) {
-        cout << "You have collected: " << PC->getGoldTotal() << endl;
+        cout << "YOU WIN!!!!! Congratulation, You have collected: " << PC->getGoldTotal() << endl;
         return true;
     }
     return false;
@@ -1457,6 +1508,9 @@ void Floor::battle(string race) {
 }
 
 
+void Floor::controlRan() {
+    this->ranControl = false;
+}
 
 
 

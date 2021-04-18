@@ -24,19 +24,19 @@ void print( std::vector<int> const & v ) {
 }
 
 int main( int argc, char * argv[] ) {
+	
 	std::vector<int> v = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-
+	std::vector<int> v1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 	// use a time-based seed for the default seed value
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 	
 	
-	std::default_random_engine rng{seed};
+	std::default_random_engine rng{1000};
 
-	for ( int i = 0; i < 1000; i++ ) {
-		//std::shuffle( v.begin(), v.end(), std::default_random_engine(seed) );
-		std::shuffle( v.begin(), v.end(), rng );
+		std::shuffle( v.begin(), v.end(), rng);
+		std::shuffle( v1.begin(), v1.end(), rng);
 		print(v);		
-	} // for
+		print(v1);
 
 	return 0;
 } // main

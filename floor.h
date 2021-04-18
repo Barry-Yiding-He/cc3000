@@ -36,11 +36,13 @@ class Floor {
     std::shared_ptr<Compass> compass;
     std::vector<std::shared_ptr<Chamber>> chambers;
     char orig = '.';
+    bool ranControl = true;
     public:
     // constructor
     Floor(std::string map = "map.txt"); 
 
     // generate component of the game
+    void controlRan();
     struct Coordinate getRandomCoorinate(int num = 6);
     void setUpChamber();
     void setUpCompass();

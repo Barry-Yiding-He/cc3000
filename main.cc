@@ -11,6 +11,19 @@ int main(int argc, char *argv[]) {
     std::string playerRace;
 
     try {
+        cout << "Would you like to control the randomization of game?" << endl;
+        while(true) {
+            cout << "Yes/No:" << endl;
+            cin >> cmd;
+            if (cmd == "Yes") {
+                f.controlRan();
+                break;
+            } else if (cmd == "No") {
+                break;
+            } else {
+                cout << "Invalid Commend" << endl;
+            }
+        }
         cout << "Please pick a race to begin with:" << endl;
         cout << "Human (type H)  Drawf (type D)  Elves (type E)  Orc (type O)" << endl;
         while (true) {
