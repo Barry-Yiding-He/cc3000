@@ -1061,8 +1061,8 @@ std::ostream &operator<<(std::ostream &out, const Floor &g) {
 
 
 void Floor::randMove(shared_ptr<Enemy> e) {
-    vector<int> index1 = {-1,0,1};
-    vector<int> index2 = {-1,0,1};
+    vector<int> index1 = {-1,0,1,-1,0,1,-1,0,1,-1,0,1};
+    vector<int> index2 = {-1,0,1,-1,0,1,-1,0,1,-1,0,1};
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::default_random_engine rng{seed};
     std::default_random_engine rng1{ranN};
