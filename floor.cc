@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int ranN = 0;
+//unsigned int ranN = 0;
 
 struct Coordinate Floor::getRandomCoorinate(int num) { // set a random row and col
     std::vector<int> ranChamber;
@@ -1217,7 +1217,7 @@ void Floor::drinkPotion() {
 // used after every move
 bool Floor::isWin() {
     if (floorNum > 5) {
-        cout << "YOU WIN!!!!! Congratulation, You have collected: " << PC->getGoldTotal() << endl;
+        cout << "You have collected: " << PC->getGoldTotal() << endl;
         return true;
     }
     return false;
@@ -1513,4 +1513,6 @@ void Floor::controlRan() {
 }
 
 
-
+void Floor::resetRanN() {
+    this->ranN = 0;
+}

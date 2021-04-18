@@ -54,14 +54,39 @@ int main(int argc, char *argv[]) {
         cout << "'@' is your current location. Right now you are able to start your adventure, good luck!" << endl;
          //exit(1);
         while (true) {
-            if (f.isWin()) {
-                cout << "Congratulations! You have won!" << endl;
-                break;
-            } else if (f.isLose()) {
-                cout << "You lose the Game!" << endl;
-                break;
-            } else {
                 cin >> cmd;
+                if (f.isWin()) {
+                    cout << "Congratulations! You have won!" << endl;
+                    cout << "Would you like to play the game again?" << endl;
+                    while(true) {
+                        cout << "Yes/No:" << endl;
+                        cin >> cmd;
+                        if (cmd == "Yes") {
+                            cmd = "restart";
+                            break;
+                        } else if (cmd == "No") {
+                            return 1;
+                        } else {
+                            cout << "Invalid Commend" << endl;
+                        }
+                    }
+                } else if (f.isLose()) {
+                    cout << "You lose the Game!" << endl;
+                    cout << "Would you like to play the game again?" << endl;
+                    while(true) {
+                        cout << "Yes/No:" << endl;
+                        cin >> cmd;
+                        if (cmd == "Yes") {
+                            cmd = "restart";
+                            break;
+                        } else if (cmd == "No") {
+                            return 1;
+                        } else {
+                            cout << "Invalid Commend" << endl;
+                        }
+                    }
+                }
+
                 try {
                     if (cmd == "move") {
                         cout << "Please choose the direction to move:" << endl;
@@ -108,7 +133,67 @@ int main(int argc, char *argv[]) {
                     
                     if (cmd == "surrender") {
                         f.lose();
-                        return 1;
+                        cout << "You lose the Game!" << endl;
+                        cout << "Would you like to play the game again?" << endl;
+                        while(true) {
+                            cout << "Yes/No:" << endl;
+                            cin >> cmd;
+                            if (cmd == "Yes") {
+                                cmd = "restart";
+                                break;
+                            } else if (cmd == "No") {
+                                return 1;
+                            } else {
+                                cout << "Invalid Commend" << endl;
+                            }
+                        }
+                    }
+
+                    if (cmd == "restart") {
+                        Floor newf;
+                        f = newf;
+                        f.resetRanN();
+                        cout << "Would you like to control the randomization of game?" << endl;
+                         while(true) {
+                            cout << "Yes/No:" << endl;
+                            cin >> cmd;
+                            if (cmd == "Yes") {
+                                f.controlRan();
+                                break;
+                            } else if (cmd == "No") {
+                                break;
+                            } else {
+                                cout << "Invalid Commend" << endl;
+                            }
+                        }
+                        cout << "Please pick a race to begin with:" << endl;
+                        cout << "Human (type H)  Drawf (type D)  Elves (type E)  Orc (type O)" << endl;
+                        while (true) {
+                            cin >> cmd;
+                            //cmd = "H";
+                            if (cmd == "H") {
+                                playerRace = cmd;
+                                f.setFloor(playerRace);
+                            break;
+                            } else if (cmd == "D") {
+                                playerRace = cmd;
+                                f.setFloor(playerRace);
+                            break;
+                            } else if (cmd == "E") {
+                                playerRace = cmd;
+                                f.setFloor(playerRace);
+                            break;
+                            } else if (cmd == "O") {
+                                playerRace = cmd;
+                                f.setFloor(playerRace);
+                                break;
+                            } else {
+                                cout << "Invalid race type, please choose from the following:" << endl;
+                                cout << "Human (type H)  Drawf (type D)  Elves (type E)  Orc (type O)" << endl;
+                            }
+                        }
+                        cout << f;
+                        cout << "'@' is your current location. Right now you are able to start your adventure, good luck!" << endl;   
                     }
 
                     if (cmd == "quit") {
@@ -117,7 +202,7 @@ int main(int argc, char *argv[]) {
                 } catch (InvalidCommand) { 
                     cout << "Invalid Command" << endl;
                 }
-            }
+            
         }
     }
     catch (ios::failure &) {

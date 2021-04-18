@@ -37,6 +37,7 @@ class Floor {
     std::vector<std::shared_ptr<Chamber>> chambers;
     char orig = '.';
     bool ranControl = true;
+    unsigned int ranN = 0;
     public:
     // constructor
     Floor(std::string map = "map.txt"); 
@@ -57,6 +58,7 @@ class Floor {
     void generateBarrierSuit();
     void checkAround();
     int findGold(int row, int col);
+    void resetRanN();
 
     // set floor
     void setFloor(std::string race);
