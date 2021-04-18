@@ -359,8 +359,8 @@ void Floor::setFloor(std::string race) {
     generateGolds();
     generateEnemies();
     setUpCompass();
-    //if (this->bSuitFloor == this->floorNum) generateBarrierSuit();
-    generateBarrierSuit();
+    if (this->bSuitFloor == this->floorNum) generateBarrierSuit();
+    //generateBarrierSuit();
 }
 
 
