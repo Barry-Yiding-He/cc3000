@@ -55,7 +55,7 @@ public:
 
 class Dragon : public Enemy {
 public:
-    Dragon(int HP = 150, int Atk = 20, int Def = 20, std::string race = "Dragon", char repChar = 'D', int row = 10, int col = 10, bool isHostile = true, bool isMoveable = false) : Enemy(HP, Atk, Def, race, repChar, row, col, isHostile, isMoveable) {
+    Dragon(int HP = 150, int Atk = 20, int Def = 20, std::string race = "Dragon", char repChar = 'D', int row = 10, int col = 10, bool isHostile = false, bool isMoveable = false) : Enemy(HP, Atk, Def, race, repChar, row, col, isHostile, isMoveable) {
     }
 };
 #endif

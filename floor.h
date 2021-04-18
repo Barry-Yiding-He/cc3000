@@ -41,7 +41,7 @@ class Floor {
     Floor(std::string map = "map.txt"); 
 
     // generate component of the game
-    struct Coordinate getRandomCoorinate();
+    struct Coordinate getRandomCoorinate(int num = 6);
     void setUpChamber();
     void setUpCompass();
     void genOneGold();
@@ -89,20 +89,6 @@ class Floor {
     std::shared_ptr<Enemy> findEnemy(int r, int c);
     int findEnemyIndex(int r, int c);
     void attack(std::shared_ptr<Enemy> e, std::shared_ptr<Player> pc);
-    void printFloor();
-
-
-
-
-    // here we have accessor and mutator
-    /*const int getFloorNum ();
-    const std::vector<std::vector<char>> getDisplay();
-    const std::shared_ptr<Player> getPC(); 
-    const std::vector<std::shared_ptr<Enemy>> getEnemies(); 
-    const std::shared_ptr<Stair> getStair();
-    const std::vector<std::shared_ptr<Potion>> getPotions(); 
-    const std::vector<std::shared_ptr<Gold>> getGolds(); 
-    */
     
     friend std::ostream &operator<<(std::ostream &out, const Floor &f); // print the floor
 };

@@ -85,7 +85,7 @@ public:
     
     // accessor
     bool getIsHostile();
-    bool getGoldNum();
+    int getGoldNum();
     char getChar();
     
     // Fun 
@@ -122,6 +122,7 @@ public:
     void addAction(std::string newAct);
     void attack(std::shared_ptr<Enemy> &e);
     int damage(std::shared_ptr<Enemy> &e);
+    int findChamberNum();
 };
 
 

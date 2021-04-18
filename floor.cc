@@ -3,36 +3,16 @@
 
 using namespace std;
 
-/*const int Floor::getFloorNum () {
-    return this->floorNum;
-}
 
-const std::vector<std::vector<char>> Floor::getDisplay() {
-    return this->display;
-}
-
-const std::shared_ptr<Player> Floor::getPC() {
-    return this->PC;
-}
-
-const std::vector<std::shared_ptr<Enemy>> Floor::getEnemies() {
-    return this->enemies;
-}
-
-const std::shared_ptr<Stair> Floor::getStair() {
-    return this->stair;
-}
-
-const std::vector<std::shared_ptr<Potion>> Floor::getPotions() {
-    return this->potions;
-}
-
-const std::vector<std::shared_ptr<Gold>> Floor::getGolds() {
-    return this->golds;
-}*/
-
-struct Coordinate Floor::getRandomCoorinate() { // set a random row and col 
-    std::vector<int> ranChamber = {0, 0, 1, 1, 2, 3, 4, 4, 5, 5}; // pick random chamber number from all chamber number
+struct Coordinate Floor::getRandomCoorinate(int num) { // set a random row and col
+    std::vector<int> ranChamber;
+    if (num == 0) {ranChamber = {1, 2, 3, 3, 4, 4, 5, 5}; }
+    else if (num == 1) {ranChamber = {0, 0, 3, 3, 4, 4, 5, 5};}
+    else if (num == 2) {ranChamber = {0, 0, 3, 3, 4, 4, 5, 5};}
+    else if (num == 3) {ranChamber = {0, 0, 1, 2, 4, 4, 5, 5};}
+    else if (num == 4) {ranChamber = {0, 0, 1, 2, 3, 3, 5, 5};}
+    else if (num == 5) {ranChamber = {0, 0, 1, 2, 3, 3, 4, 4};}
+    else {ranChamber = {0, 0, 1, 2, 3, 3, 4, 4, 5, 5};}
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::default_random_engine rng{seed};
     std::shuffle(ranChamber.begin(), ranChamber.end(), rng); // start to shuffle the order 
@@ -73,6 +53,7 @@ struct Coordinate Floor::getRandomCoorinate() { // set a random row and col
 void Floor::lose() {
     cout << "You have collected: " << PC->getGoldTotal() << endl;
 }
+
 
 Floor::Floor(string map)  {
     // read all char in map to display
@@ -129,6 +110,11 @@ void Floor::wasAttack() {
     
     
     for (auto e : enemies) {
+        if (attackedMer) {
+            if (e->getRepChar() == 'M') {
+                e->changeHostile();
+            }
+        }
         if (luck == 1) {
             if (e->getIsHostile() == true) {
                 if (display[e->getRow()-1][e->getCol()-1] == '@') {
@@ -336,6 +322,7 @@ void Floor::oneStep(int first, int second, string race, string direction) {
     }
 }
 
+
 void Floor::movePC(string direction, std::string race) {
     InvalidCommand Invalid;
     // first we check if we can move; if we can,  then we move
@@ -372,7 +359,8 @@ void Floor::setFloor(std::string race) {
     generateGolds();
     generateEnemies();
     setUpCompass();
-    if (this->bSuitFloor == this->floorNum) generateBarrierSuit();
+    //if (this->bSuitFloor == this->floorNum) generateBarrierSuit();
+    generateBarrierSuit();
 }
 
 
@@ -401,8 +389,7 @@ void Floor::clearFloor(std::string map) {
 
 
 void Floor::generatePC(std::string race) {
-
-    Coordinate coor = getRandomCoorinate();
+    Coordinate coor = getRandomCoorinate(6);
     int r = coor.row;
     int c = coor.col;
 
@@ -413,21 +400,25 @@ void Floor::generatePC(std::string race) {
     this->display[r][c] = PC->getRepChar();
     PC->setRow(r);
     PC->setCol(c);
+    cout << "sdd     " << this->PC->findChamberNum() << endl;
 }
 
 
 void Floor::generateStair() {
-    Coordinate coor = getRandomCoorinate();
+    //cout << "sddsdsdsds " << this->PC->findChamberNum() << endl;
+    Coordinate coor = getRandomCoorinate(this->PC->findChamberNum());
     int r = coor.row;
     int c = coor.col;
     this->stair = make_shared<Stair>(r, c);
+    this->display[r][c] = '\\';
+    
 }
 
 
 void Floor::genOnePotion() {
     Coordinate coor;
     while (true) { // regenerate a coor if the point is on stair
-        coor = getRandomCoorinate();
+        coor = getRandomCoorinate(6);
         int row = coor.row;
         int col = coor.col;
         if (!this->stair->isSameCoor(row, col)) break;
@@ -454,7 +445,7 @@ void Floor::generatePotions() {
 void Floor::genOneGold() {
     Coordinate coor;
     while (true) { // regenerate a coor if the point is on stair
-        coor = getRandomCoorinate();
+        coor = getRandomCoorinate(6);
         int row = coor.row;
         int col = coor.col;
         if (!this->stair->isSameCoor(row, col)) break;
@@ -539,7 +530,7 @@ void Floor::generateGolds() {
 void Floor::genOneEnemy() {
     Coordinate coor;
     while (true) { // regenerate a coor if the point is on stair
-        coor = getRandomCoorinate();
+        coor = getRandomCoorinate(6);
         int row = coor.row;
         int col = coor.col;
         if (!this->stair->isSameCoor(row, col)) break;
@@ -594,9 +585,10 @@ void Floor::setUpCompass() {
 
 
 void Floor::generateBarrierSuit() {
+    cout << "BarrierSuit called" << endl;
     Coordinate coor;
     while (true) { // regenerate a coor if the point is on stair
-        coor = getRandomCoorinate();
+        coor = getRandomCoorinate(6);
         int row = coor.row;
         int col = coor.col;
         if (!this->stair->isSameCoor(row, col)) break;
@@ -605,7 +597,8 @@ void Floor::generateBarrierSuit() {
     int c = coor.col;
     
     this->barrierSuit = std::make_shared<BarrierSuit>(r, c);
-    this->display[r][c] = this->barrierSuit->getRepChar();
+    cout << "r " << r << " c " << c << endl;
+    this->display[r][c] = 'Z';
 
     std::vector<int> ranPos = {1, 2, 3, 4, 5, 6, 7, 8};
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
@@ -1214,25 +1207,12 @@ int Floor::findEnemyIndex(int r, int c) {
 }
 
 
-void Floor::printFloor() {
-    for (auto r : display) {
-        for (auto c : r) {
-            cout << c;
-        }
-        cout << endl;
-    }
-    
-    cout << "Race: " << PC->getRace() << " Gold: " 
-    << PC->getGoldTotal() << "                                                  Floor " << floorNum << endl;
-    cout << "HP: " << PC->getCurHP() << endl;
-    cout << "Atk: " << PC->getCurAtk() << endl;
-    cout << "Def: " << PC->getCurDef() << endl;
-    cout << "Action: " << PC->getAction() << "." << endl;
-}
-
-
 void Floor::attack(shared_ptr<Enemy> e, shared_ptr<Player> pc) {
     pc->attack(e);
+    if (e->getRepChar() == 'M') {
+        this->attackedMer = true;
+        e->changeHostile();
+    }
     if (e->getCurHP() <= 0) {
         stringstream ss1;
         string s1;
@@ -1268,7 +1248,7 @@ void Floor::attack(shared_ptr<Enemy> e, shared_ptr<Player> pc) {
         } else {
             display[e->getRow()][e->getCol()] = '.';
         }
-        s1.append("! Goold Job!");
+        s1.append("! Gold Job!");
         this->PC->changeAction(s1);
        // printFloor();
     } else {

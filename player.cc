@@ -100,6 +100,17 @@ int Player::damage(std::shared_ptr<Enemy> &e) {
     return damage;
 }
 
-
-
-
+int Player::findChamberNum() {
+    if ((this->getRow() >= 3) && (this->getRow() <= 6) &&
+        (this->getCol() >= 3) && (this->getCol() <= 29)) {return 0;}
+    else if ((this->getRow() >= 3) && (this->getRow() <= 6) &&
+             (this->getCol() >= 40) && (this->getCol() <= 76)) {return 1;}
+    else if ((this->getRow() >= 7) && (this->getRow() <= 12) &&
+             (this->getCol() >= 62) && (this->getCol() <= 76)) {return 2;}
+    else if ((this->getRow() >= 10) && (this->getRow() <= 12) &&
+             (this->getCol() >= 39) && (this->getCol() <= 50)) {return 3;}
+    else if ((this->getRow() >= 15) && (this->getRow() <= 21) &&
+             (this->getCol() >= 5) && (this->getCol() <= 25)) {return 4;}
+    else if ((this->getRow() >= 16) && (this->getRow() <= 21) &&
+             (this->getCol() >= 38) && (this->getCol() <= 76)) {return 5;}
+}

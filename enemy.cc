@@ -6,12 +6,12 @@ bool Enemy::getIsHostile() {
     return this->isHostile;
 }
 
-bool Enemy::getGoldNum() {
+int Enemy::getGoldNum() {
     return this->goldNum;
 }
 
 void Enemy::changeHostile() {
-    this->goldNum = !(this->goldNum);
+    this->isHostile = true;
 }
 
 void Enemy::holdCompass() {
