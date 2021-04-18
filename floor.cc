@@ -262,6 +262,15 @@ void Floor::wasAttack() {
 
 void Floor::oneStep(int first, int second, string race, string direction) {
     InvalidCommand Invalid;
+    std::string dir;
+    if (direction == "no") dir = "North";
+    if (direction == "so") dir = "South";
+    if (direction == "we") dir = "West";
+    if (direction == "ea") dir = "East";
+    if (direction == "ne") dir = "Northeast";
+    if (direction == "nw") dir = "Northwest";
+    if (direction == "se") dir = "Southeast";
+    if (direction == "sw") dir = "Southwest";
     if ((PC->getRow()+first == stair->getRow() && PC->getCol()+second == stair->getCol())){
         this->PC->changeAction("PC moves to the next Floor");
         PC->addRow(first);
@@ -274,16 +283,16 @@ void Floor::oneStep(int first, int second, string race, string direction) {
         display[PC->getRow()+first][PC->getCol()+second] = '@';
         PC->addRow(first);
         PC->addCol(second);
-        this->PC->changeAction("PC moves " + direction);
+        this->PC->changeAction("PC moves " + dir);
     } else if (display[PC->getRow()+first][PC->getCol()+second] == '+') {
-        this->PC->changeAction("PC moves " + direction);
+        this->PC->changeAction("PC moves " + dir);
         display[PC->getRow()][PC->getCol()] = orig;
         orig = '+';
         display[PC->getRow()+first][PC->getCol()+second] = '@';
         PC->addRow(first);
         PC->addCol(second);
     } else if (display[PC->getRow()+first][PC->getCol()+second] == '#') {
-        this->PC->changeAction("PC moves " + direction);
+        this->PC->changeAction("PC moves " + dir);
         display[PC->getRow()][PC->getCol()] = orig;
         orig = '#';
         display[PC->getRow()+first][PC->getCol()+second] = '@';
@@ -292,7 +301,7 @@ void Floor::oneStep(int first, int second, string race, string direction) {
     } else if (display[PC->getRow()+first][PC->getCol()+second] == 'G') {
         int goldNum = this->findGold(PC->getRow()+first, PC->getCol()+second);
         if (this->golds[goldNum]->getPickable()) {
-            this->PC->changeAction("PC moves " + direction);
+            this->PC->changeAction("PC moves " + dir);
             display[PC->getRow()][PC->getCol()] = orig;
             orig = '.';
             display[PC->getRow()+first][PC->getCol()+second] = '@';
@@ -304,7 +313,7 @@ void Floor::oneStep(int first, int second, string race, string direction) {
         }
     } else if (display[PC->getRow()+first][PC->getCol()+second] == 'B') {
         if (this->barrierSuit->getPickable()) {
-            this->PC->changeAction("PC moves " + direction + " and picked up the Barrier Suit");
+            this->PC->changeAction("PC moves " + dir + " and picked up the Barrier Suit");
             display[PC->getRow()][PC->getCol()] = orig;
             orig = '.';
             display[PC->getRow()+first][PC->getCol()+second] = '@';
@@ -315,7 +324,7 @@ void Floor::oneStep(int first, int second, string race, string direction) {
             throw Invalid;
         }
     } else if (display[PC->getRow()+first][PC->getCol()+second] == 'C') {
-        this->PC->changeAction("PC moves " + direction + " and picked up the Compass, the stair to the next floor has shown");
+        this->PC->changeAction("PC moves " + dir + " and picked up the Compass, the stair to the next floor has shown");
         display[PC->getRow()][PC->getCol()] = orig;
         orig = '.';
         display[PC->getRow()+first][PC->getCol()+second] = '@';
