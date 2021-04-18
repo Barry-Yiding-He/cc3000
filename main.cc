@@ -54,23 +54,7 @@ int main(int argc, char *argv[]) {
         cout << "'@' is your current location. Right now you are able to start your adventure, good luck!" << endl;
          //exit(1);
         while (true) {
-                cin >> cmd;
-                if (f.isWin()) {
-                    cout << "Congratulations! You have won!" << endl;
-                    cout << "Would you like to play the game again?" << endl;
-                    while(true) {
-                        cout << "Yes/No:" << endl;
-                        cin >> cmd;
-                        if (cmd == "Yes") {
-                            cmd = "restart";
-                            break;
-                        } else if (cmd == "No") {
-                            return 1;
-                        } else {
-                            cout << "Invalid Commend" << endl;
-                        }
-                    }
-                } else if (f.isLose()) {
+                if (f.isLose()) {
                     cout << "You lose the Game!" << endl;
                     cout << "Would you like to play the game again?" << endl;
                     while(true) {
@@ -85,8 +69,9 @@ int main(int argc, char *argv[]) {
                             cout << "Invalid Commend" << endl;
                         }
                     }
+                } else {
+                    cin >> cmd; 
                 }
-
                 try {
                     if (cmd == "move") {
                         cout << "Please choose the direction to move:" << endl;
@@ -108,7 +93,20 @@ int main(int argc, char *argv[]) {
                                 cmd == "ne"|| cmd == "nw"|| cmd == "se"|| cmd == "sw"){
                                     f.movePC(cmd, playerRace);
                                     if (f.isWin()) {
-                                        
+                                        cout << "Congratulations! You have won!" << endl;
+                                        cout << "Would you like to play the game again?" << endl;
+                                        while(true) {
+                                            cout << "Yes/No:" << endl;
+                                            cin >> cmd;
+                                            if (cmd == "Yes") {
+                                                cmd = "restart";
+                                                break;
+                                            } else if (cmd == "No") {
+                                                return 1;
+                                            } else {
+                                                cout << "Invalid Commend" << endl;
+                                            }
+                                        }
                                     }
                                     else {
                                         cout << f;
