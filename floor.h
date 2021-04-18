@@ -83,6 +83,7 @@ class Floor {
     // check if lose
     bool isLose();
     
+    void lose();
     // battle
     void battle(std::string race);
     std::shared_ptr<Enemy> findEnemy(int r, int c);

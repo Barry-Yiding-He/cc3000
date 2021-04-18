@@ -93,6 +93,11 @@ int main(int argc, char *argv[]) {
                         cout << f;
                     }
                     
+                    if (cmd == "surrender") {
+                        f.lose();
+                        return 1;
+                    }
+
                     if (cmd == "quit") {
                         return 1;
                     }

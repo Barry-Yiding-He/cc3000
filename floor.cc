@@ -70,6 +70,10 @@ struct Coordinate Floor::getRandomCoorinate() { // set a random row and col
 }
 
 
+void Floor::lose() {
+    cout << "You have collected: " << PC->getGoldTotal() << endl;
+}
+
 Floor::Floor(string map)  {
     // read all char in map to display
     this->floorNum = 0;
