@@ -1309,7 +1309,16 @@ void Floor::battle(string race) {
         } else {
             attack(e, PC);
             if (e->getCurHP() <= 0) {
-                enemies.erase(enemies.begin()+i);
+                if (e->getRepChar() == 'M') {
+                    PC->collectGold(8); 
+                    enemies.erase(enemies.begin()+i);
+                } else if (e->getRepChar() == 'D') {
+                    enemies.erase(enemies.begin()+i);
+                } else {
+                    PC->collectGold(6); 
+                    enemies.erase(enemies.begin()+i);
+                }
+                
             }
         }
     } else if (direction == "so") {
@@ -1321,7 +1330,15 @@ void Floor::battle(string race) {
         } else {
             attack(e, PC);
             if (e->getCurHP() <= 0) {
-                enemies.erase(enemies.begin()+i);
+                if (e->getRepChar() == 'M') {
+                    PC->collectGold(8); 
+                    enemies.erase(enemies.begin()+i);
+                } else if (e->getRepChar() == 'D') {
+                    enemies.erase(enemies.begin()+i);
+                } else {
+                    PC->collectGold(6); 
+                    enemies.erase(enemies.begin()+i);
+                }
             }
         }
     } else if (direction == "we") {
@@ -1333,7 +1350,15 @@ void Floor::battle(string race) {
         } else {
             attack(e, PC);
             if (e->getCurHP() <= 0) {
-                enemies.erase(enemies.begin()+i);
+                if (e->getRepChar() == 'M') {
+                    PC->collectGold(8); 
+                    enemies.erase(enemies.begin()+i);
+                } else if (e->getRepChar() == 'D') {
+                    enemies.erase(enemies.begin()+i);
+                } else {
+                    PC->collectGold(6); 
+                    enemies.erase(enemies.begin()+i);
+                }
             }
         }
     } else if (direction == "ea") {
@@ -1345,7 +1370,15 @@ void Floor::battle(string race) {
         } else {
             attack(e, PC);
             if (e->getCurHP() <= 0) {
-                enemies.erase(enemies.begin()+i);
+               if (e->getRepChar() == 'M') {
+                    PC->collectGold(8); 
+                    enemies.erase(enemies.begin()+i);
+                } else if (e->getRepChar() == 'D') {
+                    enemies.erase(enemies.begin()+i);
+                } else {
+                    PC->collectGold(6); 
+                    enemies.erase(enemies.begin()+i);
+                }
             }
         }
     } else if (direction == "nw") {
@@ -1357,7 +1390,15 @@ void Floor::battle(string race) {
         } else {
             attack(e, PC);
             if (e->getCurHP() <= 0) {
-                enemies.erase(enemies.begin()+i);
+                if (e->getRepChar() == 'M') {
+                    PC->collectGold(8); 
+                    enemies.erase(enemies.begin()+i);
+                } else if (e->getRepChar() == 'D') {
+                    enemies.erase(enemies.begin()+i);
+                } else {
+                    PC->collectGold(6); 
+                    enemies.erase(enemies.begin()+i);
+                }
             }
         }
     } else if (direction == "ne") {
@@ -1369,7 +1410,15 @@ void Floor::battle(string race) {
         } else {
             attack(e, PC);
             if (e->getCurHP() <= 0) {
-                enemies.erase(enemies.begin()+i);
+                if (e->getRepChar() == 'M') {
+                    PC->collectGold(8); 
+                    enemies.erase(enemies.begin()+i);
+                } else if (e->getRepChar() == 'D') {
+                    enemies.erase(enemies.begin()+i);
+                } else {
+                    PC->collectGold(6); 
+                    enemies.erase(enemies.begin()+i);
+                }
             }
         }
     } else if (direction == "sw") {
@@ -1381,7 +1430,15 @@ void Floor::battle(string race) {
         } else {
             attack(e, PC);
             if (e->getCurHP() <= 0) {
-                enemies.erase(enemies.begin()+i);
+                if (e->getRepChar() == 'M') {
+                    PC->collectGold(8); 
+                    enemies.erase(enemies.begin()+i);
+                } else if (e->getRepChar() == 'D') {
+                    enemies.erase(enemies.begin()+i);
+                } else {
+                    PC->collectGold(6); 
+                    enemies.erase(enemies.begin()+i);
+                }
             }
         }
     } else if (direction == "se") {
@@ -1393,7 +1450,15 @@ void Floor::battle(string race) {
         } else {
             attack(e, PC);
             if (e->getCurHP() <= 0) {
-                enemies.erase(enemies.begin()+i);
+                if (e->getRepChar() == 'M') {
+                    PC->collectGold(8); 
+                    enemies.erase(enemies.begin()+i);
+                } else if (e->getRepChar() == 'D') {
+                    enemies.erase(enemies.begin()+i);
+                } else {
+                    PC->collectGold(6); 
+                    enemies.erase(enemies.begin()+i);
+                }
             }
         }
     } else {
