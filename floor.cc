@@ -400,7 +400,7 @@ void Floor::generatePC(std::string race) {
     this->display[r][c] = PC->getRepChar();
     PC->setRow(r);
     PC->setCol(c);
-    cout << "sdd     " << this->PC->findChamberNum() << endl;
+    //cout << "sdd     " << this->PC->findChamberNum() << endl;
 }
 
 
@@ -410,7 +410,7 @@ void Floor::generateStair() {
     int r = coor.row;
     int c = coor.col;
     this->stair = make_shared<Stair>(r, c);
-    this->display[r][c] = '\\';
+    //this->display[r][c] = '\\';
     
 }
 
@@ -585,7 +585,7 @@ void Floor::setUpCompass() {
 
 
 void Floor::generateBarrierSuit() {
-    cout << "BarrierSuit called" << endl;
+    //cout << "BarrierSuit called" << endl;
     Coordinate coor;
     while (true) { // regenerate a coor if the point is on stair
         coor = getRandomCoorinate(6);
@@ -597,8 +597,8 @@ void Floor::generateBarrierSuit() {
     int c = coor.col;
     
     this->barrierSuit = std::make_shared<BarrierSuit>(r, c);
-    cout << "r " << r << " c " << c << endl;
-    this->display[r][c] = 'Z';
+    //cout << "r " << r << " c " << c << endl;
+    this->display[r][c] = 'B';
 
     std::vector<int> ranPos = {1, 2, 3, 4, 5, 6, 7, 8};
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
@@ -643,8 +643,9 @@ void Floor::generateBarrierSuit() {
         }
 
     }
-    int r1 = coor.row;
-    int c1 = coor.col;
+    int r1 = coor1.row;
+    int c1 = coor1.col;
+    // cout << "r1 " << r1 << " c1 " << c1 << endl; 
     this->enemies.emplace_back(std::make_shared<Dragon>());
     this->display[r1][c1] = enemies.back()->getRepChar();
     enemies.back()->setRow(r1);
