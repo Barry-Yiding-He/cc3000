@@ -1289,14 +1289,14 @@ void Floor::attack(shared_ptr<Enemy> e, shared_ptr<Player> pc) {
             }
             
             // set barrier suite pickable
-            if (floorNum == bSuitFloor) {
-                if ((barrierSuit->getRow() - e->getRow()) <=1 && 
-                    (barrierSuit->getRow() - e->getRow()) >=-1 && 
-                    (barrierSuit->getCol() - e->getCol()) <=1 &&
-                    (barrierSuit->getCol()-e->getCol() >= -1)) {
-                        barrierSuit->canPick();
-                    }
-            }
+            
+            if ((barrierSuit->getRow() - e->getRow()) <=1 && 
+                (barrierSuit->getRow() - e->getRow()) >=-1 && 
+                (barrierSuit->getCol() - e->getCol()) <=1 &&
+                (barrierSuit->getCol()-e->getCol() >= -1)) {
+                    barrierSuit->canPick();
+                }
+            
         } else {
             display[e->getRow()][e->getCol()] = '.';
         }
