@@ -59,3 +59,4 @@ void BarrierSuit::canPick() {
 BarrierSuit::BarrierSuit(int row, int col) : Item(row, col, 'B') {
     this->pickable = false;
 }
+

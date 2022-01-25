@@ -54,3 +54,5 @@ class BarrierSuit : public Item {
     BarrierSuit (int row, int col);
 };
 #endif
+
+
